@@ -1,16 +1,13 @@
 /* ================= INIT ================= */
-function resolveSurahId() {
-  // 1. dari query (?id=2)
-  const qid = new URLSearchParams(location.search).get('id');
-  if (qid) return +qid;
 
-  // 2. dari path (/surat/2-al-baqarah)
-  const parts = location.pathname.split('/').filter(Boolean);
-  const last = parts[parts.length - 1] || '';
-  const id = parseInt(last.split('-')[0], 10);
-
-  return isNaN(id) ? 1 : id;
-}
+// PRIORITAS:
+// 1. window.SURAT_ID (folder statis GH Pages)
+// 2. query ?id=
+// 3. default 1
+const id =
+  window.SURAT_ID ||
+  +new URLSearchParams(location.search).get('id') ||
+  1;
 
 function slugify(nama) {
   return nama
@@ -18,8 +15,6 @@ function slugify(nama) {
     .replace(/['’]/g, '')
     .replace(/\s+/g, '-');
 }
-
-const id = resolveSurahId();
 
 /* ================= ELEMENTS ================= */
 const titleLatin = document.getElementById('titleLatin');
@@ -116,7 +111,7 @@ audio.addEventListener('ended', () => {
     playAyat(currentIndex + 1);
   } else if (AUTO_NEXT_SURAH && nextSurah) {
     const s = allSurah[nextSurah - 1];
-    location.href = `/surat/${nextSurah}-${slugify(s.nama_latin)}`;
+    location.href = `/surat/${nextSurah}-${slugify(s.nama_latin)}/`;
   }
 });
 
@@ -146,15 +141,17 @@ function highlight(i) {
 function go(n) {
   if (n === -1 && prevSurah) {
     const s = allSurah[prevSurah - 1];
-    location.href = `/surat/${prevSurah}-${slugify(s.nama_latin)}`;
+    location.href = `/surat/${prevSurah}-${slugify(s.nama_latin)}/`;
   }
   if (n === 1 && nextSurah) {
     const s = allSurah[nextSurah - 1];
-    location.href = `/surat/${nextSurah}-${slugify(s.nama_latin)}`;
+    location.href = `/surat/${nextSurah}-${slugify(s.nama_latin)}/`;
   }
 }
 
 function setNav(btns) {
+  if (!btns.length) return;
+
   const prevSVG =
     `<svg width="16" viewBox="0 0 24 24">
       <polyline points="15 18 9 12 15 6"
