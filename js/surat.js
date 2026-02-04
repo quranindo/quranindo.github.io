@@ -1,12 +1,7 @@
 /* ================= INIT ================= */
-
-// PRIORITAS:
-// 1. window.SURAT_ID (folder statis GH Pages)
-// 2. query ?id=
-// 3. default 1
 const id =
-  window.SURAT_ID ||
-  +new URLSearchParams(location.search).get('id') ||
+  window.SURAT_ID || // prioritas dari folder
+  +new URLSearchParams(location.search).get('id') || // fallback dari ?id=
   1;
 
 function slugify(nama) {
@@ -81,7 +76,7 @@ const artiSurat = {
 /* ================= BACK TO TOP ================= */
 window.addEventListener('scroll', () => {
   if (!topBtn) return;
-  topBtn.style.display = scrollY > 500 ? 'block' : 'none';
+  topBtn.style.display = window.scrollY > 500 ? 'block' : 'none';
 });
 
 function scrollToTop() {
@@ -224,4 +219,5 @@ function toArabic(n) {
   return n.toString().replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
 }
 
+/* ================= INIT ================= */
 load();
