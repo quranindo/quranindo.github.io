@@ -8,12 +8,19 @@
 <link id="canonicalLink" rel="canonical" href="">
 <meta name="description" content="Baca Al-Qur'an lengkap dengan teks Arab, terjemah Indonesia, dan murottal audio.">
 <meta name="robots" content="index, follow">
-<meta name="theme-color" content="#2e7d32">
+
+<meta property="og:title" content="Al-Qur'an Digital 30 Juz">
+<meta property="og:description" content="Al-Qur'an Digital 30 Juz lengkap dengan teks Arab, terjemah Indonesia, dan murottal audio.">
+<meta property="og:image" content="/assets/img/cover.jpg">
+
+  <!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#046260">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/surat.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.css">
+<link rel="stylesheet" href="/css/plyr.css">
 </head>
 
 <body>
@@ -262,7 +269,7 @@ injectStyles();
   <svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"></path></svg>
 </button>
 
-<script src="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.polyfilled.js"></script>
+<script src="/js/plyr.polyfilled.js"></script>
 <script src="/js/theme.js"></script>
 <script src="/js/surat.js"></script>
 <script src="/js/dropdown.js"></script>
@@ -278,5 +285,6 @@ window.addEventListener("scroll", () => {
 
 </body>
 </html>
+
 
 
