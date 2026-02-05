@@ -269,10 +269,50 @@ injectStyles();
   <svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"></path></svg>
 </button>
 
-<script src="/js/plyr.polyfilled.js"></script>
-<script src="/js/theme.js"></script>
-<script src="/js/surat.js"></script>
-<script src="/js/dropdown.js"></script>
+<script>
+/* ================= DROPDOWN SURAT ================= */
+const suratList = [
+  "Al-Fatihah","Al-Baqarah","Ali 'Imran","An-Nisa","Al-Ma'idah","Al-An'am","Al-A'raf","Al-Anfal","At-Taubah","Yunus",
+  "Hud","Yusuf","Ar-Ra'd","Ibrahim","Al-Hijr","An-Nahl","Al-Isra","Al-Kahf","Maryam","Ta-Ha",
+  "Al-Anbiya","Al-Hajj","Al-Mu'minun","An-Nur","Al-Furqan","Asy-Syu'ara","An-Naml","Al-Qasas","Al-Ankabut","Ar-Rum",
+  "Luqman","As-Sajdah","Al-Ahzab","Saba","Fatir","Ya-Sin","As-Saffat","Sad","Az-Zumar","Ghafir",
+  "Fussilat","Asy-Syura","Az-Zukhruf","Ad-Dukhan","Al-Jatsiyah","Al-Ahqaf","Muhammad","Al-Fath","Al-Hujurat","Qaf",
+  "Az-Zariyat","At-Tur","An-Najm","Al-Qamar","Ar-Rahman","Al-Waqi'ah","Al-Hadid","Al-Mujadilah","Al-Hasyr","Al-Mumtahanah",
+  "As-Saff","Al-Jumu'ah","Al-Munafiqun","At-Taghabun","At-Talaq","At-Tahrim","Al-Mulk","Al-Qalam","Al-Haqqah","Al-Ma'arij",
+  "Nuh","Al-Jinn","Al-Muzzammil","Al-Muddaththir","Al-Qiyamah","Al-Insan","Al-Mursalat","An-Naba","An-Nazi'at","'Abasa",
+  "At-Takwir","Al-Infitar","Al-Mutaffifin","Al-Insyiqaq","Al-Buruj","At-Tariq","Al-A'la","Al-Ghasyiyah","Al-Fajr","Al-Balad",
+  "Asy-Syams","Al-Lail","Ad-Duha","Asy-Syarh","At-Tin","Al-'Alaq","Al-Qadr","Al-Bayyinah","Az-Zalzalah","Al-'Adiyat",
+  "Al-Qari'ah","At-Takatsur","Al-'Asr","Al-Humazah","Al-Fil","Quraisy","Al-Ma'un","Al-Kautsar","Al-Kafirun","An-Nasr",
+  "Al-Lahab","Al-Ikhlas","Al-Falaq","An-Nas"
+];
+
+const select = document.getElementById("suratSelect");
+const currentId = window.SURAT_ID;
+
+suratList.forEach((nama, i) => {
+  const opt = document.createElement("option");
+  opt.value = i + 1;
+  opt.textContent = `${i+1}. ${nama}`;
+  if (i + 1 === currentId) opt.selected = true;
+  select.appendChild(opt);
+});
+
+select.onchange = e => {
+  const index = +e.target.value;
+  const slug = `${index}-${slugify(suratList[index - 1])}`;
+  location.href = `/surat/${slug}/`;
+};
+
+function slugify(nama) {
+  return nama
+    .toLowerCase()
+    .replace(/['’]/g, '')
+    .replace(/\s+/g, '-');
+}
+</script>
+<script src="../../plyr.polyfilled.js"></script>
+<script src="../../js/theme.js"></script>
+<script src="../../js/surat.js"></script>
 <script>
   let lastScroll = 0;
 const header = document.getElementById("header-js");
@@ -282,9 +322,16 @@ window.addEventListener("scroll", () => {
   lastScroll = c;
 });
 </script>
-
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js');
+  });
+}
+</script>
 </body>
 </html>
+
 
 
 
