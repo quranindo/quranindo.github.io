@@ -199,6 +199,14 @@ function slugify(nama) {
 <script src="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.polyfilled.js"></script>
 <script src="../../js/theme.js"></script>
 <script src="../../js/surat.js"></script>
-<script src="../../js/headerhide.js"></script>
+<script>
+  let lastScroll = 0;
+const header = document.getElementById("header-js");
+window.addEventListener("scroll", () => {
+  const c = window.pageYOffset;
+  header.classList.toggle("hide", c > lastScroll && c > 80);
+  lastScroll = c;
+});
+</script>
 </body>
 </html>
