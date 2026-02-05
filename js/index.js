@@ -1,9 +1,6 @@
 const listEl = document.getElementById('list');
 let data = [];
 
-/* ===============================
-   Utils
-================================ */
 function slugify(nama) {
   return nama
     .toLowerCase()
@@ -11,55 +8,61 @@ function slugify(nama) {
     .replace(/\s+/g, '-');
 }
 
-/* ===============================
-   Load data surat
-================================ */
+const artiOverride = {
+  2:"Sapi Betina",
+  8:"Harta Rampasan Perang",
+  10:"Nabi Yunus",
+  11:"Nabi Hud",
+  12:"Nabi Yusuf",
+  14:"Nabi Ibrahim",
+  15:"Negeri Kaum Tsamud",
+  17:"Perjalanan Malam",
+  30:"Bangsa Romawi",
+  32:"Sujud",
+  34:"Negeri Saba",
+  45:"Yang Berlutut",
+  47:"Nabi Muhammad SAW",
+  55:"Yang Maha Pengasih",
+  60:"Perempuan yang Diuji",
+  62:"Hari Jum'at",
+  81:"Menggulung",
+  87:"Yang Maha Tinggi",
+  88:"Hari Pembalasan",
+  93:"Waktu Dhuha",
+  103:"Masa",
+  106:"Suku Quraisy",
+  108:"Nikmat yang Banyak",
+  112:"Kemurnian Keesaan Allah",
+  113:"Waktu Subuh"
+};
+
 async function load() {
-  const r = await fetch('https://equran.id/api/surat');
-  data = await r.json();
+  const res = await fetch('https://equran.id/api/surat');
+  data = await res.json();
   render(data);
 }
 
-/* ===============================
-   Render grid card
-================================ */
 function render(arr) {
   listEl.innerHTML = '';
 
   arr.forEach(s => {
+    const arti = artiOverride[s.nomor] || s.arti;
+
     const el = document.createElement('div');
     el.className = 'card';
 
     el.innerHTML = `
       <b>${s.nomor}. ${s.nama_latin}</b>
+      <div class="arti">${arti}</div>
       <div class="arab">${s.nama}</div>
       <div class="meta">${s.jumlah_ayat} ayat • ${s.tempat_turun}</div>
     `;
 
-    // URL: /surat/2-al-baqarah
     const slug = `${s.nomor}-${slugify(s.nama_latin)}`;
-    el.onclick = () => {
-      location.href = `/surat/${slug}`;
-    };
+    el.onclick = () => location.href = `/surat/${slug}`;
 
     listEl.appendChild(el);
   });
 }
 
-/* ===============================
-   Back to top
-================================ */
-const btn = document.querySelector('.top');
-window.addEventListener('scroll', () => {
-  btn.style.display = window.scrollY > 400 ? 'block' : 'none';
-});
-
-function scrollToTop() {
-  scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-/* ===============================
-   Init
-================================ */
 load();
-
