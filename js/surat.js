@@ -1,7 +1,7 @@
 /* ================= INIT ================= */
 const id =
-  window.SURAT_ID || // prioritas dari folder
-  +new URLSearchParams(location.search).get('id') || // fallback dari ?id=
+  window.SURAT_ID ||
+  +new URLSearchParams(location.search).get('id') ||
   1;
 
 function slugify(nama) {
@@ -40,38 +40,6 @@ const player = new Plyr(audio, {
   controls: ['play', 'progress', 'current-time', 'mute', 'volume'],
   resetOnEnd: true
 });
-
-/* ================= MAPPING ================= */
-const namaArab = {
-  2:"ٱلْبَقَرَة",
-  55:"ٱلرَّحْمَٰن",
-  67:"ٱلْمُلْك",
-  112:"ٱلْإِخْلَاص"
-};
-
-const artiSurat = {
-  2:"Sapi Betina",
-  8:"Harta Rampasan Perang",
-  15:"Negeri Kaum Tsamud",
-  17:"Perjalanan Malam",
-  30:"Bangsa Romawi",
-  32:"Sujud",
-  34:"Negeri Saba",
-  45:"Yang Berlutut",
-  47:"Nabi Muhammad SAW",
-  55:"Yang Maha Pengasih",
-  60:"Perempuan yang Diuji",
-  62:"Hari Jum'at",
-  81:"Menggulung",
-  87:"Yang Maha Tinggi",
-  88:"Hari Pembalasan",
-  93:"Waktu Dhuha",
-  103:"Masa",
-  106:"Suku Quraisy",
-  108:"Nikmat yang Banyak",
-  112:"Kemurnian Keesaan Allah",
-  113:"Waktu Subuh"
-};
 
 /* ================= BACK TO TOP ================= */
 window.addEventListener('scroll', () => {
@@ -170,6 +138,17 @@ function setNav(btns) {
   }
 }
 
+/* ================= SEO HELPERS ================= */
+function setMeta(attr, key, value) {
+  let m = document.querySelector(`meta[${attr}="${key}"]`);
+  if (!m) {
+    m = document.createElement('meta');
+    m.setAttribute(attr, key);
+    document.head.appendChild(m);
+  }
+  m.setAttribute('content', value);
+}
+
 /* ================= LOAD ================= */
 async function load() {
   allSurah = await (await fetch('https://equran.id/api/surat')).json();
@@ -182,9 +161,34 @@ async function load() {
 
   const s = await (await fetch(`https://equran.id/api/surat/${id}`)).json();
 
+  /* ===== SEO AUTO ===== */
+  const slug = slugify(s.nama_latin);
+  const canonical = `${location.origin}/surat/${id}-${slug}/`;
+
+  document.title =
+    `Surat ${s.nama_latin} (${s.arti}) | Al-Qur'an`;
+
+  const desc =
+    `Baca Surat ${s.nama_latin} (${s.arti}) lengkap ` +
+    `${s.jumlah_ayat} ayat, teks Arab, terjemah Indonesia, dan audio.`;
+
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute('content', desc);
+
+  const canonLink = document.getElementById('canonicalLink');
+  if (canonLink) canonLink.href = canonical;
+
+  setMeta('property', 'og:title',
+    `Surat ${s.nama_latin} | Al-Qur'an`);
+  setMeta('property', 'og:description', desc);
+  setMeta('property', 'og:url', canonical);
+  setMeta('property', 'og:image',
+    `${location.origin}/assets/img/cover.jpg`);
+
+  /* ===== CONTENT ===== */
   titleLatin.textContent = `${s.nomor}. ${s.nama_latin}`;
-  titleArab.textContent  = namaArab[s.nomor] || s.nama;
-  titleArti.textContent  = `(${artiSurat[s.nomor] || s.arti})`;
+  titleArab.textContent  = s.nama;
+  titleArti.textContent  = `(${s.arti})`;
   info.textContent       = `${s.jumlah_ayat} Ayat • ${s.tempat_turun}`;
 
   bismillah.textContent =
