@@ -24,6 +24,7 @@ const STATIC_FILES = [
   '/js/theme.js',
   '/js/index.js',
   '/js/plyr.js',
+   '/js/plyr.polyfilled.js',
    '/fonts/abufaqih.woff2',
 
   // PWA
@@ -126,5 +127,6 @@ self.addEventListener('fetch', event => {
     caches.match(req).then(cached => cached || fetch(req))
   );
 });
+
 
 
