@@ -17,6 +17,7 @@ const STATIC_FILES = [
   '/css/base.css',
   '/css/surat.css',
   '/css/index.css',
+   '/css/plyr.css',
 
   // JS
   '/js/surat.js',
@@ -125,4 +126,5 @@ self.addEventListener('fetch', event => {
     caches.match(req).then(cached => cached || fetch(req))
   );
 });
+
 
