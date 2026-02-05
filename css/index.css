@@ -96,7 +96,12 @@ display:inline-block;
   opacity:.7;
   text-transform: capitalize;
 }
-
+.card .arti {
+  font-size: 13px;
+  color: var(--text);
+  opacity:.8;
+  margin: 4px 0 6px;
+}
 /* BACK TOP BUTTON */
 .top{
   bottom:25px;
