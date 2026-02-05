@@ -26,7 +26,7 @@ body.dark{
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(https://cdn.jsdelivr.net/gh/kangismet/kangismet.github.io@8daa63f/fonts/abufaqih.woff2) format('woff2');
+  src: url(/fonts/abufaqih.woff2) format('woff2');
 }
 body{
   margin:0;
@@ -77,4 +77,5 @@ body{
 }
 svg:not(:root) {
     overflow: hidden;
+
 }
