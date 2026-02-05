@@ -23,6 +23,7 @@ const STATIC_FILES = [
   '/js/theme.js',
   '/js/index.js',
   '/js/plyr.js',
+   '/fonts/abufaqih.woff2',
 
   // PWA
   '/manifest.json',
@@ -124,3 +125,4 @@ self.addEventListener('fetch', event => {
     caches.match(req).then(cached => cached || fetch(req))
   );
 });
+
