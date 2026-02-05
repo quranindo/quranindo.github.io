@@ -3,18 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>Al-Qur'an Digital Murottal dan Terjemah | Kang Ismet</title>
-<meta name="description" content="Baca Al-Qur'an digital lengkap 114 surat dengan teks Arab, terjemah Indonesia, dan murottal audio. Ringan, cepat, gratis, tanpa aplikasi.">
+<meta name="description" content="Baca Al-Qur'an digital lengkap 30 juz dengan teks Arab, terjemah Indonesia, dan murottal audio. Ringan, cepat, gratis, tanpa aplikasi.">
+<meta name="keywords" content="alquran, quran digital, alquran online, murottal, terjemah indonesia, 114 surat, kang ismet">
+<meta name="author" content="Kang Ismet">
+
+<!-- ===== CANONICAL ===== -->
+<link rel="canonical" href="https://quran.kangis.my.id/">
+
+<!-- ===== ROBOTS ===== -->
+<meta name="robots" content="index, follow">
+
+<!-- ===== OPEN GRAPH (Facebook/WA) ===== -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Al-Qur'an Digital Lengkap 30 Juz">
+<meta property="og:description" content="Baca Quran + terjemah + murottal online dengan tampilan ringan dan cepat.">
+<meta property="og:url" content="https://quran.kangis.my.id/">
+<meta property="og:image" content="assets/img/cover.jpg">
+
+<!-- ===== TWITTER CARD ===== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Al-Qur'an Digital Lengkap 30 Juz">
+<meta name="twitter:description" content="Quran online dengan audio murottal & terjemah Indonesia.">
+<meta name="twitter:image" content="assets/img/cover.jpg">
+
+<!-- ===== THEME COLOR (mobile address bar) ===== -->
+<meta name="theme-color" content="#10706f">
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-<link rel="icon" href="img/favicon.ico">
+<link rel="icon" href="assets/img/favicon.ico">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/index.css">
+</head>
+
 </head>
 <body>
 
 <header>
   <button class="toggle" onclick="toggleDark()">🌙</button>
-  <h1><img src="https://lh3.googleusercontent.com/d/1-Ufwu2QXVkDiVmHp0wr0tq4GUVUrEpH-=w200"
+  <h1><img src="assets/img/quran-logo.png"
      width="200"
      height="85"
      alt="Al-Quranul Karim"
@@ -28,9 +56,41 @@
   <a href="surat/56-al-waqi'ah/">Al-Waqi'ah</a>
   <a href="surat/67-al-mulk/">Al-Mulk</a>
   <a href="surat/18-al-kahfi/">Al-Kahfi</a>
+  <a href="surat/55-ar-rahman/">Ar-Rahman</a>
+  <a href="surat/78-an-naba/">Juz 30</a>
 </nav>
 
 <div class="container">
+ <div class="card2">
+    <div class="doa">
+	<a href="kajian/index.html"><img src="assets/img/kajian.png"
+     width="50"
+     height="50"
+     alt="Kajian"
+     loading="lazy"
+     decoding="async"/>
+	 <p>Kajian</p></a>
+	</div>
+	<div class="doa">
+	<a href="tafsir/index.html"><img src="assets/img/tafsir.png"
+     width="50"
+     height="50"
+     alt="Tafsir"
+     loading="lazy"
+     decoding="async">
+	 <p>Tafsir</p></a>
+	</div>
+	<div class="doa">
+	<a href="doa/index.html"><img src="assets/img/doa.png"
+     width="50"
+     height="50"
+     alt="Do'a"
+     loading="lazy"
+     decoding="async">
+	 <p>Do'a</p></a>
+	</div>
+  </div>
+
   <div class="grid" id="list"></div>
   <div class="footer">
     <span>© <span id="year"></span></span>
@@ -46,5 +106,13 @@
 
 <script src="js/theme.js"></script>
 <script src="js/index.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js');
+  }
+</script>
+
+
 </body>
 </html>
