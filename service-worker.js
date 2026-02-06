@@ -2,7 +2,7 @@
    SERVICE WORKER – MUSHAF ONLINE
    =============================== */
 
-const CACHE_VERSION = 'v1.0.0';
+const CACHE_VERSION = 'v1.0.1';
 const STATIC_CACHE = `mushaf-static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = 'mushaf-runtime';
 
@@ -12,25 +12,28 @@ const RUNTIME_CACHE = 'mushaf-runtime';
 const STATIC_FILES = [
   '/',
   '/index.html',
+  '/offline.html',
 
   // CSS
   '/css/base.css',
   '/css/surat.css',
   '/css/index.css',
-   '/css/plyr.css',
+  '/css/plyr.css',
 
   // JS
   '/js/surat.js',
   '/js/theme.js',
   '/js/index.js',
   '/js/plyr.js',
-   '/js/plyr.polyfilled.js',
-   '/fonts/abufaqih.woff2',
+  '/js/plyr.polyfilled.js',
+
+  // FONT
+  '/fonts/abufaqih.woff2',
 
   // PWA
   '/manifest.json',
 
-  // Icon / favicon / branding
+  // ICON / ASSET
   '/assets/img/favicon.ico',
   '/assets/img/doa.png',
   '/assets/img/kajian.png',
@@ -69,15 +72,15 @@ self.addEventListener('activate', event => {
    FETCH
    =============================== */
 self.addEventListener('fetch', event => {
+
   const req = event.request;
 
   // hanya handle GET
   if (req.method !== 'GET') return;
 
-  const url = new URL(req.url);
-
   /* ===============================
-     1️⃣ HTML (surat & halaman)
+     1️⃣ HTML / PAGE (SURAT, DOA, DLL)
+     Network → Cache → Offline page
      =============================== */
   if (req.destination === 'document') {
     event.respondWith(
@@ -87,13 +90,16 @@ self.addEventListener('fetch', event => {
           caches.open(RUNTIME_CACHE).then(c => c.put(req, copy));
           return res;
         })
-        .catch(() => caches.match(req))
+        .catch(() =>
+          caches.match(req).then(r => r || caches.match('/offline.html'))
+        )
     );
     return;
   }
 
   /* ===============================
-     2️⃣ GAMBAR (ayat, OG, cover)
+     2️⃣ IMAGE
+     Cache → Network
      =============================== */
   if (req.destination === 'image') {
     event.respondWith(
@@ -112,8 +118,19 @@ self.addEventListener('fetch', event => {
 
   /* ===============================
      3️⃣ CSS & JS
+     Cache → Network
      =============================== */
   if (req.destination === 'style' || req.destination === 'script') {
+    event.respondWith(
+      caches.match(req).then(cached => cached || fetch(req))
+    );
+    return;
+  }
+
+  /* ===============================
+     4️⃣ FONT
+     =============================== */
+  if (req.destination === 'font') {
     event.respondWith(
       caches.match(req).then(cached => cached || fetch(req))
     );
@@ -126,7 +143,5 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(req).then(cached => cached || fetch(req))
   );
+
 });
-
-
-
