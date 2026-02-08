@@ -410,10 +410,10 @@ injectStyles();
 </svg>
 </button>
 
-<button id="playBtn">
-<svg viewBox="0 0 24 24" width="24">
-<path d="M8 5v14l11-7z"/>
-</svg>
+<button id="playBtn" onclick="togglePlayer()">
+  <svg viewBox="0 0 24 24" width="24">
+    <path d="M8 5v14l11-7z"/>
+  </svg>
 </button>
 
 <button id="nextBtn">
@@ -593,11 +593,14 @@ function playAyat(i) {
 
   wrap.classList.add('show');
 
-  audio.play();
-
-  highlight(i);
+ audio.play().then(()=>{
 
   updatePlayIcons(i);
+  updatePlayerButton();
+
+});
+
+highlight(i);
 
   localStorage.setItem(`lastAyatSurah${id}`, i);
 
@@ -616,6 +619,20 @@ audio.addEventListener('play', () => {
 audio.addEventListener('pause', () => {
 
   updatePlayIcons(-1);
+
+});
+
+audio.addEventListener("play", ()=>{
+
+  updatePlayerButton();
+  updatePlayIcons(currentIndex);
+
+});
+
+audio.addEventListener("pause", ()=>{
+
+  updatePlayerButton();
+  updatePlayIcons(currentIndex);
 
 });
 
@@ -651,6 +668,24 @@ function closePlayer() {
   wrap.classList.remove('show');
 
   updatePlayIcons(-1);
+
+}
+function togglePlayer(){
+
+  if (!audio.src) return;
+
+  if (audio.paused){
+
+    audio.play();
+
+  } else {
+
+    audio.pause();
+
+  }
+
+  updatePlayerButton();
+  updatePlayIcons(currentIndex);
 
 }
 
