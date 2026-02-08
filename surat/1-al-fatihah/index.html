@@ -534,159 +534,107 @@ function scrollToTop() {
 
 /* ================= AUDIO ================= */
 
-/* 1. FUNCTION UPDATE ICON */
-function updatePlayIcons(activeIndex){
+const audio = new Audio();
+audio.preload = "metadata";
+
+let currentIndex = -1;
+
+/* ================= UPDATE ICON AYAT ================= */
+
+function updatePlayIcons(activeIndex) {
 
   ayatEls.forEach((el, i) => {
 
-    const btn = el.querySelector('.play');
-
+    const btn = el.querySelector(".play");
     if (!btn) return;
 
-    if (i === activeIndex && !audio.paused){
-
-      btn.innerHTML =
-      `<svg viewBox="0 0 24 24" width="18">
-        <path d="M6 5h4v14H6zM14 5h4v14h-4z"/>
-      </svg>`;
-
+    if (i === activeIndex && !audio.paused) {
+      btn.innerHTML = `
+        <svg viewBox="0 0 24 24" width="18">
+          <path d="M6 5h4v14H6zM14 5h4v14h-4z"/>
+        </svg>`;
     } else {
-
-      btn.innerHTML =
-      `<svg viewBox="0 0 24 24" width="18">
-        <path d="M8 5v14l11-7z"/>
-      </svg>`;
-
+      btn.innerHTML = `
+        <svg viewBox="0 0 24 24" width="18">
+          <path d="M8 5v14l11-7z"/>
+        </svg>`;
     }
 
   });
 
 }
 
+/* ================= PLAY AYAT ================= */
 
-/* 2. FUNCTION PLAY AYAT (GANTI YANG LAMA) */
 function playAyat(i) {
 
   if (i < 0 || i >= ayatEls.length) return;
 
-  /* toggle */
-  if (currentIndex === i && audio.src){
-
-    if (audio.paused){
-      audio.play();
-      updatePlayIcons(i);
-    } else {
-      audio.pause();
-      updatePlayIcons(-1);
-    }
-
+  /* toggle ayat yang sama */
+  if (currentIndex === i && audio.src) {
+    audio.paused ? audio.play() : audio.pause();
     return;
   }
 
   currentIndex = i;
 
   const file =
-  `${String(id).padStart(3,'0')}${String(i+1).padStart(3,'0')}`;
+    `${String(id).padStart(3,'0')}${String(i+1).padStart(3,'0')}`;
 
   audio.src =
-  `https://everyayah.com/data/Alafasy_64kbps/${file}.mp3`;
+    `https://everyayah.com/data/Alafasy_64kbps/${file}.mp3`;
 
-  wrap.classList.add('show');
+  wrap.classList.add("show");
 
- audio.play().then(()=>{
+  audio.play();
 
-  updatePlayIcons(i);
-  updatePlayerButton();
-
-});
-
-highlight(i);
-
+  highlight(i);
   localStorage.setItem(`lastAyatSurah${id}`, i);
-
 }
 
+/* ================= PLAYER BUTTON ================= */
 
-/* 3. EVENT PLAY */
-audio.addEventListener('play', () => {
+function togglePlayer() {
+  if (!audio.src) return;
+  audio.paused ? audio.play() : audio.pause();
+}
 
+/* ================= AUDIO EVENTS ================= */
+
+audio.addEventListener("play", () => {
   updatePlayIcons(currentIndex);
-
+  updatePlayerButton();
 });
 
-
-/* 4. EVENT PAUSE */
-audio.addEventListener('pause', () => {
-
+audio.addEventListener("pause", () => {
   updatePlayIcons(-1);
-
-});
-
-audio.addEventListener("play", ()=>{
-
   updatePlayerButton();
-  updatePlayIcons(currentIndex);
-
 });
 
-audio.addEventListener("pause", ()=>{
-
-  updatePlayerButton();
-  updatePlayIcons(currentIndex);
-
-});
-
-
-/* 5. EVENT ENDED (AUTO NEXT AYAT) */
-audio.addEventListener('ended', () => {
+audio.addEventListener("ended", () => {
 
   updatePlayIcons(-1);
 
   if (currentIndex < ayatEls.length - 1) {
-
     playAyat(currentIndex + 1);
+    return;
+  }
 
-  } else if (AUTO_NEXT_SURAH && nextSurah) {
-
+  if (AUTO_NEXT_SURAH && nextSurah) {
     const s = allSurah[nextSurah - 1];
-
     location.href =
       `/surat/${nextSurah}-${slugify(s.nama_latin)}/`;
-
   }
 
 });
 
+/* ================= CLOSE PLAYER ================= */
 
-/* 6. CLOSE PLAYER */
 function closePlayer() {
-
   audio.pause();
-
-  audio.src = '';
-
-  wrap.classList.remove('show');
-
+  audio.src = "";
+  wrap.classList.remove("show");
   updatePlayIcons(-1);
-
-}
-function togglePlayer(){
-
-  if (!audio.src) return;
-
-  if (audio.paused){
-
-    audio.play();
-
-  } else {
-
-    audio.pause();
-
-  }
-
-  updatePlayerButton();
-  updatePlayIcons(currentIndex);
-
 }
 
 /* ================= AYAT STATE ================= */
