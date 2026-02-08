@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="../../css/base.css">
 <link rel="stylesheet" href="../../css/surat.css">
-<link rel="stylesheet" href="../../css/plyr.css">
+<link rel="stylesheet" href="../../css/qplyr.css">
 </head>
 
 <body>
@@ -255,15 +255,29 @@ injectStyles();
 
 </div>
 
-<div class="player-wrap" id="playerWrap">
-  <button class="close" onclick="closePlayer()" aria-label="Tutup player">
-    <svg viewBox="0 0 24 24" width="20" height="20">
-      <line x1="6" y1="6" x2="18" y2="18"/>
-      <line x1="18" y1="6" x2="6" y2="18"/>
-    </svg>
-  </button>
-  <audio id="player"></audio>
+<div id="playerWrap" class="qplayer">
+  
+  <div class="qhead">
+    <div id="trackTitle">Memuat...</div>
+    <button id="closeBtn" onclick="closePlayer()"></button>
+  </div>
+
+  <audio id="player" preload="none"></audio>
+
+  <div class="qcontrols">
+    <button id="prevBtn" onclick="prevAyat()"></button>
+    <button id="playBtn"></button>
+    <button id="nextBtn" onclick="nextAyat()"></button>
+
+    <span id="currentTime">0:00</span>
+    <input type="range" id="progress" value="0" step="1">
+    <span id="duration">0:00</span>
+
+    <input type="range" id="volume" min="0" max="1" step="0.01">
+  </div>
+
 </div>
+
 
 <button class="top" onclick="scrollToTop()">
   <svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"></path></svg>
@@ -271,45 +285,6 @@ injectStyles();
 
 <script>
  window.SURAT_ID = 1; 
-/* ================= DROPDOWN SURAT ================= */
-const suratList = [
-  "Al-Fatihah","Al-Baqarah","Ali 'Imran","An-Nisa","Al-Ma'idah","Al-An'am","Al-A'raf","Al-Anfal","At-Taubah","Yunus",
-  "Hud","Yusuf","Ar-Ra'd","Ibrahim","Al-Hijr","An-Nahl","Al-Isra","Al-Kahf","Maryam","Ta-Ha",
-  "Al-Anbiya","Al-Hajj","Al-Mu'minun","An-Nur","Al-Furqan","Asy-Syu'ara","An-Naml","Al-Qasas","Al-Ankabut","Ar-Rum",
-  "Luqman","As-Sajdah","Al-Ahzab","Saba","Fatir","Ya-Sin","As-Saffat","Sad","Az-Zumar","Ghafir",
-  "Fussilat","Asy-Syura","Az-Zukhruf","Ad-Dukhan","Al-Jatsiyah","Al-Ahqaf","Muhammad","Al-Fath","Al-Hujurat","Qaf",
-  "Az-Zariyat","At-Tur","An-Najm","Al-Qamar","Ar-Rahman","Al-Waqi'ah","Al-Hadid","Al-Mujadilah","Al-Hasyr","Al-Mumtahanah",
-  "As-Saff","Al-Jumu'ah","Al-Munafiqun","At-Taghabun","At-Talaq","At-Tahrim","Al-Mulk","Al-Qalam","Al-Haqqah","Al-Ma'arij",
-  "Nuh","Al-Jinn","Al-Muzzammil","Al-Muddaththir","Al-Qiyamah","Al-Insan","Al-Mursalat","An-Naba","An-Nazi'at","'Abasa",
-  "At-Takwir","Al-Infitar","Al-Mutaffifin","Al-Insyiqaq","Al-Buruj","At-Tariq","Al-A'la","Al-Ghasyiyah","Al-Fajr","Al-Balad",
-  "Asy-Syams","Al-Lail","Ad-Duha","Asy-Syarh","At-Tin","Al-'Alaq","Al-Qadr","Al-Bayyinah","Az-Zalzalah","Al-'Adiyat",
-  "Al-Qari'ah","At-Takatsur","Al-'Asr","Al-Humazah","Al-Fil","Quraisy","Al-Ma'un","Al-Kautsar","Al-Kafirun","An-Nasr",
-  "Al-Lahab","Al-Ikhlas","Al-Falaq","An-Nas"
-];
-
-const select = document.getElementById("suratSelect");
-const currentId = window.SURAT_ID;
-
-suratList.forEach((nama, i) => {
-  const opt = document.createElement("option");
-  opt.value = i + 1;
-  opt.textContent = `${i+1}. ${nama}`;
-  if (i + 1 === currentId) opt.selected = true;
-  select.appendChild(opt);
-});
-
-select.onchange = e => {
-  const index = +e.target.value;
-  const slug = `${index}-${slugify(suratList[index - 1])}`;
-  location.href = `/surat/${slug}/`;
-};
-
-function slugify(nama) {
-  return nama
-    .toLowerCase()
-    .replace(/['’]/g, '')
-    .replace(/\s+/g, '-');
-}
 </script>
 <script src="../../js/plyr.polyfilled.js"></script>
 <script src="../../js/theme.js"></script>
