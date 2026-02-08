@@ -533,17 +533,51 @@ function scrollToTop() {
 }
 
 /* ================= AUDIO ================= */
+
+/* 1. FUNCTION UPDATE ICON */
+function updatePlayIcons(activeIndex){
+
+  ayatEls.forEach((el, i) => {
+
+    const btn = el.querySelector('.play');
+
+    if (!btn) return;
+
+    if (i === activeIndex && !audio.paused){
+
+      btn.innerHTML =
+      `<svg viewBox="0 0 24 24" width="18">
+        <path d="M6 5h4v14H6zM14 5h4v14h-4z"/>
+      </svg>`;
+
+    } else {
+
+      btn.innerHTML =
+      `<svg viewBox="0 0 24 24" width="18">
+        <path d="M8 5v14l11-7z"/>
+      </svg>`;
+
+    }
+
+  });
+
+}
+
+
+/* 2. FUNCTION PLAY AYAT (GANTI YANG LAMA) */
 function playAyat(i) {
 
   if (i < 0 || i >= ayatEls.length) return;
 
-  /* TOGGLE: jika ayat sama → play/pause */
-  if (currentIndex === i && audio.src) {
+  /* toggle */
+  if (currentIndex === i && audio.src){
 
-    if (audio.paused) {
+    if (audio.paused){
       audio.play();
+      updatePlayIcons(i);
     } else {
       audio.pause();
+      updatePlayIcons(-1);
     }
 
     return;
@@ -552,10 +586,10 @@ function playAyat(i) {
   currentIndex = i;
 
   const file =
-    `${String(id).padStart(3,'0')}${String(i+1).padStart(3,'0')}`;
+  `${String(id).padStart(3,'0')}${String(i+1).padStart(3,'0')}`;
 
   audio.src =
-    `https://everyayah.com/data/Alafasy_64kbps/${file}.mp3`;
+  `https://everyayah.com/data/Alafasy_64kbps/${file}.mp3`;
 
   wrap.classList.add('show');
 
@@ -563,7 +597,60 @@ function playAyat(i) {
 
   highlight(i);
 
+  updatePlayIcons(i);
+
   localStorage.setItem(`lastAyatSurah${id}`, i);
+
+}
+
+
+/* 3. EVENT PLAY */
+audio.addEventListener('play', () => {
+
+  updatePlayIcons(currentIndex);
+
+});
+
+
+/* 4. EVENT PAUSE */
+audio.addEventListener('pause', () => {
+
+  updatePlayIcons(-1);
+
+});
+
+
+/* 5. EVENT ENDED (AUTO NEXT AYAT) */
+audio.addEventListener('ended', () => {
+
+  updatePlayIcons(-1);
+
+  if (currentIndex < ayatEls.length - 1) {
+
+    playAyat(currentIndex + 1);
+
+  } else if (AUTO_NEXT_SURAH && nextSurah) {
+
+    const s = allSurah[nextSurah - 1];
+
+    location.href =
+      `/surat/${nextSurah}-${slugify(s.nama_latin)}/`;
+
+  }
+
+});
+
+
+/* 6. CLOSE PLAYER */
+function closePlayer() {
+
+  audio.pause();
+
+  audio.src = '';
+
+  wrap.classList.remove('show');
+
+  updatePlayIcons(-1);
 
 }
 
