@@ -1,128 +1,136 @@
-document.addEventListener("DOMContentLoaded", () => {
+/* ================= ICON SVG ================= */
+const ICONS = {
+ play:`<svg viewBox="0 0 24 24" width="18"><polygon points="8,5 19,12 8,19"/></svg>`,
+ pause:`<svg viewBox="0 0 24 24" width="18"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>`,
+ next:`<svg viewBox="0 0 24 24" width="18"><polygon points="5,4 15,12 5,20"/><rect x="17" y="4" width="2" height="16"/></svg>`,
+ prev:`<svg viewBox="0 0 24 24" width="18"><polygon points="19,4 9,12 19,20"/><rect x="5" y="4" width="2" height="16"/></svg>`,
+ close:`<svg viewBox="0 0 24 24" width="18"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>`
+};
 
-  /* ================== AMBIL ID SURAT DARI URL ================== */
-  const path = location.pathname.split("/").filter(Boolean);
-  const SURAH_ID = (path[0] === "surat" && path[1]) ? parseInt(path[1]) : 1;
+/* ================= PLAYER ELEMENTS ================= */
+const audio = document.getElementById('player');
+const wrap  = document.getElementById('playerWrap');
+const playBtn = document.getElementById('playBtn');
+const progress = document.getElementById('progress');
+const volume = document.getElementById('volume');
+const currentTimeEl = document.getElementById('currentTime');
+const durationEl = document.getElementById('duration');
+const trackTitle = document.getElementById('trackTitle');
+const closeBtn = wrap.querySelector('button');
 
-  /* ================== ELEMENT ================== */
-  const audio = document.getElementById("player");
-  const wrap = document.getElementById("playerWrap");
-  const playBtn = document.getElementById("playBtn");
-  const prevBtn = document.getElementById("prevBtn");
-  const nextBtn = document.getElementById("nextBtn");
-  const closeBtn = document.getElementById("closeBtn");
-  const progress = document.getElementById("progress");
-  const volume = document.getElementById("volume");
-  const currentTimeEl = document.getElementById("currentTime");
-  const durationEl = document.getElementById("duration");
-  const titleEl = document.getElementById("trackTitle");
-  const content = document.getElementById("content");
-  const suratSelect = document.getElementById("suratSelect");
+/* inject icons */
+playBtn.innerHTML = ICONS.play;
+document.querySelector('[onclick="prevAyat()"]').innerHTML = ICONS.prev;
+document.querySelector('[onclick="nextAyat()"]').innerHTML = ICONS.next;
+closeBtn.innerHTML = ICONS.close;
 
-  if (!audio) return console.error("Audio element tidak ada");
+/* ================= STATE ================= */
+let ayatEls=[], ayatPlayBtns=[], currentIndex=-1, s, allAyat;
 
-  /* ================== STATE ================== */
-  let surah = null;
-  let currentIndex = 0;
-  let ayatTotal = 0;
+volume.value=1; audio.volume=1;
 
-  /* ================== FORMAT WAKTU ================== */
-  const fmt = s => {
-    const m = Math.floor(s / 60);
-    const sec = Math.floor(s % 60);
-    return `${m}:${sec.toString().padStart(2,'0')}`;
-  };
+/* ================= PLAY AYAT ================= */
+function playAyat(i){
+ if(i<0 || i>=ayatEls.length) return;
+ ayatPlayBtns.forEach(b=>b.innerHTML=ICONS.play);
 
-  /* ================== LOAD DAFTAR SURAT ================== */
-  fetch("https://equran.id/api/v2/surat")
-    .then(r => r.json())
-    .then(j => {
-      j.data.forEach(s => {
-        const o = document.createElement("option");
-        o.value = s.nomor;
-        o.textContent = `${s.nomor}. ${s.namaLatin}`;
-        if (s.nomor === SURAH_ID) o.selected = true;
-        suratSelect.appendChild(o);
-      });
-    });
+ currentIndex=i;
+ const a=allAyat[i];
+ audio.src=a.audio["01"];
 
-  suratSelect.onchange = e => {
-    const n = +e.target.value;
-    const name = e.target.options[e.target.selectedIndex].text.split(". ")[1]
-      .toLowerCase().replace(/\s+/g,'-');
-    location.href = `/surat/${n}-${name}/`;
-  };
+ trackTitle.textContent=`Surat ${s.nama_latin} ${s.nomor}:${a.nomorAyat}`;
+ wrap.classList.add('show');
+ audio.play();
+ highlight(i);
 
-  /* ================== LOAD SURAT ================== */
-  fetch(`https://equran.id/api/v2/surat/${SURAH_ID}`)
-    .then(r => r.json())
-    .then(j => {
-      surah = j.data;
-      ayatTotal = surah.ayat.length;
+ ayatPlayBtns[i].innerHTML=ICONS.pause;
+ localStorage.setItem(`lastAyatSurah${s.nomor}`, i);
+}
 
-      document.title = `QS ${surah.namaLatin}`;
-
-      surah.ayat.forEach((a,i) => {
-        const div = document.createElement("div");
-        div.className = "ayat";
-        div.innerHTML = `
-          <button class="playAyat">▶</button>
-          <div class="arab">${a.teksArab}</div>
-          <div class="arti">${a.teksIndonesia}</div>
-        `;
-        div.querySelector(".playAyat").onclick = () => playAyat(i);
-        content.appendChild(div);
-      });
-    });
-
-  /* ================== PLAY AYAT ================== */
-  function playAyat(i){
-    currentIndex = i;
-
-    const s3 = String(surah.nomor).padStart(3,'0');
-    const a3 = String(surah.ayat[i].nomorAyat).padStart(3,'0');
-    const file = s3 + a3;
-
-    audio.src = `https://everyayah.com/data/Alafasy_64kbps/${file}.mp3`;
-    titleEl.textContent = `QS ${surah.namaLatin} ${surah.nomor}:${surah.ayat[i].nomorAyat}`;
-
-    wrap.classList.add("show");
-    audio.play();
-  }
-
-  /* ================== TOMBOL PLAYER ================== */
-  playBtn.onclick = () => audio.paused ? audio.play() : audio.pause();
-
-  prevBtn.onclick = () => {
-    if (currentIndex > 0) playAyat(currentIndex - 1);
-  };
-
-  nextBtn.onclick = () => {
-    if (currentIndex < ayatTotal - 1) playAyat(currentIndex + 1);
-  };
-
-  closeBtn.onclick = () => {
-    audio.pause();
-    wrap.classList.remove("show");
-  };
-
-  /* ================== AUTO NEXT ================== */
-  audio.onended = () => {
-    if (currentIndex < ayatTotal - 1) playAyat(currentIndex + 1);
-  };
-
-  /* ================== PROGRESS ================== */
-  audio.ontimeupdate = () => {
-    progress.value = audio.currentTime;
-    currentTimeEl.textContent = fmt(audio.currentTime);
-  };
-
-  audio.onloadedmetadata = () => {
-    progress.max = audio.duration;
-    durationEl.textContent = fmt(audio.duration);
-  };
-
-  progress.oninput = () => audio.currentTime = progress.value;
-  volume.oninput = () => audio.volume = volume.value;
-
+/* ================= SYNC ================= */
+audio.addEventListener('play',()=>{
+ playBtn.innerHTML=ICONS.pause;
+ if(currentIndex>=0) ayatPlayBtns[currentIndex].innerHTML=ICONS.pause;
 });
+audio.addEventListener('pause',()=>{
+ playBtn.innerHTML=ICONS.play;
+ if(currentIndex>=0) ayatPlayBtns[currentIndex].innerHTML=ICONS.play;
+});
+
+/* ================= CONTROLS ================= */
+playBtn.onclick=()=>audio.paused?audio.play():audio.pause();
+function nextAyat(){ if(currentIndex<ayatEls.length-1) playAyat(currentIndex+1); }
+function prevAyat(){ if(currentIndex>0) playAyat(currentIndex-1); }
+function closePlayer(){
+ audio.pause(); audio.src='';
+ wrap.classList.remove('show');
+ ayatPlayBtns.forEach(b=>b.innerHTML=ICONS.play);
+}
+
+/* ================= PROGRESS ================= */
+audio.addEventListener('timeupdate',()=>{
+ progress.max=audio.duration||0;
+ progress.value=audio.currentTime;
+ currentTimeEl.textContent=fmt(audio.currentTime);
+ durationEl.textContent=fmt(audio.duration);
+});
+progress.oninput=()=>audio.currentTime=progress.value;
+volume.oninput=()=>audio.volume=volume.value;
+
+/* ================= AUTO NEXT ================= */
+audio.addEventListener('ended',()=>{
+ ayatPlayBtns[currentIndex].innerHTML=ICONS.play;
+ if(currentIndex<ayatEls.length-1) nextAyat();
+});
+
+/* ================= LOAD SURAT ================= */
+async function load(){
+ const id=window.SURAT_ID;
+ const res=await fetch(`https://equran.id/api/v2/surat/${id}`);
+ s=(await res.json()).data;
+ allAyat=s.ayat;
+
+ const content=document.getElementById('content');
+ content.innerHTML='';
+
+ s.ayat.forEach((a,i)=>{
+   const el=document.createElement('div');
+   el.className='ayat';
+   el.innerHTML=`
+     <button class="playBtn"></button>
+     <div class="arab">${a.teksArab} ۝${a.nomorAyat}</div>
+     <div class="arti">${a.teksIndonesia}</div>
+   `;
+   const btn=el.querySelector('.playBtn');
+   btn.innerHTML=ICONS.play;
+
+   btn.onclick=()=>{
+     if(currentIndex===i && !audio.paused) audio.pause();
+     else playAyat(i);
+   };
+
+   content.appendChild(el);
+   ayatEls.push(el);
+   ayatPlayBtns.push(btn);
+ });
+
+ const last=localStorage.getItem(`lastAyatSurah${id}`);
+ if(last) highlight(+last);
+}
+
+/* ================= HIGHLIGHT ================= */
+function highlight(i){
+ ayatEls.forEach(e=>e.classList.remove('active'));
+ ayatEls[i].classList.add('active');
+ ayatEls[i].scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* ================= TIME FORMAT ================= */
+function fmt(s){
+ if(!s) return "0:00";
+ const m=Math.floor(s/60);
+ const sec=Math.floor(s%60).toString().padStart(2,'0');
+ return `${m}:${sec}`;
+}
+
+load();
