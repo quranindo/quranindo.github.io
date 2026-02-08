@@ -7,88 +7,77 @@
 
 <link id="canonicalLink" rel="canonical" href="">
 <meta name="description" content="Baca Al-Qur'an lengkap dengan teks Arab, terjemah Indonesia, dan murottal audio.">
+<meta name="robots" content="index, follow">
 
+<meta property="og:title" content="Al-Qur'an Digital 30 Juz">
+<meta property="og:description" content="Al-Qur'an Digital 30 Juz lengkap dengan teks Arab, terjemah Indonesia, dan murottal audio.">
+<meta property="og:image" content="/assets/img/cover.jpg">
+<link rel="icon" href="/assets/img/favicon.ico">
+
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#046260">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="../../css/base.css">
 <link rel="stylesheet" href="../../css/surat.css">
 
 <style>
 
-/* ================= PLAYER CSS ================= */
-
 .player-wrap{
 position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:#0f172a;
-color:#fff;
-padding:10px;
-box-shadow:0 -5px 20px rgba(0,0,0,.3);
-transform:translateY(100%);
-transition:.3s;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+background:#fff;
+border-radius:14px;
+box-shadow:0 8px 30px rgba(0,0,0,.25);
+padding:12px;
+width:360px;
+display:none;
 z-index:9999;
 }
 
 .player-wrap.show{
-transform:translateY(0);
+display:block;
 }
 
-.player-info{
-text-align:center;
-font-size:14px;
+.player-header{
+font-size:13px;
 margin-bottom:6px;
+font-weight:600;
 }
 
 .player-controls{
 display:flex;
-justify-content:center;
-gap:16px;
-margin-bottom:6px;
-}
-
-.svg-btn{
-background:none;
-border:none;
-color:white;
-cursor:pointer;
-}
-
-.svg-btn svg{
-width:26px;
-height:26px;
-fill:white;
-}
-
-.player-progress{
-display:flex;
 align-items:center;
-gap:6px;
+gap:8px;
+}
+
+.player-controls button{
+border:none;
+background:none;
+cursor:pointer;
+padding:4px;
+}
+
+.player-controls svg{
+stroke:#111;
+fill:none;
+stroke-width:2;
+}
+
+.seek{
+flex:1;
+}
+
+.time{
 font-size:12px;
+min-width:40px;
+text-align:center;
 }
 
-.player-progress input{
-flex:1;
-}
-
-.player-volume{
-display:flex;
-align-items:center;
-gap:6px;
-margin-top:6px;
-}
-
-.player-volume input{
-flex:1;
-}
-
-.close{
-position:absolute;
-right:10px;
-top:10px;
-background:none;
-border:none;
-color:white;
-cursor:pointer;
+.volume{
+width:70px;
 }
 
 </style>
@@ -97,320 +86,176 @@ cursor:pointer;
 
 <body>
 
-<header>
-
-<select id="suratSelect"></select>
-
-<button onclick="go(-1)">Prev</button>
-<button onclick="go(1)">Next</button>
-
-</header>
-
-<div id="titleLatin"></div>
-<div id="titleArab"></div>
-<div id="titleArti"></div>
-<div id="info"></div>
-
-<div id="content"></div>
-
-
-<!-- PLAYER -->
+<!-- SEMUA HTML ANDA TETAP SAMA -->
 
 <div class="player-wrap" id="playerWrap">
 
-<button class="close" onclick="closePlayer()">
-
-<svg viewBox="0 0 24 24">
-<line x1="6" y1="6" x2="18" y2="18" stroke="white" stroke-width="2"/>
-<line x1="18" y1="6" x2="6" y2="18" stroke="white" stroke-width="2"/>
-</svg>
-
-</button>
-
-<div class="player-info" id="playerInfo">-</div>
-
-<div class="player-controls">
-
-<button onclick="prevAyat()" class="svg-btn">
-<svg viewBox="0 0 24 24">
-<polygon points="11,12 18,18 18,6"/>
-<polygon points="6,12 13,18 13,6"/>
-</svg>
-</button>
-
-<button onclick="togglePlay()" class="svg-btn">
-<svg id="playIcon" viewBox="0 0 24 24">
-<polygon points="8,5 19,12 8,19"/>
-</svg>
-</button>
-
-<button onclick="nextAyat()" class="svg-btn">
-<svg viewBox="0 0 24 24">
-<polygon points="6,6 13,12 6,18"/>
-<polygon points="11,6 18,12 11,18"/>
-</svg>
-</button>
-
-</div>
-
-<div class="player-progress">
-
-<span id="currentTime">0:00</span>
-
-<input type="range" id="progress" min="0" max="100">
-
-<span id="duration">0:00</span>
-
-</div>
-
-<div class="player-volume">
-
-<svg viewBox="0 0 24 24">
-<polygon points="3,9 7,9 12,5 12,19 7,15 3,15"/>
-</svg>
-
-<input type="range" id="volume" min="0" max="1" step="0.01" value="1">
-
+<div class="player-header" id="playerTitle">
+-
 </div>
 
 <audio id="player"></audio>
 
-</div>
+<div class="player-controls">
 
+<button id="prevBtn">
+<svg viewBox="0 0 24 24" width="22">
+<path d="M6 6v12M18 6l-10 6 10 6"/>
+</svg>
+</button>
+
+<button id="playBtn">
+<svg id="playIcon" viewBox="0 0 24 24" width="26">
+<path d="M8 5v14l11-7z"/>
+</svg>
+</button>
+
+<button id="nextBtn">
+<svg viewBox="0 0 24 24" width="22">
+<path d="M18 6v12M6 6l10 6-10 6"/>
+</svg>
+</button>
+
+<span class="time" id="currentTime">0:00</span>
+
+<input type="range" class="seek" id="seekBar" value="0">
+
+<span class="time" id="duration">0:00</span>
+
+<input type="range"
+class="volume"
+id="volume"
+min="0"
+max="1"
+step="0.01"
+value="1">
+
+<button onclick="closePlayer()">
+<svg viewBox="0 0 24 24" width="22">
+<path d="M6 6l12 12M18 6l-12 12"/>
+</svg>
+</button>
+
+</div>
+</div>
 
 
 <script>
 
-/* ================= STATE ================= */
+const audio  = document.getElementById('player');
+const wrap   = document.getElementById('playerWrap');
 
-const audio = document.getElementById("player");
-const wrap = document.getElementById("playerWrap");
+const playBtn = document.getElementById("playBtn");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
 
-const progress = document.getElementById("progress");
-const volume = document.getElementById("volume");
+const seekBar = document.getElementById("seekBar");
+const volume  = document.getElementById("volume");
 
 const currentTimeEl = document.getElementById("currentTime");
-const durationEl = document.getElementById("duration");
+const durationEl    = document.getElementById("duration");
+const titleEl       = document.getElementById("playerTitle");
 
-const playIcon = document.getElementById("playIcon");
-const playerInfo = document.getElementById("playerInfo");
+playBtn.onclick = ()=>{
+if(audio.paused){
+audio.play();
+}else{
+audio.pause();
+}
+};
 
-const suratSelect = document.getElementById("suratSelect");
+prevBtn.onclick = ()=>{
+if(currentIndex>0)
+playAyat(currentIndex-1);
+};
 
-const titleLatin = document.getElementById("titleLatin");
-const titleArab = document.getElementById("titleArab");
-const titleArti = document.getElementById("titleArti");
-const info = document.getElementById("info");
+nextBtn.onclick = ()=>{
+if(currentIndex<ayatEls.length-1)
+playAyat(currentIndex+1);
+};
 
-const content = document.getElementById("content");
+volume.oninput = ()=>{
+audio.volume = volume.value;
+};
 
-let ayatEls=[];
-let currentIndex=-1;
+audio.ontimeupdate = ()=>{
 
-let id=1;
-let allSurah=[];
-let prevSurah=null;
-let nextSurah=null;
+if(audio.duration){
 
+seekBar.value =
+(audio.currentTime/audio.duration)*100;
 
-/* ================= TIME ================= */
+currentTimeEl.textContent =
+formatTime(audio.currentTime);
+
+durationEl.textContent =
+formatTime(audio.duration);
+
+}
+
+};
+
+seekBar.oninput = ()=>{
+audio.currentTime =
+(seekBar.value/100)*audio.duration;
+};
+
+audio.onplay = ()=>{
+playBtn.innerHTML =
+`<svg viewBox="0 0 24 24" width="26">
+<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>
+</svg>`;
+};
+
+audio.onpause = ()=>{
+playBtn.innerHTML =
+`<svg viewBox="0 0 24 24" width="26">
+<path d="M8 5v14l11-7z"/>
+</svg>`;
+};
 
 function formatTime(sec){
 
-sec=Math.floor(sec||0);
+sec = Math.floor(sec);
 
-const m=Math.floor(sec/60);
-const s=sec%60;
+let m = Math.floor(sec/60);
+let s = sec%60;
 
-return m+":"+String(s).padStart(2,"0");
+if(s<10) s="0"+s;
 
-}
-
-
-/* ================= ICON ================= */
-
-function updateIcon(){
-
-if(audio.paused)
-playIcon.innerHTML='<polygon points="8,5 19,12 8,19"/>';
-else
-playIcon.innerHTML='<rect x="7" y="5" width="3" height="14"/><rect x="14" y="5" width="3" height="14"/>';
-
-}
-
-
-/* ================= PLAY AYAT ================= */
-
-function playAyat(i){
-
-if(i<0||i>=ayatEls.length)return;
-
-currentIndex=i;
-
-const file=
-`${String(id).padStart(3,'0')}${String(i+1).padStart(3,'0')}`;
-
-audio.src=
-`https://everyayah.com/data/Alafasy_64kbps/${file}.mp3`;
-
-wrap.classList.add("show");
-
-audio.play();
-
-highlight(i);
-
-playerInfo.textContent=
-`${allSurah[id-1].nama_latin} • ${i+1} / ${ayatEls.length}`;
-
-}
-
-
-/* ================= PLAYER CONTROL ================= */
-
-function togglePlay(){
-
-if(audio.paused)audio.play();
-else audio.pause();
-
-}
-
-function nextAyat(){
-if(currentIndex<ayatEls.length-1)
-playAyat(currentIndex+1);
-}
-
-function prevAyat(){
-if(currentIndex>0)
-playAyat(currentIndex-1);
+return m+":"+s;
 }
 
 function closePlayer(){
+
 audio.pause();
+
 wrap.classList.remove("show");
-}
-
-
-/* ================= EVENTS ================= */
-
-audio.addEventListener("play",updateIcon);
-audio.addEventListener("pause",updateIcon);
-
-audio.addEventListener("timeupdate",()=>{
-
-progress.value=(audio.currentTime/audio.duration)*100||0;
-currentTimeEl.textContent=formatTime(audio.currentTime);
-
-});
-
-audio.addEventListener("loadedmetadata",()=>{
-
-durationEl.textContent=formatTime(audio.duration);
-
-});
-
-progress.oninput=()=>{
-audio.currentTime=(progress.value/100)*audio.duration;
-};
-
-volume.oninput=()=>{
-audio.volume=volume.value;
-};
-
-audio.addEventListener("ended",nextAyat);
-
-
-/* ================= SURAT NAV ================= */
-
-function go(n){
-
-if(n===-1&&prevSurah)
-location.search="?id="+prevSurah;
-
-if(n===1&&nextSurah)
-location.search="?id="+nextSurah;
 
 }
-
-
-/* ================= HIGHLIGHT ================= */
-
-function highlight(i){
-
-ayatEls.forEach(e=>e.classList.remove("active"));
-
-ayatEls[i].classList.add("active");
-
-}
-
-
-/* ================= LOAD ================= */
-
-async function load(){
-
-id=
-+new URLSearchParams(location.search).get("id")||1;
-
-allSurah=
-await(await fetch("https://equran.id/api/surat")).json();
-
-prevSurah=id>1?id-1:null;
-nextSurah=id<114?id+1:null;
-
-suratSelect.innerHTML="";
-
-allSurah.forEach((s,i)=>{
-
-const opt=document.createElement("option");
-
-opt.value=i+1;
-opt.textContent=(i+1)+". "+s.nama_latin;
-
-if(i+1===id)opt.selected=true;
-
-suratSelect.appendChild(opt);
-
-});
-
-suratSelect.onchange=e=>{
-location.search="?id="+e.target.value;
-};
-
-const s=
-await(await fetch(`https://equran.id/api/surat/${id}`)).json();
-
-titleLatin.textContent=s.nama_latin;
-titleArab.textContent=s.nama;
-titleArti.textContent=s.arti;
-info.textContent=s.jumlah_ayat+" ayat";
-
-content.innerHTML="";
-ayatEls=[];
-
-s.ayat.forEach((a,i)=>{
-
-const el=document.createElement("div");
-
-el.className="ayat";
-
-el.innerHTML=
-`
-<button onclick="playAyat(${i})">▶</button>
-<div>${a.ar}</div>
-<div>${a.idn}</div>
-`;
-
-content.appendChild(el);
-
-ayatEls.push(el);
-
-});
-
-}
-
-load();
 
 </script>
 
+
+<script>
+
+/* PATCH KE SISTEM ANDA TANPA REFACTOR */
+
+const originalPlayAyat = playAyat;
+
+playAyat = function(i){
+
+originalPlayAyat(i);
+
+wrap.classList.add("show");
+
+titleEl.textContent =
+suratList[id-1] + " • " + (i+1) + "/" + ayatEls.length;
+
+};
+
+</script>
+
+
 </body>
 </html>
-
