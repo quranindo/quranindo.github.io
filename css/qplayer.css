@@ -1,0 +1,115 @@
+/* ===== PLAYER CONTAINER ===== */
+.qplayer{
+  position:fixed;
+  bottom:0; left:0; right:0;
+  background:#121212;
+  color:#fff;
+  padding:12px 16px;
+  transform:translateY(100%);
+  transition:.35s ease;
+  font-family:system-ui, sans-serif;
+  box-shadow:0 -4px 20px rgba(0,0,0,.4);
+  z-index:9999;
+}
+.qplayer.show{ transform:translateY(0); }
+
+/* ===== HEADER ===== */
+.qhead{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:14px;
+  margin-bottom:8px;
+  opacity:.9;
+}
+.qhead button{
+  background:none;
+  border:none;
+  color:#fff;
+  cursor:pointer;
+  opacity:.7;
+}
+.qhead button:hover{ opacity:1 }
+
+/* ===== CONTROLS ROW ===== */
+.qcontrols{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+/* ===== BUTTON STYLE ===== */
+.qcontrols button{
+  background:#1f1f1f;
+  border:none;
+  color:#fff;
+  padding:8px;
+  border-radius:8px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:.2s;
+}
+.qcontrols button:hover{
+  background:#2c2c2c;
+  transform:scale(1.05);
+}
+
+/* SVG ICON */
+.qcontrols svg{
+  fill:#fff;
+  stroke:#fff;
+  stroke-width:2;
+}
+
+/* ===== TIME TEXT ===== */
+#currentTime,#duration{
+  font-size:12px;
+  opacity:.8;
+  min-width:38px;
+  text-align:center;
+}
+
+/* ===== PROGRESS BAR ===== */
+#progress{
+  flex:1;
+  height:4px;
+  cursor:pointer;
+}
+
+/* ===== VOLUME ===== */
+#volume{
+  width:90px;
+  cursor:pointer;
+}
+
+/* ===== AYAT CARD BUTTON ===== */
+.playBtn{
+  background:#eee;
+  border:none;
+  border-radius:50%;
+  width:34px;
+  height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  margin-right:10px;
+  transition:.2s;
+}
+.playBtn svg{
+  width:16px;
+  height:16px;
+  fill:#333;
+}
+.playBtn:hover{
+  background:#ddd;
+  transform:scale(1.1);
+}
+
+/* ===== ACTIVE AYAT ===== */
+.ayat.active{
+  background:#f5f7fa;
+  border-left:4px solid #4caf50;
+}
