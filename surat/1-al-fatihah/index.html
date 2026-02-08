@@ -534,12 +534,13 @@ function scrollToTop() {
 
 /* ================= AUDIO ================= */
 
-const audio = new Audio();
-audio.preload = "metadata";
+const audio = document.getElementById("player"); // ✅ FIX ID
+const ayatEls = document.querySelectorAll(".ayat"); // ✅ WAJIB ADA
+const wrap = document.getElementById("playerWrap");
 
 let currentIndex = -1;
 
-/* ================= UPDATE ICON AYAT ================= */
+/* ================= UPDATE ICON ================= */
 
 function updatePlayIcons(activeIndex) {
 
@@ -561,16 +562,14 @@ function updatePlayIcons(activeIndex) {
     }
 
   });
-
 }
 
 /* ================= PLAY AYAT ================= */
 
 function playAyat(i) {
-
+  if (!audio || !ayatEls.length) return;
   if (i < 0 || i >= ayatEls.length) return;
 
-  /* toggle ayat yang sama */
   if (currentIndex === i && audio.src) {
     audio.paused ? audio.play() : audio.pause();
     return;
@@ -585,17 +584,13 @@ function playAyat(i) {
     `https://everyayah.com/data/Alafasy_64kbps/${file}.mp3`;
 
   wrap.classList.add("show");
-
   audio.play();
-
-  highlight(i);
-  localStorage.setItem(`lastAyatSurah${id}`, i);
 }
 
-/* ================= PLAYER BUTTON ================= */
+/* ================= PLAYER ================= */
 
 function togglePlayer() {
-  if (!audio.src) return;
+  if (!audio || !audio.src) return;
   audio.paused ? audio.play() : audio.pause();
 }
 
@@ -603,32 +598,13 @@ function togglePlayer() {
 
 audio.addEventListener("play", () => {
   updatePlayIcons(currentIndex);
-  updatePlayerButton();
 });
 
 audio.addEventListener("pause", () => {
-  updatePlayIcons(-1);
-  updatePlayerButton();
+  updatePlayIcons(currentIndex); // ⬅️ PENTING (bukan -1)
 });
 
-audio.addEventListener("ended", () => {
-
-  updatePlayIcons(-1);
-
-  if (currentIndex < ayatEls.length - 1) {
-    playAyat(currentIndex + 1);
-    return;
-  }
-
-  if (AUTO_NEXT_SURAH && nextSurah) {
-    const s = allSurah[nextSurah - 1];
-    location.href =
-      `/surat/${nextSurah}-${slugify(s.nama_latin)}/`;
-  }
-
-});
-
-/* ================= CLOSE PLAYER ================= */
+/* ================= CLOSE ================= */
 
 function closePlayer() {
   audio.pause();
