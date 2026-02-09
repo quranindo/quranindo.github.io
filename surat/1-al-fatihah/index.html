@@ -184,7 +184,83 @@ body.dark #nextBtn{
 }  
  #playBtn {
   background: linear-gradient(135deg,#0aa,#0cc);
-}   
+} 
+/* =========================
+   RANGE BASE (RESET)
+========================= */
+
+#progress,
+#volume{
+  -webkit-appearance:none;
+  appearance:none;
+  height:6px;              /* 🔥 ketebalan sama */
+  border-radius:6px;
+  background:#e5e5e5;
+  outline:none;
+}
+
+
+/* =========================
+   TRACK COLOR (WEBKIT)
+========================= */
+
+#progress::-webkit-slider-runnable-track,
+#volume::-webkit-slider-runnable-track{
+  height:6px;
+  background:#dcdcdc;
+  border-radius:6px;
+}
+
+
+/* =========================
+   THUMB (bulat hijau)
+========================= */
+
+#progress::-webkit-slider-thumb,
+#volume::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  appearance:none;
+
+  width:14px;
+  height:14px;
+
+  background:#0aa;          /* 🔥 warna senada */
+  border-radius:50%;
+  cursor:pointer;
+
+  margin-top:-4px;          /* center */
+}
+
+
+/* =========================
+   FIREFOX
+========================= */
+
+#progress::-moz-range-track,
+#volume::-moz-range-track{
+  height:6px;
+  background:#dcdcdc;
+  border-radius:6px;
+}
+
+#progress::-moz-range-thumb,
+#volume::-moz-range-thumb{
+  width:14px;
+  height:14px;
+  background:#0aa;
+  border:none;
+  border-radius:50%;
+}
+
+
+/* =========================
+   PROGRESS ACTIVE COLOR (optional)
+========================= */
+
+#progress{
+  background:linear-gradient(#0aa,#0aa) 0/0% 100% no-repeat, #dcdcdc;
+}
+    
   </style>
   
 </head>
@@ -494,7 +570,7 @@ audio.ontimeupdate = ()=>{
 
   const p = audio.currentTime/audio.duration*100;
   progress.value = p;
-
+   progress.style.backgroundSize = p + '% 100%'; 
   timeNow.textContent   = fmt(audio.currentTime);
   timeTotal.textContent = fmt(audio.duration);
 };
