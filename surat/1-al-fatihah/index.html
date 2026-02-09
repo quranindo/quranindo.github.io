@@ -534,124 +534,78 @@ function scrollToTop() {
 
 /* ================= AUDIO ================= */
 
-/* 1. FUNCTION UPDATE ICON */
+/* 1. UPDATE ICON AYAT */
 function updatePlayIcons(activeIndex){
-
   ayatEls.forEach((el, i) => {
-
     const btn = el.querySelector('.play');
-
     if (!btn) return;
 
     if (i === activeIndex && !audio.paused){
-
       btn.innerHTML =
       `<svg viewBox="0 0 24 24" width="18">
         <path d="M6 5h4v14H6zM14 5h4v14h-4z"/>
       </svg>`;
-
     } else {
-
       btn.innerHTML =
       `<svg viewBox="0 0 24 24" width="18">
         <path d="M8 5v14l11-7z"/>
       </svg>`;
-
     }
-
   });
-
 }
 
-
-/* 2. FUNCTION PLAY AYAT (GANTI YANG LAMA) */
-function playAyat(i) {
+/* 2. PLAY AYAT (ASLI PRODUKSI) */
+function playAyat(i){
 
   if (i < 0 || i >= ayatEls.length) return;
 
-  /* toggle */
   if (currentIndex === i && audio.src){
-
-    if (audio.paused){
-      audio.play();
-      updatePlayIcons(i);
-    } else {
-      audio.pause();
-      updatePlayIcons(-1);
-    }
-
+    audio.paused ? audio.play() : audio.pause();
     return;
   }
 
   currentIndex = i;
 
   const file =
-  `${String(id).padStart(3,'0')}${String(i+1).padStart(3,'0')}`;
+  `${String(SURAT_ID).padStart(3,'0')}${String(i+1).padStart(3,'0')}`;
 
   audio.src =
   `https://everyayah.com/data/Alafasy_64kbps/${file}.mp3`;
 
   wrap.classList.add('show');
-
   audio.play();
-
-  highlight(i);
-
   updatePlayIcons(i);
-
-  localStorage.setItem(`lastAyatSurah${id}`, i);
-
+  localStorage.setItem(`lastAyatSurah${SURAT_ID}`, i);
 }
 
-
-/* 3. EVENT PLAY */
+/* 3. AUDIO EVENTS */
 audio.addEventListener('play', () => {
-
   updatePlayIcons(currentIndex);
-
 });
 
-
-/* 4. EVENT PAUSE */
 audio.addEventListener('pause', () => {
-
   updatePlayIcons(-1);
-
 });
 
-
-/* 5. EVENT ENDED (AUTO NEXT AYAT) */
 audio.addEventListener('ended', () => {
 
   updatePlayIcons(-1);
 
   if (currentIndex < ayatEls.length - 1) {
-
     playAyat(currentIndex + 1);
-
   } else if (AUTO_NEXT_SURAH && nextSurah) {
-
     const s = allSurah[nextSurah - 1];
-
     location.href =
       `/surat/${nextSurah}-${slugify(s.nama_latin)}/`;
-
   }
-
 });
 
-
-/* 6. CLOSE PLAYER */
-function closePlayer() {
-
+/* 4. CLOSE PLAYER */
+function closePlayer(){
   audio.pause();
-
   audio.src = '';
-
   wrap.classList.remove('show');
-
   updatePlayIcons(-1);
-
 }
 
 /* ================= AYAT STATE ================= */
@@ -797,18 +751,8 @@ function toArabic(n) {
 load();
 </script>
 
-  <script>
-
-<!-- ========================================= -->
-<!-- SEMUA HTML + SCRIPT KAMU TETAP SAMA       -->
-<!-- (HEAD, AYAT SCRIPT, load(), playAyat dll)-->
-<!-- ========================================= -->
-
-<!-- ================= PLAYER BOTTOM (FIX) ================= -->
 <script>
 (function(){
-
-const audio = document.getElementById('player');
 
 const playBtn = document.getElementById('playBtn');
 const prevBtn = document.getElementById('prevBtn');
@@ -821,28 +765,16 @@ const currentTime = document.getElementById('currentTime');
 const duration    = document.getElementById('duration');
 const info        = document.getElementById('playerInfo');
 
-/* ICON */
-const PLAY_ICON = `
-<svg viewBox="0 0 24 24" width="24">
-  <path d="M8 5v14l11-7z"/>
-</svg>`;
-
-const PAUSE_ICON = `
-<svg viewBox="0 0 24 24" width="24">
-  <path d="M6 5h4v14H6zM14 5h4v14h-4z"/>
-</svg>`;
-
-/* UTIL */
 function fmt(s){
-  s = Math.floor(s);
-  let m = Math.floor(s/60);
-  let d = s % 60;
-  return m + ':' + (d < 10 ? '0' + d : d);
+  s=Math.floor(s);
+  let m=Math.floor(s/60);
+  let d=s%60;
+  return m+':'+(d<10?'0'+d:d);
 }
 
-/* BUTTON */
+/* 🔑 FIX FINAL: PLAYER BAWAH TIDAK MENGONTROL AUDIO */
 playBtn.onclick = () => {
-  audio.paused ? audio.play() : audio.pause();
+  if (currentIndex !== -1) playAyat(currentIndex);
 };
 
 prevBtn.onclick = () => {
@@ -854,43 +786,29 @@ nextBtn.onclick = () => {
     playAyat(currentIndex + 1);
 };
 
-/* SYNC ICON */
-audio.addEventListener('play', () => {
-  playBtn.innerHTML = PAUSE_ICON;
-});
-
-audio.addEventListener('pause', () => {
-  playBtn.innerHTML = PLAY_ICON;
-});
-
-audio.addEventListener('ended', () => {
-  playBtn.innerHTML = PLAY_ICON;
-});
-
 /* PROGRESS */
 audio.ontimeupdate = () => {
   if (audio.duration) {
-    seekBar.value = (audio.currentTime / audio.duration) * 100;
+    seekBar.value = (audio.currentTime/audio.duration)*100;
     currentTime.textContent = fmt(audio.currentTime);
-    duration.textContent = fmt(audio.duration);
+    duration.textContent    = fmt(audio.duration);
   }
 };
 
 seekBar.oninput = () => {
-  audio.currentTime = (seekBar.value / 100) * audio.duration;
+  audio.currentTime = (seekBar.value/100)*audio.duration;
 };
 
 volume.oninput = () => {
   audio.volume = volume.value;
 };
 
-/* WRAP playAyat (AMAN) */
+/* INFO */
 const orig = window.playAyat;
 window.playAyat = function(i){
   orig(i);
-  document.getElementById("playerWrap").classList.add("show");
   info.textContent =
-    suratList[id-1] + " " + (i+1) + "/" + ayatEls.length;
+    suratList[SURAT_ID-1] + " " + (i+1) + "/" + ayatEls.length;
 };
 
 })();
