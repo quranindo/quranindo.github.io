@@ -174,11 +174,14 @@ async function load(){
   s.ayat.forEach((a,i)=>{
     const el=document.createElement('div');
     el.className='ayat';
-    el.innerHTML=`<button class="play">▶</button><div class="arab"><span>${a.ar}</span> ۝${a.nomor}</div><div class="arti">${a.idn}</div>`;
+    el.innerHTML=`<button class="play">▶</button><div class="arab"><span>${a.ar}</span> ۝${toArabic(a.nomor)}</div><div class="arti">${a.idn}</div>`;
     el.querySelector('.play').onclick=()=>playAyat(i);
     content.appendChild(el);
     ayatEls.push(el);
   });
+  function toArabic(n) {
+  return n.toString().replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+}
 }
 load();
 </script>
