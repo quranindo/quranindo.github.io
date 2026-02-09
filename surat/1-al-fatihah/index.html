@@ -91,6 +91,19 @@
   color:#0aa;          /* warna aksen */
   transform:scale(1.15);
 }
+ /* ======================
+   PLAYER INFO (judul surat)
+====================== */
+
+.player-info{
+  text-align:center;
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:6px;
+  opacity:.85;
+  letter-spacing:.3px;
+}
+   
   </style>
   
 </head>
@@ -154,7 +167,7 @@
   <button class="close" onclick="closePlayer()" aria-label="Tutup player">✕</button>
 
   <audio id="player"></audio>
-
+  <div class="player-info" id="playerInfo"></div>
  <div class="qplayer">
 
   <button id="prevBtn" aria-label="Prev"></button>
@@ -440,7 +453,7 @@ function fmt(t){
    AMAN: tunggu semua siap dulu
 ================================ */
 window.addEventListener('load', ()=>{
-
+const playerInfo = document.getElementById('playerInfo');
 
 /* ===============================
    SVG ICON TEBAL
@@ -519,6 +532,16 @@ function syncIcons(){
       .querySelector('.play')
       .innerHTML = audio.paused ? svgPlay : svgPause;
   }
+  updateInfo();
+}
+function updateInfo(){
+  if(!playerInfo) return;
+
+  const suratName = titleLatin?.textContent || '';
+  const total = ayatEls.length;
+  const now   = currentIndex >= 0 ? currentIndex+1 : 0;
+
+  playerInfo.textContent = `${suratName} • ${now}/${total}`;
 }
 
 
