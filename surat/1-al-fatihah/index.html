@@ -472,6 +472,13 @@ nextBtn.innerHTML   = svgNext;
 repeatBtn.innerHTML = svgRepeat;
 playBtn.innerHTML   = svgPlay;
 
+let repeatOne = false;
+repeatBtn.onclick = ()=>{
+  repeatOne = !repeatOne;
+  audio.loop = repeatOne;   // 🔥 kunci repeat ayat
+  repeatBtn.classList.toggle('active', repeatOne);
+};
+  
 
 /* ===============================
    ICON SYNC
