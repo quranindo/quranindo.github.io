@@ -260,6 +260,72 @@ body.dark #nextBtn{
 #progress{
   background:linear-gradient(#0aa,#0aa) 0/0% 100% no-repeat, #dcdcdc;
 }
+
+    /* =========================
+   MOBILE FRIENDLY PLAYER
+========================= */
+
+@media (max-width:768px){
+
+  .player-wrap{
+    left:8px;
+    right:8px;
+    bottom:8px;
+    padding:12px 14px;
+  }
+
+  /* tombol utama */
+  #playBtn{
+    width:52px;
+    height:52px;
+  }
+
+  /* prev next */
+  #prevBtn,
+  #nextBtn{
+    width:40px;
+    height:40px;
+  }
+
+  /* repeat */
+  #repeatBtn{
+    width:36px;
+    height:36px;
+  }
+
+  /* slider lebih tebal biar enak drag */
+  #progress,
+  #volume{
+    height:8px;
+  }
+
+  /* thumb lebih besar */
+  #progress::-webkit-slider-thumb,
+  #volume::-webkit-slider-thumb{
+    width:18px;
+    height:18px;
+    margin-top:-5px;
+  }
+
+  /* timer font */
+  #timeNow,
+  #timeTotal{
+    font-size:13px;
+  }
+}
+
+@media (max-width:768px){
+
+  .play{
+    width:40px;
+    height:40px;
+  }
+
+  .play svg{
+    width:18px;
+    height:18px;
+  }
+}
     
   </style>
   
