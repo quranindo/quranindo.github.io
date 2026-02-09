@@ -151,23 +151,54 @@
   letter-spacing:.3px;
 }
 /* =========================
-   CARD PLAY BUTTON
+   CARD PLAY (OUTLINE)
 ========================= */
 
 .play{
-  width:34px;
-  height:34px;
-
-  border-radius:50%;
-  background:#0aa;
-  color:#fff;
+  width:42px;
+  height:42px;
 
   display:flex;
   align-items:center;
   justify-content:center;
 
-  box-shadow:0 3px 8px rgba(0,0,0,.15);
+  border-radius:50%;
+
+  background:transparent;
+  border:2px solid #0aa;
+
+  color:#0aa;
+  cursor:pointer;
+
+  transition:all .15s ease;
 }
+
+.play svg{
+  width:18px;
+  height:18px;
+  fill:currentColor;
+}
+
+
+/* hover */
+.play:hover{
+  background:rgba(0,170,170,.08);
+}
+
+
+/* active (sedang play) */
+.play.active{
+  background:#0aa;
+  color:#fff;
+  border-color:#0aa;
+}
+
+
+/* klik effect */
+.play:active{
+  transform:scale(.92);
+}
+
 body.dark .player-wrap{
   background:#1e1e1e;
 }
