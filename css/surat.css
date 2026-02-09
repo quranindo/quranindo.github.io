@@ -232,7 +232,7 @@ body.dark .player-wrap .close:hover {
 }
 /* BACK TOP BUTTON */
 .top{
-  bottom:100px;
+  bottom:130px;
   right:25px;
 }
 
@@ -300,6 +300,7 @@ option{cursor:pointer}
   line-height: 1;
   vertical-align: middle;
 }
+
 
 
 
