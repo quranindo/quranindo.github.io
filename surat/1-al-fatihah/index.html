@@ -19,6 +19,55 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="../../css/base.css">
 <link rel="stylesheet" href="../../css/surat.css">
+  <style>
+    /* ===== Custom Quran Player ===== */
+
+.player-wrap{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:var(--bg,#111);
+  box-shadow:0 -4px 12px rgba(0,0,0,.2);
+  padding:10px 12px;
+  transform:translateY(110%);
+  transition:.25s;
+  z-index:999;
+}
+
+.player-wrap.show{
+  transform:none;
+}
+
+.qplayer{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.qplayer button{
+  background:none;
+  border:none;
+  font-size:18px;
+  cursor:pointer;
+}
+
+#progress{
+  flex:1;
+}
+
+#volume{
+  width:70px;
+}
+
+#timeNow,
+#timeTotal{
+  font-size:12px;
+  min-width:38px;
+  text-align:center;
+}
+
+  </style>
 </head>
 
 <body>
@@ -76,13 +125,28 @@
 </div>
 
 <div class="player-wrap" id="playerWrap">
-  <button class="close" onclick="closePlayer()" aria-label="Tutup player">
-    <svg viewBox="0 0 24 24" width="20" height="20">
-      <line x1="6" y1="6" x2="18" y2="18"/>
-      <line x1="18" y1="6" x2="6" y2="18"/>
-    </svg>
-  </button>
-  <audio id="player" controls></audio>
+
+  <button class="close" onclick="closePlayer()" aria-label="Tutup player">✕</button>
+
+  <audio id="player"></audio>
+
+  <div class="qplayer">
+
+    <button id="prevBtn">⏮</button>
+    <button id="playBtn">▶</button>
+    <button id="nextBtn">⏭</button>
+
+    <span id="timeNow">0:00</span>
+
+    <input type="range" id="progress" value="0" min="0" max="100">
+
+    <span id="timeTotal">0:00</span>
+
+    <button id="repeatBtn">🔁</button>
+
+    <input type="range" id="volume" min="0" max="1" step="0.01">
+
+  </div>
 </div>
 
 <button class="top" onclick="scrollToTop()">
@@ -275,6 +339,76 @@ function toArabic(n){
 load();
 </script>
 
+<script>
+/* =========================
+   CUSTOM PLAYER CONTROL
+========================= */
+
+const playBtn   = document.getElementById('playBtn');
+const prevBtn   = document.getElementById('prevBtn');
+const nextBtn   = document.getElementById('nextBtn');
+const progress  = document.getElementById('progress');
+const volume    = document.getElementById('volume');
+const repeatBtn = document.getElementById('repeatBtn');
+const timeNow   = document.getElementById('timeNow');
+const timeTotal = document.getElementById('timeTotal');
+
+let repeatOne = false;
+
+/* play pause */
+playBtn.onclick = ()=>{
+  if(audio.paused) audio.play();
+  else audio.pause();
+};
+
+audio.onplay  = ()=> playBtn.textContent="⏸";
+audio.onpause = ()=> playBtn.textContent="▶";
+
+/* next prev */
+prevBtn.onclick = ()=> playAyat(currentIndex-1);
+nextBtn.onclick = ()=> playAyat(currentIndex+1);
+
+/* progress */
+audio.ontimeupdate = ()=>{
+  if(!audio.duration) return;
+
+  const p = audio.currentTime/audio.duration*100;
+  progress.value = p;
+
+  timeNow.textContent   = fmt(audio.currentTime);
+  timeTotal.textContent = fmt(audio.duration);
+};
+
+progress.oninput = ()=>{
+  audio.currentTime = progress.value/100 * audio.duration;
+};
+
+/* volume */
+volume.value = 1;
+volume.oninput = ()=> audio.volume = volume.value;
+
+/* repeat */
+repeatBtn.onclick = ()=>{
+  repeatOne = !repeatOne;
+  repeatBtn.style.opacity = repeatOne ? 1 : .4;
+};
+
+audio.addEventListener('ended',()=>{
+  if(repeatOne){
+    audio.currentTime=0;
+    audio.play();
+    return;
+  }
+});
+
+/* format time */
+function fmt(t){
+  const m=Math.floor(t/60);
+  const s=Math.floor(t%60).toString().padStart(2,'0');
+  return `${m}:${s}`;
+}
+</script>
+  
 <script>
 let lastScroll=0;
 const header=document.getElementById("header-js");
