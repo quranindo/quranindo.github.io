@@ -736,10 +736,6 @@ document.onpointerup = ()=>{
   qpBar.onpointermove = null;
 };
 
-progress.oninput = ()=>{
-  audio.currentTime = progress.value/100 * audio.duration;
-};
-
 /* volume */
 volume.value = 1;
 volume.oninput = ()=> audio.volume = volume.value;
