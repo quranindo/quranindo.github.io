@@ -172,7 +172,7 @@ body.dark .player-wrap {
 /* CLOSE BUTTON */
 .player-wrap .close {
   position: absolute;
-  top: 8px;
+  top: 30px;
   right: 8px;
   width: 34px;
   height: 34px;
@@ -300,6 +300,7 @@ option{cursor:pointer}
   line-height: 1;
   vertical-align: middle;
 }
+
 
 
 
