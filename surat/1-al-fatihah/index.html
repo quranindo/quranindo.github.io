@@ -799,23 +799,29 @@ load();
 
   <script>
 
+<!-- ========================================= -->
+<!-- SEMUA HTML + SCRIPT KAMU TETAP SAMA       -->
+<!-- (HEAD, AYAT SCRIPT, load(), playAyat dll)-->
+<!-- ========================================= -->
+
+<!-- ================= PLAYER BOTTOM (FIX) ================= -->
 <script>
 (function(){
 
-const audio=document.getElementById('player');
+const audio = document.getElementById('player');
 
-const playBtn=document.getElementById('playBtn');
-const prevBtn=document.getElementById('prevBtn');
-const nextBtn=document.getElementById('nextBtn');
+const playBtn = document.getElementById('playBtn');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
 
-const seekBar=document.getElementById('seekBar');
-const volume=document.getElementById('volume');
+const seekBar = document.getElementById('seekBar');
+const volume  = document.getElementById('volume');
 
-const currentTime=document.getElementById('currentTime');
-const duration=document.getElementById('duration');
-const info=document.getElementById('playerInfo');
+const currentTime = document.getElementById('currentTime');
+const duration    = document.getElementById('duration');
+const info        = document.getElementById('playerInfo');
 
-/* === FIX ICON (PENAMBAHAN) === */
+/* ICON */
 const PLAY_ICON = `
 <svg viewBox="0 0 24 24" width="24">
   <path d="M8 5v14l11-7z"/>
@@ -826,69 +832,70 @@ const PAUSE_ICON = `
   <path d="M6 5h4v14H6zM14 5h4v14h-4z"/>
 </svg>`;
 
-/* === UTIL === */
+/* UTIL */
 function fmt(s){
-  s=Math.floor(s);
-  let m=Math.floor(s/60);
-  let d=s%60;
-  return m+':'+(d<10?'0'+d:d)
+  s = Math.floor(s);
+  let m = Math.floor(s/60);
+  let d = s % 60;
+  return m + ':' + (d < 10 ? '0' + d : d);
 }
 
-/* === BUTTON === */
-playBtn.onclick=()=>{
+/* BUTTON */
+playBtn.onclick = () => {
   audio.paused ? audio.play() : audio.pause();
 };
 
-prevBtn.onclick=()=>{
-  if(currentIndex>0) playAyat(currentIndex-1)
+prevBtn.onclick = () => {
+  if (currentIndex > 0) playAyat(currentIndex - 1);
 };
 
-nextBtn.onclick=()=>{
-  if(currentIndex<ayatEls.length-1)
-  playAyat(currentIndex+1)
+nextBtn.onclick = () => {
+  if (currentIndex < ayatEls.length - 1)
+    playAyat(currentIndex + 1);
 };
 
-/* === AUDIO EVENTS (FIX UTAMA) === */
-audio.addEventListener('play',()=>{
+/* SYNC ICON */
+audio.addEventListener('play', () => {
   playBtn.innerHTML = PAUSE_ICON;
 });
 
-audio.addEventListener('pause',()=>{
+audio.addEventListener('pause', () => {
   playBtn.innerHTML = PLAY_ICON;
 });
 
-audio.addEventListener('ended',()=>{
+audio.addEventListener('ended', () => {
   playBtn.innerHTML = PLAY_ICON;
 });
 
-/* === PROGRESS === */
-audio.ontimeupdate=()=>{
-  if(audio.duration){
-    seekBar.value=(audio.currentTime/audio.duration)*100;
-    currentTime.textContent=fmt(audio.currentTime);
-    duration.textContent=fmt(audio.duration);
+/* PROGRESS */
+audio.ontimeupdate = () => {
+  if (audio.duration) {
+    seekBar.value = (audio.currentTime / audio.duration) * 100;
+    currentTime.textContent = fmt(audio.currentTime);
+    duration.textContent = fmt(audio.duration);
   }
 };
 
-seekBar.oninput=()=>{
-  audio.currentTime=(seekBar.value/100)*audio.duration
+seekBar.oninput = () => {
+  audio.currentTime = (seekBar.value / 100) * audio.duration;
 };
 
-volume.oninput=()=>{
-  audio.volume=volume.value
+volume.oninput = () => {
+  audio.volume = volume.value;
 };
 
-/* === WRAP playAyat (ASLI) === */
-const orig=window.playAyat;
-window.playAyat=function(i){
+/* WRAP playAyat (AMAN) */
+const orig = window.playAyat;
+window.playAyat = function(i){
   orig(i);
   document.getElementById("playerWrap").classList.add("show");
-  info.textContent=
-    suratList[id-1]+" "+(i+1)+"/"+ayatEls.length;
+  info.textContent =
+    suratList[id-1] + " " + (i+1) + "/" + ayatEls.length;
 };
 
 })();
 </script>
+
 
   
 <script>
