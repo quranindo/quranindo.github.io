@@ -66,8 +66,24 @@
   min-width:38px;
   text-align:center;
 }
+.qplayer button svg,
+.play svg{
+  width:18px;
+  height:18px;
+  stroke:currentColor;
+  fill:none;
+  stroke-width:2;
+  pointer-events:none;
+}
+
+.play{
+  background:none;
+  border:none;
+  cursor:pointer;
+}
 
   </style>
+  
 </head>
 
 <body>
@@ -130,23 +146,24 @@
 
   <audio id="player"></audio>
 
-  <div class="qplayer">
+ <div class="qplayer">
 
-    <button id="prevBtn">⏮</button>
-    <button id="playBtn">▶</button>
-    <button id="nextBtn">⏭</button>
+  <button id="prevBtn" aria-label="Prev"></button>
+  <button id="playBtn" aria-label="Play"></button>
+  <button id="nextBtn" aria-label="Next"></button>
 
-    <span id="timeNow">0:00</span>
+  <span id="timeNow">0:00</span>
 
-    <input type="range" id="progress" value="0" min="0" max="100">
+  <input type="range" id="progress" value="0" min="0" max="100">
 
-    <span id="timeTotal">0:00</span>
+  <span id="timeTotal">0:00</span>
 
-    <button id="repeatBtn">🔁</button>
+  <button id="repeatBtn" aria-label="Repeat"></button>
 
-    <input type="range" id="volume" min="0" max="1" step="0.01">
+  <input type="range" id="volume" min="0" max="1" step="0.01">
 
-  </div>
+</div>
+
 </div>
 
 <button class="top" onclick="scrollToTop()">
@@ -408,6 +425,132 @@ function fmt(t){
   return `${m}:${s}`;
 }
 </script>
+
+  <script>
+/* ===============================
+   SVG ICON SET
+================================ */
+
+const svgPlay = `
+<svg viewBox="0 0 24 24">
+  <polygon points="7,5 19,12 7,19"></polygon>
+</svg>`;
+
+const svgPause = `
+<svg viewBox="0 0 24 24">
+  <line x1="8" y1="5" x2="8" y2="19"></line>
+  <line x1="16" y1="5" x2="16" y2="19"></line>
+</svg>`;
+
+const svgPrev = `
+<svg viewBox="0 0 24 24">
+  <polyline points="11 19 2 12 11 5"></polyline>
+  <line x1="22" y1="5" x2="22" y2="19"></line>
+</svg>`;
+
+const svgNext = `
+<svg viewBox="0 0 24 24">
+  <polyline points="13 5 22 12 13 19"></polyline>
+  <line x1="2" y1="5" x2="2" y2="19"></line>
+</svg>`;
+
+const svgRepeat = `
+<svg viewBox="0 0 24 24">
+  <polyline points="23 4 23 10 17 10"></polyline>
+  <polyline points="1 20 1 14 7 14"></polyline>
+  <path d="M3 9a9 9 0 0115-3l5 4M21 15a9 9 0 01-15 3l-5-4"></path>
+</svg>`;
+
+
+/* ===============================
+   PLAYER BUTTON INIT
+================================ */
+
+prevBtn.innerHTML   = svgPrev;
+nextBtn.innerHTML   = svgNext;
+repeatBtn.innerHTML = svgRepeat;
+playBtn.innerHTML   = svgPlay;
+
+
+/* ===============================
+   CARD PLAY BUTTON INIT
+================================ */
+
+function setCardIcons(){
+  ayatEls.forEach(el=>{
+    const b = el.querySelector('.play');
+    if(b) b.innerHTML = svgPlay;
+  });
+}
+
+
+/* ===============================
+   SYNC ICON FUNCTION
+================================ */
+
+function syncIcons(){
+  setCardIcons();
+
+  if(currentIndex>=0 && ayatEls[currentIndex]){
+    const btn = ayatEls[currentIndex].querySelector('.play');
+    if(btn) btn.innerHTML = svgPause;
+  }
+}
+
+
+/* ===============================
+   OVERRIDE playAyat
+   (tambahkan sync saja)
+================================ */
+
+const _playAyat = playAyat;
+
+playAyat = function(i){
+  _playAyat(i);
+  syncIcons();
+};
+
+
+/* ===============================
+   PLAYER EVENTS
+================================ */
+
+audio.onplay = ()=>{
+  playBtn.innerHTML = svgPause;
+  syncIcons();
+};
+
+audio.onpause = ()=>{
+  playBtn.innerHTML = svgPlay;
+  syncIcons();
+};
+
+
+/* ===============================
+   CARD CLICK TOGGLE
+================================ */
+
+document.addEventListener('click',e=>{
+  const btn = e.target.closest('.play');
+  if(!btn) return;
+
+  const idx = ayatEls.findIndex(el=>el.contains(btn));
+
+  if(idx===currentIndex && !audio.paused){
+    audio.pause();
+  }else{
+    playAyat(idx);
+  }
+});
+
+
+/* ===============================
+   AFTER LOAD
+================================ */
+
+setTimeout(setCardIcons,300);
+</script>
+
   
 <script>
 let lastScroll=0;
