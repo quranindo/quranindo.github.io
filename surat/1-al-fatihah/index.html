@@ -107,7 +107,7 @@ body.dark #nextBtn svg{
 
   background:#cecece;
 }
-
+#prevBtn svg,#nextBtn svg{color:#5a5a5a}
 
 /* =========================
    REPEAT
@@ -123,18 +123,6 @@ body.dark #nextBtn svg{
   opacity:1;
   color:#0aa;
 }
-
-
-/* =========================
-   PROGRESS
-========================= */
-
-#progress{
-  flex:1;
-  height:4px;
-  border-radius:4px;
-}
-
 
 /* timer */
 #timeNow,
@@ -159,7 +147,7 @@ body.dark #nextBtn svg{
 
 .player-info{
   text-align:center;
-  font-size:13px;
+  font-size:1.05em;
   font-weight:600;
   margin-bottom:6px;
   opacity:.85;
@@ -223,11 +211,10 @@ body.dark #nextBtn svg{
    RANGE BASE (RESET)
 ========================= */
 
-#progress,
 #volume{
   -webkit-appearance:none;
   appearance:none;
-  height:6px;
+  height:4px;
   border-radius:6px;
   background:#e5e5e5;
   outline:none;
@@ -238,9 +225,8 @@ body.dark #nextBtn svg{
    TRACK COLOR (WEBKIT)
 ========================= */
 
-#progress::-webkit-slider-runnable-track,
 #volume::-webkit-slider-runnable-track{
-  height:6px;
+  height:4px;
   background:#dcdcdc;
   border-radius:6px;
 }
@@ -250,7 +236,6 @@ body.dark #nextBtn svg{
    THUMB (bulat hijau)
 ========================= */
 
-#progress::-webkit-slider-thumb,
 #volume::-webkit-slider-thumb{
   -webkit-appearance:none;
   appearance:none;
@@ -270,14 +255,12 @@ body.dark #nextBtn svg{
    FIREFOX
 ========================= */
 
-#progress::-moz-range-track,
 #volume::-moz-range-track{
-  height:6px;
+  height:4px;
   background:#dcdcdc;
   border-radius:6px;
 }
 
-#progress::-moz-range-thumb,
 #volume::-moz-range-thumb{
   width:14px;
   height:14px;
@@ -287,13 +270,6 @@ body.dark #nextBtn svg{
 }
 
 
-/* =========================
-   PROGRESS ACTIVE COLOR (optional)
-========================= */
-
-#progress{
-  background:linear-gradient(#0aa,#0aa) 0/0% 100% no-repeat, #dcdcdc;
-}
 /* =========================
    DIV PROGRESS (QURAN PLAYER)
 ========================= */
@@ -368,7 +344,6 @@ body.dark #nextBtn svg{
     height:25px;
   }
 
-  /* slider lebih tebal biar enak drag */
   #volume{
     display:none;
   }
