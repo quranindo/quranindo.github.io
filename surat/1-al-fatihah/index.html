@@ -428,7 +428,7 @@ function fmt(t){
 
 <script>
 /* ===============================
-   SVG ICON (TEBAL)
+   SVG ICON TEBAL
 ================================ */
 
 const svgPlay = `
@@ -474,8 +474,7 @@ playBtn.innerHTML   = svgPlay;
 
 
 /* ===============================
-   CARD ICON SYNC ONLY
-   (TIDAK ganggu onclick asli)
+   ICON SYNC
 ================================ */
 
 function setCardIcons(){
@@ -490,13 +489,13 @@ function syncIcons(){
   if(currentIndex>=0 && ayatEls[currentIndex]){
     ayatEls[currentIndex]
       .querySelector('.play')
-      .innerHTML = svgPause;
+      .innerHTML = audio.paused ? svgPlay : svgPause;
   }
 }
 
 
 /* ===============================
-   HOOK playAyat SAJA
+   OVERRIDE playAyat (AMAN)
 ================================ */
 
 const _playAyat = playAyat;
@@ -508,16 +507,42 @@ playAyat = function(i){
 
 
 /* ===============================
+   FIX CLICK CARD (PAUSE/PLAY)
+================================ */
+
+function bindCardButtons(){
+  ayatEls.forEach((el,i)=>{
+    const btn = el.querySelector('.play');
+
+    btn.onclick = ()=>{
+      if(i===currentIndex && !audio.paused){
+        audio.pause();      // 🔥 pause, bukan restart
+      }else{
+        playAyat(i);
+      }
+    };
+  });
+}
+
+
+/* ===============================
    PLAYER EVENTS
 ================================ */
 
 audio.onplay  = ()=>{ playBtn.innerHTML = svgPause; syncIcons(); };
 audio.onpause = ()=>{ playBtn.innerHTML = svgPlay;  syncIcons(); };
+audio.onended = ()=>{ syncIcons(); };
 
 
-setTimeout(setCardIcons,300);
+/* ===============================
+   AFTER LOAD
+================================ */
+
+setTimeout(()=>{
+  setCardIcons();
+  bindCardButtons();   // 🔥 penting
+},300);
 </script>
-
 
   
 <script>
