@@ -428,34 +428,40 @@ function fmt(t){
 
 <script>
 /* ===============================
+   AMAN: tunggu semua siap dulu
+================================ */
+window.addEventListener('load', ()=>{
+
+
+/* ===============================
    SVG ICON TEBAL
 ================================ */
 
 const svgPlay = `
-<svg viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" fill="none">
+<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" fill="none">
   <polygon points="7,5 19,12 7,19"></polygon>
 </svg>`;
 
 const svgPause = `
-<svg viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" fill="none">
+<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" fill="none">
   <line x1="8" y1="5" x2="8" y2="19"></line>
   <line x1="16" y1="5" x2="16" y2="19"></line>
 </svg>`;
 
 const svgPrev = `
-<svg viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" fill="none">
+<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" fill="none">
   <polyline points="11 19 2 12 11 5"></polyline>
   <line x1="22" y1="5" x2="22" y2="19"></line>
 </svg>`;
 
 const svgNext = `
-<svg viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" fill="none">
+<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" fill="none">
   <polyline points="13 5 22 12 13 19"></polyline>
   <line x1="2" y1="5" x2="2" y2="19"></line>
 </svg>`;
 
 const svgRepeat = `
-<svg viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" fill="none">
+<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" fill="none">
   <path d="M17 1l4 4-4 4"></path>
   <path d="M3 11V9a6 6 0 016-6h12"></path>
   <path d="M7 23l-4-4 4-4"></path>
@@ -464,7 +470,7 @@ const svgRepeat = `
 
 
 /* ===============================
-   INIT PLAYER BUTTON
+   INIT BUTTON
 ================================ */
 
 prevBtn.innerHTML   = svgPrev;
@@ -472,13 +478,19 @@ nextBtn.innerHTML   = svgNext;
 repeatBtn.innerHTML = svgRepeat;
 playBtn.innerHTML   = svgPlay;
 
+
+/* ===============================
+   REPEAT AYAT (FIX)
+================================ */
+
 let repeatOne = false;
+
 repeatBtn.onclick = ()=>{
   repeatOne = !repeatOne;
-  audio.loop = repeatOne;   // 🔥 kunci repeat ayat
+  audio.loop = repeatOne;              // 🔥 repeat ayat
   repeatBtn.classList.toggle('active', repeatOne);
 };
-  
+
 
 /* ===============================
    ICON SYNC
@@ -502,11 +514,10 @@ function syncIcons(){
 
 
 /* ===============================
-   OVERRIDE playAyat (AMAN)
+   HOOK playAyat
 ================================ */
 
 const _playAyat = playAyat;
-
 playAyat = function(i){
   _playAyat(i);
   syncIcons();
@@ -514,16 +525,14 @@ playAyat = function(i){
 
 
 /* ===============================
-   FIX CLICK CARD (PAUSE/PLAY)
+   FIX CARD CLICK
 ================================ */
 
 function bindCardButtons(){
   ayatEls.forEach((el,i)=>{
-    const btn = el.querySelector('.play');
-
-    btn.onclick = ()=>{
+    el.querySelector('.play').onclick = ()=>{
       if(i===currentIndex && !audio.paused){
-        audio.pause();      // 🔥 pause, bukan restart
+        audio.pause();
       }else{
         playAyat(i);
       }
@@ -538,18 +547,21 @@ function bindCardButtons(){
 
 audio.onplay  = ()=>{ playBtn.innerHTML = svgPause; syncIcons(); };
 audio.onpause = ()=>{ playBtn.innerHTML = svgPlay;  syncIcons(); };
-audio.onended = ()=>{ syncIcons(); };
 
 
 /* ===============================
-   AFTER LOAD
+   FINAL INIT
 ================================ */
 
 setTimeout(()=>{
   setCardIcons();
-  bindCardButtons();   // 🔥 penting
+  bindCardButtons();
 },300);
+
+
+});
 </script>
+
 
   
 <script>
