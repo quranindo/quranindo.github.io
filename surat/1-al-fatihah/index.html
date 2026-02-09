@@ -168,11 +168,6 @@
 
   box-shadow:0 3px 8px rgba(0,0,0,.15);
 }
-
-.play svg{
-  width:16px;
-  height:16px;
-}
 body.dark .player-wrap{
   background:#1e1e1e;
 }
@@ -181,7 +176,15 @@ body.dark #prevBtn,
 body.dark #nextBtn{
   background:#2a2a2a;
 }
-   
+ .qplayer svg,
+.play svg{
+  width:18px;
+  height:18px;
+  display:block;
+}  
+ #playBtn {
+  background: linear-gradient(135deg,#0aa,#0cc);
+}   
   </style>
   
 </head>
@@ -538,35 +541,30 @@ const playerInfo = document.getElementById('playerInfo');
 ================================ */
 
 const svgPlay = `
-<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" fill="none">
-  <polygon points="7,5 19,12 7,19"></polygon>
-</svg>`;
+<svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M8 5v14l11-7z"/>
+  </svg>`;
 
 const svgPause = `
-<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" fill="none">
-  <line x1="8" y1="5" x2="8" y2="19"></line>
-  <line x1="16" y1="5" x2="16" y2="19"></line>
-</svg>`;
+<svg viewBox="0 0 24 24" fill="currentColor">
+    <rect x="6" y="5" width="4" height="14" rx="1"/>
+    <rect x="14" y="5" width="4" height="14" rx="1"/>
+  </svg>`;
 
 const svgPrev = `
-<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" fill="none">
-  <polyline points="11 19 2 12 11 5"></polyline>
-  <line x1="22" y1="5" x2="22" y2="19"></line>
-</svg>`;
+<svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M11 12l9 7V5zM4 5h3v14H4z"/>
+  </svg>`;
 
 const svgNext = `
-<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" fill="none">
-  <polyline points="13 5 22 12 13 19"></polyline>
-  <line x1="2" y1="5" x2="2" y2="19"></line>
-</svg>`;
+<svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M13 12L4 5v14zM17 5h3v14h-3z"/>
+  </svg>`;
 
 const svgRepeat = `
-<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" fill="none">
-  <path d="M17 1l4 4-4 4"></path>
-  <path d="M3 11V9a6 6 0 016-6h12"></path>
-  <path d="M7 23l-4-4 4-4"></path>
-  <path d="M21 13v2a6 6 0 01-6 6H3"></path>
-</svg>`;
+<svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17 1l4 4-4 4V6H7a4 4 0 00-4 4H1a6 6 0 016-6h10V1zM7 23l-4-4 4-4v3h10a4 4 0 004-4h2a6 6 0 01-6 6H7v3z"/>
+  </svg>`;
 
 
 /* ===============================
