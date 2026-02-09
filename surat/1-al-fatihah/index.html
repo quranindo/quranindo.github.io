@@ -13,148 +13,12 @@
 <meta property="og:description" content="Al-Qur'an Digital 30 Juz lengkap dengan teks Arab, terjemah Indonesia, dan murottal audio.">
 <meta property="og:image" content="/assets/img/cover.jpg">
 <link rel="icon" href="/assets/img/favicon.ico">
-  <!-- PWA -->
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#046260">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="../../css/base.css">
 <link rel="stylesheet" href="../../css/surat.css">
-<style>
- /* PLAYER WRAP */
-.player-wrap{
-position:fixed;
-left:50%;
-bottom:18px;
-transform:translateX(-50%);
-width:min(92%,420px);
-background:#ffffff;
-border-radius:14px;
-box-shadow:
-0 10px 30px rgba(0,0,0,.15),
-0 2px 6px rgba(0,0,0,.08);
-padding:12px 14px 10px;
-z-index:9999;
-display:none;
-animation:playerFade .25s ease;
-}
-
-.player-wrap.show{
-display:block;
-}
-
-@keyframes playerFade{
-from{
-opacity:0;
-transform:translateX(-50%) translateY(10px);
-}
-to{
-opacity:1;
-transform:translateX(-50%) translateY(0);
-}
-}
-
-
-/* INFO SURAT */
-#playerInfo{
-font-size:13px;
-font-weight:600;
-margin-bottom:6px;
-color:#222;
-}
-
-
-/* CONTROLS ROW */
-.player-controls{
-display:flex;
-align-items:center;
-gap:6px;
-}
-
-
-/* BUTTON */
-.player-controls button{
-display:flex;
-align-items:center;
-justify-content:center;
-width:34px;
-height:34px;
-border-radius:8px;
-border:none;
-background:#f3f4f6;
-cursor:pointer;
-transition:.15s;
-}
-
-.player-controls button:hover{
-background:#e5e7eb;
-}
-
-.player-controls button:active{
-transform:scale(.92);
-}
-
-
-/* ICON */
-.player-controls svg{
-width:18px;
-height:18px;
-stroke:#111;
-stroke-width:2;
-fill:none;
-}
-
-
-/* SEEK BAR */
-#seekBar{
-flex:1;
-height:4px;
-border-radius:3px;
-background:#e5e7eb;
-appearance:none;
-cursor:pointer;
-}
-
-#seekBar::-webkit-slider-thumb{
-appearance:none;
-width:12px;
-height:12px;
-border-radius:50%;
-background:#2563eb;
-cursor:pointer;
-}
-
-
-/* VOLUME */
-#volume{
-width:70px;
-height:4px;
-}
-
-
-/* TIME TEXT */
-#currentTime,
-#duration{
-font-size:11px;
-color:#444;
-min-width:34px;
-text-align:center;
-}
-/* CLOSE BUTTON */
-.player-wrap .close{
-position:absolute;
-right:6px;
-top:6px;
-background:none;
-border:none;
-cursor:pointer;
-opacity:.6;
-}
-.player-wrap .close:hover{
-opacity:1;
-}
-</style>
-  
 </head>
 
 <body>
@@ -199,184 +63,6 @@ opacity:1;
 <div id="bismillah" class="bismillah"></div>
 <div id="content"></div>
 
-<script>
-/* ==========================================
-   QURAN SIGN SPLITTER + HIZB LOGIC (FINAL)
-   ========================================== */
-
-/* WAQAF VALID (LPMQ / Mushaf Madinah) */
-const WAQAF_SET = new Set([
-  '\u06D6', // ۖ
-  '\u06D7', // ۗ
-  '\u06D8', // ۘ
-  '\u06D9', // ۙ
-  '\u06DA', // ۚ
-  '\u06DB', // ۛ
-  '\u06DC'  // ۜ
-]);
-
-/* RUB EL HIZB */
-const RUB_SIGN = '\u06DE'; // ۞
-
-/* NUN WIQOYAH  */
-const NUN_WIQOYAH = '\u06E8';
-
-/* IQLAB MIM */
-const IQLAB_MIM = '\u06E2';
-
-/* ARABIC DOT (FULL STOP) */
-const ARABIC_DOT = '\u06D4'; // ۔
-
-/* SCAN QURANIC MARKS AREA */
-const QURAN_SCAN_REGEX = /([\u06D4\u06D6-\u06ED])/g;
-
-/* ==========================================
-   SPLITTER
-   ========================================== */
-function splitQuranSigns(root = document) {
-  root.querySelectorAll('.ayah-text').forEach(el => {
-    if (el.dataset.signSplit) return;
-
-    el.innerHTML = el.innerHTML.replace(QURAN_SCAN_REGEX, ch => {
-
-      /* ARABIC DOT → JUZ MARK */
-      if (ch === ARABIC_DOT) {
-        return `<span class="arabic-dot">${ch}</span>`;
-      }
-
-      /* NUN WIQOYAH */
-      if (ch === NUN_WIQOYAH) {
-        return `<span class="nun-wiqoyah">${ch}</span>`;
-      }
-
-      /* IQLAB MIM */
-      if (ch === IQLAB_MIM) {
-        return `<span class="iqlab-mim">${ch}</span>`;
-      }
-
-      /* RUB EL HIZB */
-      if (ch === RUB_SIGN) {
-        return `<span class="rub-wrap"><span class="rub-sign">${ch}</span></span>`;
-      }
-
-      /* WAQAF */
-      if (WAQAF_SET.has(ch)) {
-        return `<span class="waqaf">${ch}</span>`;
-      }
-
-      return ch;
-    });
-
-    el.dataset.signSplit = '1';
-  });
-}
-
-/* ==========================================
-   HIZB LABEL LOGIC (RUB = END, NOT START)
-   ========================================== */
-function applyHizbLabels() {
-  document.querySelectorAll('.rub-wrap').forEach((rub, i) => {
-    let label = '';
-    const rubIndex = (i + 1) % 4;
-
-    switch (rubIndex) {
-      case 1: label = '¼ حزب'; break;
-      case 2: label = '½ حزب'; break;
-      case 3: label = '¾ حزب'; break;
-      case 0: label = 'حزب'; break;
-    }
-
-    rub.dataset.hizbLabel = label;
-  });
-}
-
-/* ==========================================
-   CSS INJECT (WAQAF + HIZB + JUZ)
-   ========================================== */
-function injectStyles() {
-  if (document.getElementById('quran-sign-style')) return;
-
-  const style = document.createElement('style');
-  style.id = 'quran-sign-style';
-  style.textContent = `
-
-    .iqlab-mim {
-      font-size: .7em;
-      vertical-align: super;
-      margin-inline-start: 1px;
-    }
-
-    .rub-wrap {
-      position: relative;
-      display: inline-block;
-      margin-inline-start: .15em;
-    }
-
-    .rub-wrap::after {
-      content: attr(data-hizb-label);
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%) translateY(-.6em);
-      font-size: .4em;
-      white-space: nowrap;
-      line-height: 1;
-    }
-
-    /* ARABIC DOT → JUZ LABEL */
-    .arabic-dot {
-      position: relative;
-      color: transparent;
-      display: inline-block;
-      margin-inline-start: -.15em;
-    }
-
-    .arabic-dot::after {
-      content: 'الجزء';
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%) translateY(-.2em);
-      font-size: .6em;
-      white-space: nowrap;
-      line-height: 1;
-      color: #e1bf05;
-    }
-  `;
-  document.head.appendChild(style);
-}
-
-/* ==========================================
-   OBSERVER
-   ========================================== */
-const observer = new MutationObserver(mutations => {
-  mutations.forEach(m => {
-    m.addedNodes.forEach(node => {
-      if (node.nodeType !== 1) return;
-
-      if (node.classList.contains('ayat')) {
-        splitQuranSigns(node);
-        applyHizbLabels();
-      }
-
-      node.querySelectorAll?.('.ayat').forEach(el => {
-        splitQuranSigns(el);
-        applyHizbLabels();
-      });
-    });
-  });
-});
-
-observer.observe(document.body, {
-  childList: true,
-  subtree: true
-});
-
-/* INIT */
-splitQuranSigns();
-applyHizbLabels();
-injectStyles();
-
-</script>
-
 <div class="nav" id="navBottom">
   <button onclick="go(-1)"></button>
   <button onclick="go(1)"></button>
@@ -390,58 +76,21 @@ injectStyles();
 </div>
 
 <div class="player-wrap" id="playerWrap">
-
-<button class="close" onclick="closePlayer()">
-<svg viewBox="0 0 24 24" width="20">
-<line x1="6" y1="6" x2="18" y2="18"/>
-<line x1="18" y1="6" x2="6" y2="18"/>
-</svg>
-</button>
-
-<div id="playerInfo"></div>
-
-<audio id="player"></audio>
-
-<div class="player-controls">
-
-<button id="prevBtn">
-<svg viewBox="0 0 24 24" width="20">
-<path d="M6 6v12M18 6l-10 6 10 6"/>
-</svg>
-</button>
-
-<button id="playBtn">
-<svg viewBox="0 0 24 24" width="24">
-<path d="M8 5v14l11-7z"/>
-</svg>
-</button>
-
-<button id="nextBtn">
-<svg viewBox="0 0 24 24" width="20">
-<path d="M18 6v12M6 6l10 6-10 6"/>
-</svg>
-</button>
-
-<span id="currentTime">0:00</span>
-
-<input type="range" id="seekBar" value="0">
-
-<span id="duration">0:00</span>
-
-<input type="range" id="volume" min="0" max="1" step="0.01" value="1">
-
+  <button class="close" onclick="closePlayer()" aria-label="Tutup player">
+    <svg viewBox="0 0 24 24" width="20" height="20">
+      <line x1="6" y1="6" x2="18" y2="18"/>
+      <line x1="18" y1="6" x2="6" y2="18"/>
+    </svg>
+  </button>
+  <audio id="player" controls></audio>
 </div>
-
-</div>
-
 
 <button class="top" onclick="scrollToTop()">
   <svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"></path></svg>
 </button>
 
 <script>
- window.SURAT_ID = 1; 
-/* ================= DROPDOWN SURAT ================= */
+window.SURAT_ID = 1;
 const suratList = [
   "Al-Fatihah","Al-Baqarah","Ali 'Imran","An-Nisa","Al-Ma'idah","Al-An'am","Al-A'raf","Al-Anfal","At-Taubah","Yunus",
   "Hud","Yusuf","Ar-Ra'd","Ibrahim","Al-Hijr","An-Nahl","Al-Isra","Al-Kahf","Maryam","Ta-Ha",
@@ -458,379 +107,91 @@ const suratList = [
 ];
 
 const select = document.getElementById("suratSelect");
-const currentId = window.SURAT_ID;
-
-suratList.forEach((nama, i) => {
-  const opt = document.createElement("option");
-  opt.value = i + 1;
-  opt.textContent = `${i+1}. ${nama}`;
-  if (i + 1 === currentId) opt.selected = true;
-  select.appendChild(opt);
+suratList.forEach((n,i)=>{
+  const o=document.createElement("option");
+  o.value=i+1;
+  o.textContent=`${i+1}. ${n}`;
+  if(i+1===window.SURAT_ID)o.selected=true;
+  select.appendChild(o);
 });
-
-select.onchange = e => {
-  const index = +e.target.value;
-  const slug = `${index}-${slugify(suratList[index - 1])}`;
-  location.href = `/surat/${slug}/`;
+select.onchange=e=>{
+  const i=+e.target.value;
+  location.href=`/surat/${i}-${slugify(suratList[i-1])}/`;
 };
-
-function slugify(nama) {
-  return nama
-    .toLowerCase()
-    .replace(/['’]/g, '')
-    .replace(/\s+/g, '-');
-}
+function slugify(n){return n.toLowerCase().replace(/['’]/g,'').replace(/\s+/g,'-');}
 </script>
 
 <script src="../../js/theme.js"></script>
 
 <script>
-/* ================= INIT ================= */
-const id =
-  window.SURAT_ID ||
-  +new URLSearchParams(location.search).get('id') ||
-  1;
+const id = window.SURAT_ID;
+const titleLatin=document.getElementById('titleLatin');
+const titleArab=document.getElementById('titleArab');
+const titleArti=document.getElementById('titleArti');
+const info=document.getElementById('info');
+const content=document.getElementById('content');
+const bismillah=document.getElementById('bismillah');
+const audio=document.getElementById('player');
+const wrap=document.getElementById('playerWrap');
+let ayatEls=[],currentIndex=-1,prevSurah=null,nextSurah=null,allSurah=[];
 
-function slugify(nama) {
-  return nama
-    .toLowerCase()
-    .replace(/['’]/g, '')
-    .replace(/\s+/g, '-');
-}
-
-/* ================= ELEMENTS ================= */
-const titleLatin = document.getElementById('titleLatin');
-const titleArab  = document.getElementById('titleArab');
-const titleArti  = document.getElementById('titleArti');
-const info       = document.getElementById('info');
-const content    = document.getElementById('content');
-const bismillah  = document.getElementById('bismillah');
-
-const audio  = document.getElementById('player');
-const wrap   = document.getElementById('playerWrap');
-const topBtn = document.querySelector('.top');
-
-const navBtns  = document.querySelectorAll('.nav:first-of-type button');
-const navBtnsB = document.querySelectorAll('#navBottom button');
-
-/* ================= STATE ================= */
-let ayatEls = [];
-let currentIndex = -1;
-let prevSurah = null;
-let nextSurah = null;
-let allSurah  = [];
-
-const AUTO_NEXT_SURAH = true;
-
-/* ================= BACK TO TOP ================= */
-window.addEventListener('scroll', () => {
-  if (!topBtn) return;
-  topBtn.style.display = window.scrollY > 500 ? 'block' : 'none';
-});
-
-function scrollToTop() {
-  scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-/* ================= AUDIO ================= */
-
-/* 1. UPDATE ICON AYAT */
-function updatePlayIcons(activeIndex){
-  ayatEls.forEach((el, i) => {
-    const btn = el.querySelector('.play');
-    if (!btn) return;
-
-    if (i === activeIndex && !audio.paused){
-      btn.innerHTML =
-      `<svg viewBox="0 0 24 24" width="18">
-        <path d="M6 5h4v14H6zM14 5h4v14h-4z"/>
-      </svg>`;
-    } else {
-      btn.innerHTML =
-      `<svg viewBox="0 0 24 24" width="18">
-        <path d="M8 5v14l11-7z"/>
-      </svg>`;
-    }
-  });
-}
-
-/* 2. PLAY AYAT (ASLI PRODUKSI) */
 function playAyat(i){
-
-  if (i < 0 || i >= ayatEls.length) return;
-
-  if (currentIndex === i && audio.src){
-    audio.paused ? audio.play() : audio.pause();
-    return;
-  }
-
-  currentIndex = i;
-
-  const file =
-  `${String(SURAT_ID).padStart(3,'0')}${String(i+1).padStart(3,'0')}`;
-
-  audio.src =
-  `https://everyayah.com/data/Alafasy_64kbps/${file}.mp3`;
-
+  currentIndex=i;
+  const file=`${String(id).padStart(3,'0')}${String(i+1).padStart(3,'0')}`;
+  audio.src=`https://everyayah.com/data/Alafasy_64kbps/${file}.mp3`;
   wrap.classList.add('show');
   audio.play();
-  updatePlayIcons(i);
-  localStorage.setItem(`lastAyatSurah${SURAT_ID}`, i);
-}
-
-/* 3. AUDIO EVENTS */
-audio.addEventListener('play', () => {
-  updatePlayIcons(currentIndex);
-});
-
-audio.addEventListener('pause', () => {
-  updatePlayIcons(-1);
-});
-
-audio.addEventListener('ended', () => {
-
-  updatePlayIcons(-1);
-
-  if (currentIndex < ayatEls.length - 1) {
-    playAyat(currentIndex + 1);
-  } else if (AUTO_NEXT_SURAH && nextSurah) {
-    const s = allSurah[nextSurah - 1];
-    location.href =
-      `/surat/${nextSurah}-${slugify(s.nama_latin)}/`;
-  }
-});
-
-/* 4. CLOSE PLAYER */
-function closePlayer(){
-  audio.pause();
-  audio.src = '';
-  wrap.classList.remove('show');
-  updatePlayIcons(-1);
-}
-
-/* ================= AYAT STATE ================= */
-function setActiveAyat(i) {
-  if (i < 0 || i >= ayatEls.length) return;
-  currentIndex = i;
   highlight(i);
 }
 
-function highlight(i) {
-  ayatEls.forEach(e => e.classList.remove('active'));
-  const el = ayatEls[i];
-  if (!el) return;
+audio.addEventListener('ended',()=>{
+  if(currentIndex<ayatEls.length-1)playAyat(currentIndex+1);
+});
 
-  el.classList.add('active');
-  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+function closePlayer(){
+  audio.pause();
+  audio.src='';
+  wrap.classList.remove('show');
 }
 
-/* ================= NAV ================= */
-function go(n) {
-  if (n === -1 && prevSurah) {
-    const s = allSurah[prevSurah - 1];
-    location.href = `/surat/${prevSurah}-${slugify(s.nama_latin)}/`;
-  }
-  if (n === 1 && nextSurah) {
-    const s = allSurah[nextSurah - 1];
-    location.href = `/surat/${nextSurah}-${slugify(s.nama_latin)}/`;
-  }
+function highlight(i){
+  ayatEls.forEach(e=>e.classList.remove('active'));
+  ayatEls[i]?.classList.add('active');
 }
 
-function setNav(btns) {
-  if (!btns.length) return;
-
-  const prevSVG =
-    `<svg width="16" viewBox="0 0 24 24">
-      <polyline points="15 18 9 12 15 6"
-        fill="none" stroke="currentColor" stroke-width="2"/>
-    </svg>`;
-
-  const nextSVG =
-    `<svg width="16" viewBox="0 0 24 24">
-      <polyline points="9 18 15 12 9 6"
-        fill="none" stroke="currentColor" stroke-width="2"/>
-    </svg>`;
-
-  if (prevSurah) {
-    btns[0].innerHTML =
-      prevSVG + allSurah[prevSurah - 1].nama_latin;
-  }
-
-  if (nextSurah) {
-    btns[1].innerHTML =
-      allSurah[nextSurah - 1].nama_latin + nextSVG;
-  }
-}
-
-/* ================= SEO HELPERS ================= */
-function setMeta(attr, key, value) {
-  let m = document.querySelector(`meta[${attr}="${key}"]`);
-  if (!m) {
-    m = document.createElement('meta');
-    m.setAttribute(attr, key);
-    document.head.appendChild(m);
-  }
-  m.setAttribute('content', value);
-}
-
-/* ================= LOAD ================= */
-async function load() {
-  allSurah = await (await fetch('https://equran.id/api/surat')).json();
-
-  prevSurah = id > 1 ? id - 1 : null;
-  nextSurah = id < 114 ? id + 1 : null;
-
-  setNav(navBtns);
-  setNav(navBtnsB);
-
-  const s = await (await fetch(`https://equran.id/api/surat/${id}`)).json();
-
-  /* ===== SEO AUTO ===== */
-  const slug = slugify(s.nama_latin);
-  const canonical = `${location.origin}/surat/${id}-${slug}/`;
-
-  document.title =
-    `Surat ${s.nama_latin} (${s.arti}) | Al-Qur'an`;
-
-  const desc =
-    `Baca Surat ${s.nama_latin} (${s.arti}) lengkap ` +
-    `${s.jumlah_ayat} ayat, teks Arab, terjemah Indonesia, dan audio.`;
-
-  const metaDesc = document.querySelector('meta[name="description"]');
-  if (metaDesc) metaDesc.setAttribute('content', desc);
-
-  const canonLink = document.getElementById('canonicalLink');
-  if (canonLink) canonLink.href = canonical;
-
-  setMeta('property', 'og:title',
-    `Surat ${s.nama_latin} | Al-Qur'an`);
-  setMeta('property', 'og:description', desc);
-  setMeta('property', 'og:url', canonical);
-  setMeta('property', 'og:image',
-    `${location.origin}/assets/img/cover.jpg`);
-
-  /* ===== CONTENT ===== */
-  titleLatin.textContent = `${s.nomor}. ${s.nama_latin}`;
-  titleArab.textContent  = s.nama;
-  titleArti.textContent  = `(${s.arti})`;
-  info.textContent       = `${s.jumlah_ayat} Ayat • ${s.tempat_turun}`;
-
-  bismillah.textContent =
-    (id !== 1 && id !== 9)
-      ? 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ'
-      : '';
-
-  content.innerHTML = '';
-  ayatEls = [];
-
-  s.ayat.forEach((a, i) => {
-    const el = document.createElement('div');
-    el.className = 'ayat';
-    el.innerHTML = `
-      <button class="play">▶</button>
-      <div class="arab">
-        <span class="ayah-text">${a.ar}</span>
-        ۝${toArabic(a.nomor)}
-      </div>
-      <div class="arti">${a.idn}</div>
-    `;
-    el.querySelector('.play').onclick = () => playAyat(i);
+async function load(){
+  allSurah=await(await fetch('https://equran.id/api/surat')).json();
+  prevSurah=id>1?id-1:null;
+  nextSurah=id<114?id+1:null;
+  const s=await(await fetch(`https://equran.id/api/surat/${id}`)).json();
+  titleLatin.textContent=`${s.nomor}. ${s.nama_latin}`;
+  titleArab.textContent=s.nama;
+  titleArti.textContent=`(${s.arti})`;
+  info.textContent=`${s.jumlah_ayat} Ayat • ${s.tempat_turun}`;
+  bismillah.textContent=(id!==1&&id!==9)?'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ':'';
+  content.innerHTML='';
+  ayatEls=[];
+  s.ayat.forEach((a,i)=>{
+    const el=document.createElement('div');
+    el.className='ayat';
+    el.innerHTML=`<button class="play">▶</button><div class="arab"><span>${a.ar}</span> ۝${a.nomor}</div><div class="arti">${a.idn}</div>`;
+    el.querySelector('.play').onclick=()=>playAyat(i);
     content.appendChild(el);
     ayatEls.push(el);
   });
-
-  const last = localStorage.getItem(`lastAyatSurah${id}`);
-  if (last !== null) setActiveAyat(+last);
 }
-
-function toArabic(n) {
-  return n.toString().replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
-}
-
-/* ================= INIT ================= */
 load();
 </script>
 
 <script>
-(function(){
-
-const playBtn = document.getElementById('playBtn');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-
-const seekBar = document.getElementById('seekBar');
-const volume  = document.getElementById('volume');
-
-const currentTime = document.getElementById('currentTime');
-const duration    = document.getElementById('duration');
-const info        = document.getElementById('playerInfo');
-
-function fmt(s){
-  s=Math.floor(s);
-  let m=Math.floor(s/60);
-  let d=s%60;
-  return m+':'+(d<10?'0'+d:d);
-}
-
-/* 🔑 FIX FINAL: PLAYER BAWAH TIDAK MENGONTROL AUDIO */
-playBtn.onclick = () => {
-  if (currentIndex !== -1) playAyat(currentIndex);
-};
-
-prevBtn.onclick = () => {
-  if (currentIndex > 0) playAyat(currentIndex - 1);
-};
-
-nextBtn.onclick = () => {
-  if (currentIndex < ayatEls.length - 1)
-    playAyat(currentIndex + 1);
-};
-
-/* PROGRESS */
-audio.ontimeupdate = () => {
-  if (audio.duration) {
-    seekBar.value = (audio.currentTime/audio.duration)*100;
-    currentTime.textContent = fmt(audio.currentTime);
-    duration.textContent    = fmt(audio.duration);
-  }
-};
-
-seekBar.oninput = () => {
-  audio.currentTime = (seekBar.value/100)*audio.duration;
-};
-
-volume.oninput = () => {
-  audio.volume = volume.value;
-};
-
-/* INFO */
-const orig = window.playAyat;
-window.playAyat = function(i){
-  orig(i);
-  info.textContent =
-    suratList[SURAT_ID-1] + " " + (i+1) + "/" + ayatEls.length;
-};
-
-})();
-</script>
-
-
-  
-<script>
-  let lastScroll = 0;
-const header = document.getElementById("header-js");
-window.addEventListener("scroll", () => {
-  const c = window.pageYOffset;
-  header.classList.toggle("hide", c > lastScroll && c > 80);
-  lastScroll = c;
+let lastScroll=0;
+const header=document.getElementById("header-js");
+window.addEventListener("scroll",()=>{
+  const c=window.pageYOffset;
+  header.classList.toggle("hide",c>lastScroll&&c>80);
+  lastScroll=c;
 });
 </script>
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js');
-  });
-}
-</script>
+
 </body>
 </html>
