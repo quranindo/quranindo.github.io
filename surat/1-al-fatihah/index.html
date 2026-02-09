@@ -329,6 +329,49 @@ body.dark #nextBtn{
   #volume{
     height:8px;
   }
+/* =========================
+   DIV PROGRESS (QURAN PLAYER)
+========================= */
+
+.qpBar{
+  position:relative;
+  flex:1;
+
+  height:14px;
+  background:#e5e5e5;
+  border-radius:14px;
+
+  cursor:pointer;
+}
+
+
+/* fill hijau */
+#qpFill{
+  position:absolute;
+  left:0;
+  top:0;
+  height:100%;
+  width:0%;
+
+  background:#0aa;
+  border-radius:14px;
+}
+
+
+/* thumb */
+#qpThumb{
+  position:absolute;
+  top:50%;
+  left:0;
+
+  width:14px;
+  height:14px;
+
+  background:#0aa;
+  border-radius:50%;
+
+  transform:translate(-50%,-50%);
+}
 
   /* thumb lebih besar */
   #progress::-webkit-slider-thumb,
@@ -430,7 +473,11 @@ body.dark #nextBtn{
 
   <span id="timeNow">0:00</span>
 
-  <input type="range" id="progress" value="0" min="0" max="100">
+<div id="qpBar" class="qpBar">
+  <div id="qpFill"></div>
+  <div id="qpThumb"></div>
+</div>
+
 
   <span id="timeTotal">0:00</span>
 
@@ -640,7 +687,9 @@ load();
 const playBtn   = document.getElementById('playBtn');
 const prevBtn   = document.getElementById('prevBtn');
 const nextBtn   = document.getElementById('nextBtn');
-const progress  = document.getElementById('progress');
+const qpBar   = document.getElementById('qpBar');
+const qpFill  = document.getElementById('qpFill');
+const qpThumb = document.getElementById('qpThumb');
 const volume    = document.getElementById('volume');
 const repeatBtn = document.getElementById('repeatBtn');
 const timeNow   = document.getElementById('timeNow');
@@ -666,10 +715,27 @@ audio.ontimeupdate = ()=>{
   if(!audio.duration) return;
 
   const p = audio.currentTime/audio.duration*100;
-  progress.value = p;
-   progress.style.backgroundSize = p + '% 100%'; 
+  qpFill.style.width = p+"%";
+  qpThumb.style.left = p+"%";
   timeNow.textContent   = fmt(audio.currentTime);
   timeTotal.textContent = fmt(audio.duration);
+};
+function seek(e){
+  const rect = qpBar.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const p = x/rect.width;
+
+  audio.currentTime = p * audio.duration;
+}
+
+qpBar.onclick = seek;
+
+qpBar.onpointerdown = ()=>{
+  qpBar.onpointermove = seek;
+};
+
+document.onpointerup = ()=>{
+  qpBar.onpointermove = null;
 };
 
 progress.oninput = ()=>{
