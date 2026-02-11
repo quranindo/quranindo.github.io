@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Quran</title>
+<title>Al-Quran Digital</title>
 
 <link id="canonicalLink" rel="canonical" href="">
 <meta name="description" content="Baca Al-Qur'an lengkap dengan teks Arab, terjemah Indonesia, dan murottal audio.">
@@ -13,14 +13,16 @@
 <meta property="og:description" content="Al-Qur'an Digital 30 Juz lengkap dengan teks Arab, terjemah Indonesia, dan murottal audio.">
 <meta property="og:image" content="/assets/img/cover.jpg">
 <link rel="icon" href="/assets/img/favicon.ico">
-  <!-- PWA -->
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#046260">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="../../css/base.css">
 <link rel="stylesheet" href="../../css/surat.css">
-<link rel="stylesheet" href="../../css/plyr.css">
+<link rel="stylesheet" href="../../css/banner.css">
+<link rel="stylesheet" href="../../css/player.css">
+<link rel="stylesheet" href="../../css/surahquran.css">
+ 
 </head>
 
 <body>
@@ -32,21 +34,21 @@
   </svg> 
 </a>
 <button class="toggle" onclick="toggleDark()">🌙</button>
-<h1>
-  <img src="https://lh3.googleusercontent.com/d/1-Ufwu2QXVkDiVmHp0wr0tq4GUVUrEpH-=w100"
+<h1><a href="/">
+  <img src="../../assets/img/quran-logo-small3.png"
        width="100"
-       height="43"
+       height="52"
        alt="Al-Quranul Karim"
        loading="eager"
-       decoding="async">
+       decoding="async"></a>
 </h1>
 </header>
 
 <div class="top-container">
-  <h2 id="titleLatin"></h2>
-  <div id="titleArab" class="arab-title"></div>
-  <div id="titleArti"></div>
-  <div id="info" class="info"></div>
+  <h2 id="titleLatin">93. Ad-Dhuha</h2>
+  <div id="titleArab" class="arab-title"><i class="icon-0"></i><i class="icon-93"></i></div>
+  <div id="titleArti">Waktu Duha</div>
+  <div id="info" class="info">11 Ayat • Mekah</div>
 </div>
 
 <div class="container">
@@ -62,186 +64,30 @@
   <select id="suratSelect"></select>
 </div>
 
-<div id="bismillah" class="bismillah"></div>
+<div id="bismillah" class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
 <div id="content"></div>
+<script src="../../js/waqafsplitter.js"></script>
 
-<script>
-/* ==========================================
-   QURAN SIGN SPLITTER + HIZB LOGIC (FINAL)
-   ========================================== */
-
-/* WAQAF VALID (LPMQ / Mushaf Madinah) */
-const WAQAF_SET = new Set([
-  '\u06D6', // ۖ
-  '\u06D7', // ۗ
-  '\u06D8', // ۘ
-  '\u06D9', // ۙ
-  '\u06DA', // ۚ
-  '\u06DB', // ۛ
-  '\u06DC'  // ۜ
-]);
-
-/* RUB EL HIZB */
-const RUB_SIGN = '\u06DE'; // ۞
-
-/* NUN WIQOYAH  */
-const NUN_WIQOYAH = '\u06E8';
-
-/* IQLAB MIM */
-const IQLAB_MIM = '\u06E2';
-
-/* ARABIC DOT (FULL STOP) */
-const ARABIC_DOT = '\u06D4'; // ۔
-
-/* SCAN QURANIC MARKS AREA */
-const QURAN_SCAN_REGEX = /([\u06D4\u06D6-\u06ED])/g;
-
-/* ==========================================
-   SPLITTER
-   ========================================== */
-function splitQuranSigns(root = document) {
-  root.querySelectorAll('.ayah-text').forEach(el => {
-    if (el.dataset.signSplit) return;
-
-    el.innerHTML = el.innerHTML.replace(QURAN_SCAN_REGEX, ch => {
-
-      /* ARABIC DOT → JUZ MARK */
-      if (ch === ARABIC_DOT) {
-        return `<span class="arabic-dot">${ch}</span>`;
-      }
-
-      /* NUN WIQOYAH */
-      if (ch === NUN_WIQOYAH) {
-        return `<span class="nun-wiqoyah">${ch}</span>`;
-      }
-
-      /* IQLAB MIM */
-      if (ch === IQLAB_MIM) {
-        return `<span class="iqlab-mim">${ch}</span>`;
-      }
-
-      /* RUB EL HIZB */
-      if (ch === RUB_SIGN) {
-        return `<span class="rub-wrap"><span class="rub-sign">${ch}</span></span>`;
-      }
-
-      /* WAQAF */
-      if (WAQAF_SET.has(ch)) {
-        return `<span class="waqaf">${ch}</span>`;
-      }
-
-      return ch;
-    });
-
-    el.dataset.signSplit = '1';
-  });
-}
-
-/* ==========================================
-   HIZB LABEL LOGIC (RUB = END, NOT START)
-   ========================================== */
-function applyHizbLabels() {
-  document.querySelectorAll('.rub-wrap').forEach((rub, i) => {
-    let label = '';
-    const rubIndex = (i + 1) % 4;
-
-    switch (rubIndex) {
-      case 1: label = '¼ حزب'; break;
-      case 2: label = '½ حزب'; break;
-      case 3: label = '¾ حزب'; break;
-      case 0: label = 'حزب'; break;
-    }
-
-    rub.dataset.hizbLabel = label;
-  });
-}
-
-/* ==========================================
-   CSS INJECT (WAQAF + HIZB + JUZ)
-   ========================================== */
-function injectStyles() {
-  if (document.getElementById('quran-sign-style')) return;
-
-  const style = document.createElement('style');
-  style.id = 'quran-sign-style';
-  style.textContent = `
-
-    .iqlab-mim {
-      font-size: .7em;
-      vertical-align: super;
-      margin-inline-start: 1px;
-    }
-
-    .rub-wrap {
-      position: relative;
-      display: inline-block;
-      margin-inline-start: .15em;
-    }
-
-    .rub-wrap::after {
-      content: attr(data-hizb-label);
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%) translateY(-.6em);
-      font-size: .4em;
-      white-space: nowrap;
-      line-height: 1;
-    }
-
-    /* ARABIC DOT → JUZ LABEL */
-    .arabic-dot {
-      position: relative;
-      color: transparent;
-      display: inline-block;
-      margin-inline-start: -.15em;
-    }
-
-    .arabic-dot::after {
-      content: 'الجزء';
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%) translateY(-.2em);
-      font-size: .6em;
-      white-space: nowrap;
-      line-height: 1;
-      color: #e1bf05;
-    }
-  `;
-  document.head.appendChild(style);
-}
-
-/* ==========================================
-   OBSERVER
-   ========================================== */
-const observer = new MutationObserver(mutations => {
-  mutations.forEach(m => {
-    m.addedNodes.forEach(node => {
-      if (node.nodeType !== 1) return;
-
-      if (node.classList.contains('ayat')) {
-        splitQuranSigns(node);
-        applyHizbLabels();
-      }
-
-      node.querySelectorAll?.('.ayat').forEach(el => {
-        splitQuranSigns(el);
-        applyHizbLabels();
-      });
-    });
-  });
-});
-
-observer.observe(document.body, {
-  childList: true,
-  subtree: true
-});
-
-/* INIT */
-splitQuranSigns();
-applyHizbLabels();
-injectStyles();
-
-</script>
+<!-- BANNER -->
+<div class="bottom-quran-banner-wrap" id="btmquranBanner">
+  <a href="https://kangis.my.id" class="bottom-quran-banner" target="_blank" rel="noopener">
+    <div class="bottom-quran-text">
+      <p>Dukung</p>
+      <h2>Aplikasi Al-Qur'an Digital</h2>
+      <span class="bottom-quran-btn">KLIK DISINI</span>
+    </div>
+    <div class="bottom-quran-visual">
+      <div class="bottom-quran-circle"></div>
+      <img
+        src="../../assets/img/phone.png"
+        alt="Aplikasi Al-Qur'an"
+        class="bottom-quran-phone"
+      >
+    </div>
+  </a>
+  <button class="bottom-quran-close" onclick="document.getElementById('btmquranBanner').style.display='none'">×</button>
+</div>
+<!-- BANNER END-->
 
 <div class="nav" id="navBottom">
   <button onclick="go(-1)"></button>
@@ -256,13 +102,33 @@ injectStyles();
 </div>
 
 <div class="player-wrap" id="playerWrap">
-  <button class="close" onclick="closePlayer()" aria-label="Tutup player">
-    <svg viewBox="0 0 24 24" width="20" height="20">
-      <line x1="6" y1="6" x2="18" y2="18"/>
-      <line x1="18" y1="6" x2="6" y2="18"/>
-    </svg>
-  </button>
+
+  <button class="close" onclick="closePlayer()" aria-label="Tutup player">✕</button>
+
   <audio id="player"></audio>
+  <div class="player-info" id="playerInfo"></div>
+ <div class="qplayer">
+
+  <button id="prevBtn" aria-label="Prev"></button>
+  <button id="playBtn" aria-label="Play"></button>
+  <button id="nextBtn" aria-label="Next"></button>
+
+  <span id="timeNow">0:00</span>
+
+<div id="qpBar" class="qpBar">
+  <div id="qpFill"></div>
+  <div id="qpThumb"></div>
+</div>
+
+
+  <span id="timeTotal">0:00</span>
+
+  <button id="repeatBtn" aria-label="Repeat"></button>
+
+  <input type="range" id="volume" min="0" max="1" step="0.01">
+
+</div>
+
 </div>
 
 <button class="top" onclick="scrollToTop()">
@@ -270,8 +136,7 @@ injectStyles();
 </button>
 
 <script>
- window.SURAT_ID = 93; 
-/* ================= DROPDOWN SURAT ================= */
+window.SURAT_ID = 93;
 const suratList = [
   "Al-Fatihah","Al-Baqarah","Ali 'Imran","An-Nisa","Al-Ma'idah","Al-An'am","Al-A'raf","Al-Anfal","At-Taubah","Yunus",
   "Hud","Yusuf","Ar-Ra'd","Ibrahim","Al-Hijr","An-Nahl","Al-Isra","Al-Kahf","Maryam","Ta-Ha",
@@ -288,47 +153,61 @@ const suratList = [
 ];
 
 const select = document.getElementById("suratSelect");
-const currentId = window.SURAT_ID;
-
-suratList.forEach((nama, i) => {
-  const opt = document.createElement("option");
-  opt.value = i + 1;
-  opt.textContent = `${i+1}. ${nama}`;
-  if (i + 1 === currentId) opt.selected = true;
-  select.appendChild(opt);
+suratList.forEach((nama,i)=>{
+  const o=document.createElement("option");
+  o.value=i+1;
+  o.textContent=`${i+1}. ${nama}`;
+  if(i+1===window.SURAT_ID)o.selected=true;
+  select.appendChild(o);
 });
-
-select.onchange = e => {
-  const index = +e.target.value;
-  const slug = `${index}-${slugify(suratList[index - 1])}`;
-  location.href = `/surat/${slug}/`;
+select.onchange=e=>{
+  const i=+e.target.value;
+  location.href=`/surat/${i}-${slugify(suratList[i-1])}/`;
 };
-
-function slugify(nama) {
-  return nama
-    .toLowerCase()
-    .replace(/['’]/g, '')
-    .replace(/\s+/g, '-');
-}
+function slugify(n){return n.toLowerCase().replace(/['’]/g,'').replace(/\s+/g,'-');}
 </script>
-<script src="../../js/plyr.polyfilled.js"></script>
+
 <script src="../../js/theme.js"></script>
 <script src="../../js/surat.js"></script>
+<script src="../../js/player.js"></script>
+  
 <script>
-  let lastScroll = 0;
-const header = document.getElementById("header-js");
-window.addEventListener("scroll", () => {
-  const c = window.pageYOffset;
-  header.classList.toggle("hide", c > lastScroll && c > 80);
-  lastScroll = c;
+let lastScroll=0;
+const header=document.getElementById("header-js");
+window.addEventListener("scroll",()=>{
+  const c=window.pageYOffset;
+  header.classList.toggle("hide",c>lastScroll&&c>80);
+  lastScroll=c;
+});
+function showToast(msg){
+  let toast = document.getElementById("toast");
+  if(!toast){
+    toast = document.createElement("div");
+    toast.id = "toast";
+    toast.className = "toast";
+
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(toast.hideTimer);
+  toast.hideTimer = setTimeout(()=>{
+    toast.classList.remove("show");
+  },3000);
+}
+window.addEventListener("offline", ()=>{
+  showToast("Anda sedang offline");
+});
+window.addEventListener("online", ()=>{
+  showToast("Koneksi kembali online");
 });
 </script>
+
 <script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
+  if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/service-worker.js');
-  });
-}
+  }
 </script>
+
 </body>
 </html>
