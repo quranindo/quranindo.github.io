@@ -2,75 +2,114 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Al-Quran Digital</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link id="canonicalLink" rel="canonical" href="">
-<meta name="description" content="Baca Al-Qur'an lengkap dengan teks Arab, terjemah Indonesia, dan murottal audio.">
+<title>Al-Qur'an Digital Murottal dan Terjemah | Kang Ismet</title>
+<meta name="description" content="Baca Al-Qur'an digital lengkap 30 juz dengan teks Arab, terjemah Indonesia, dan murottal audio. Ringan, cepat, gratis, tanpa aplikasi.">
+<meta name="keywords" content="alquran, quran digital, alquran online, murottal, terjemah indonesia, 114 surat, kang ismet">
+<meta name="author" content="Kang Ismet">
+
+<!-- ===== CANONICAL ===== -->
+<link rel="canonical" href="https://quran.kangis.my.id/">
+
+<!-- ===== ROBOTS ===== -->
 <meta name="robots" content="index, follow">
 
-<meta property="og:title" content="Al-Qur'an Digital 30 Juz">
-<meta property="og:description" content="Al-Qur'an Digital 30 Juz lengkap dengan teks Arab, terjemah Indonesia, dan murottal audio.">
-<meta property="og:image" content="/assets/img/cover.jpg">
-<link rel="icon" href="/assets/img/favicon.ico">
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#046260">
+<!-- ===== OPEN GRAPH (Facebook/WA) ===== -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Al-Qur'an Digital Lengkap 30 Juz">
+<meta property="og:description" content="Baca Quran + terjemah + murottal online dengan tampilan ringan dan cepat.">
+<meta property="og:url" content="https://quran.kangis.my.id/">
+<meta property="og:image" content="assets/img/cover.jpg">
+
+<!-- ===== TWITTER CARD ===== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Al-Qur'an Digital Lengkap 30 Juz">
+<meta name="twitter:description" content="Quran online dengan audio murottal & terjemah Indonesia.">
+<meta name="twitter:image" content="assets/img/cover.jpg">
+
+<!-- ===== THEME COLOR (mobile address bar) ===== -->
+<meta name="theme-color" content="#10706f">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-<link rel="stylesheet" href="../../css/base.css">
-<link rel="stylesheet" href="../../css/surat.css">
-<link rel="stylesheet" href="../../css/banner.css">
-<link rel="stylesheet" href="../../css/player.css">
-<link rel="stylesheet" href="../../css/surahquran.css">
- 
+<link rel="icon" href="assets/img/favicon.ico">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/banner.css">
+<link rel="stylesheet" href="css/surahquran.css">
 </head>
+<style>
+.arab {
+  text-align: right;
+}
 
+.arab i {
+  font-family: "surahquran";
+  font-style: normal;
+  font-size: 2.5rem;
+  line-height: 1;
+  display: inline-block;
+}
+</style>
+</head>
 <body>
 
-<header id="header-js">
-<a href="/" class="back-btn">
-  <svg width="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <polyline points="15 18 9 12 15 6"/>
-  </svg> 
-</a>
-<button class="toggle" onclick="toggleDark()">🌙</button>
-<h1><a href="/">
-  <img src="../../assets/img/quran-logo-small3.png"
-       width="100"
-       height="52"
-       alt="Al-Quranul Karim"
-       loading="eager"
-       decoding="async"></a>
-</h1>
+<header>
+  <button class="toggle" onclick="toggleDark()">🌙</button>
+  <h1><img src="assets/img/quran-logo.png"
+     width="200"
+     height="85"
+     alt="Al-Quranul Karim"
+     loading="eager"
+     decoding="async"></h1>
 </header>
 
-<div class="top-container">
-  <h2 id="titleLatin">2. Albaqarah</h2>
-  <div id="titleArab" class="arab-title"><i class="icon-0"></i><i class="icon-2"></i></div>
-  <div id="titleArti">Sapi Betina</div>
-  <div id="info" class="info">286 Ayat • Madinah</div>
-</div>
+<nav class="navsurah" id="toc">
+  <!-- contoh link populer, sisanya di-generate grid -->
+  <a href="surat/36-yasin/">Yasin</a>
+  <a href="surat/56-al-waqi'ah/">Al-Waqi'ah</a>
+  <a href="surat/67-al-mulk/">Al-Mulk</a>
+  <a href="surat/18-al-kahfi/">Al-Kahfi</a>
+  <a href="surat/55-ar-rahman/">Ar-Rahman</a>
+  <a href="surat/78-an-naba/">Juz 30</a>
+</nav>
 
 <div class="container">
 
-<div class="navcon">
-  <div class="nav">
-    <button onclick="go(-1)"></button>
-    <button onclick="go(1)"></button>
-  </div>
+ <div class="quran-banner-wrap" id="quranBanner">
+  <a href="https://kangis.my.id/2026/02/quran-for-blogger.html" class="quran-banner" target="_blank" rel="noopener">
+
+    <!-- TEXT -->
+    <div class="quran-text">
+      <h2>Al-Qur’an 30 Juz</h2>
+      <p>Aplikasi Gratis untuk Blogger</p>
+      <span class="quran-btn">DAPATKAN</span>
+    </div>
+
+    <!-- VISUAL -->
+    <div class="quran-visual">
+      <div class="quran-circle"></div>
+      <img
+        src="assets/img/phone.png"
+        alt="Aplikasi Al-Qur'an"
+        class="quran-phone"
+      >
+    </div>
+
+    <!-- BADGE -->
+    <div class="quran-badge">GRATIS</div>
+
+  </a>
+
+  <!-- CLOSE -->
+  <button class="quran-close" onclick="document.getElementById('quranBanner').style.display='none'">×</button>
 </div>
 
-<div class="surat-select-wrap">
-  <select id="suratSelect"></select>
-</div>
-
-<div id="bismillah" class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-<div id="content"></div>
-<script src="../../js/waqafsplitter.js"></script>
+  <div class="grid" id="list"></div>
 
 <!-- BANNER -->
 <div class="bottom-quran-banner-wrap" id="btmquranBanner">
-  <a href="https://kangis.my.id" class="bottom-quran-banner" target="_blank" rel="noopener">
+  <a href="/filantropi.html" class="bottom-quran-banner" target="_blank" rel="noopener">
     <div class="bottom-quran-text">
       <p>Dukung</p>
       <h2>Aplikasi Al-Qur'an Digital</h2>
@@ -79,7 +118,7 @@
     <div class="bottom-quran-visual">
       <div class="bottom-quran-circle"></div>
       <img
-        src="../../assets/img/phone.png"
+        src="assets/img/phone.png"
         alt="Aplikasi Al-Qur'an"
         class="bottom-quran-phone"
       >
@@ -89,125 +128,67 @@
 </div>
 <!-- BANNER END-->
 
-<div class="nav" id="navBottom">
-  <button onclick="go(-1)"></button>
-  <button onclick="go(1)"></button>
 </div>
 
-<div class="footer">
-  <span>© <span id="year"></span></span>
-  <a href="https://kangis.my.id" target="_blank">Kang Ismet</a> • Smart Media
-</div>
+<footer class="site-footer">
+  <div class="footer-container">
+    <!-- LEFT -->
+    <div class="footer-left">
+      <img
+        src="assets/img/al-quran.png"
+        alt="Al-Qur'an Digital"
+        class="footer-logo"
+      />
+      <div class="footer-desc">
+        <h3>Al-Qur’an Digital</h3>
+        <p>
+          Aplikasi Al-Qur’an Digital memudahkan anda untuk membaca dan
+          menghapal Al-Qur’an tanpa install aplikasi.
+        </p>
+      </div>
+    </div>
 
-</div>
+    <!-- RIGHT -->
+    <div class="footer-right">
+      <ul>
+        <li><a href="https://kangis.my.id/2026/02/quran-for-blogger.html">Al-Qur’an for Blogger</a></li>
+        <li><a href="https://blog.kangis.my.id/search/label/Islam">Artikel Islami</a></li>
+        <li><a href="https://blog.kangis.my.id/search/label/Doa">Do’a Pilihan</a></li>
+        <li><a href="https://blog.kangis.my.id/search/label/Fiqih">Fiqih</a></li>
+      </ul>
+    </div>
+  </div>
 
-<div class="player-wrap" id="playerWrap">
+  <!-- BOTTOM -->
+  <div class="footer-bottom">
+    <span class="footer-copy">
+      © 2026 · <a href="https://quran.kangis.my.id">Al-Qur’an Digital</a>
+    </span>
 
-  <button class="close" onclick="closePlayer()" aria-label="Tutup player">✕</button>
+    <nav class="footer-nav">
+      <a href="https://quran.kangis.my.id">Home</a>
+      <a href="https://kangis.my.id">About Us</a>
+      <a href="/filantropi.html">Donasi</a>
+    </nav>
+  </div>
+</footer>
 
-  <audio id="player"></audio>
-  <div class="player-info" id="playerInfo"></div>
- <div class="qplayer">
-
-  <button id="prevBtn" aria-label="Prev"></button>
-  <button id="playBtn" aria-label="Play"></button>
-  <button id="nextBtn" aria-label="Next"></button>
-
-  <span id="timeNow">0:00</span>
-
-<div id="qpBar" class="qpBar">
-  <div id="qpFill"></div>
-  <div id="qpThumb"></div>
-</div>
-
-
-  <span id="timeTotal">0:00</span>
-
-  <button id="repeatBtn" aria-label="Repeat"></button>
-
-  <input type="range" id="volume" min="0" max="1" step="0.01">
-
-</div>
-
-</div>
 
 <button class="top" onclick="scrollToTop()">
-  <svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"></path></svg>
+<svg viewBox="0 0 24 24" aria-hidden="true">
+     <path d="M6 15l6-6 6 6"></path>
+</svg>
 </button>
 
-<script>
-window.SURAT_ID = 0;
-const suratList = [
-  "Al-Fatihah","Al-Baqarah","Ali 'Imran","An-Nisa","Al-Ma'idah","Al-An'am","Al-A'raf","Al-Anfal","At-Taubah","Yunus",
-  "Hud","Yusuf","Ar-Ra'd","Ibrahim","Al-Hijr","An-Nahl","Al-Isra","Al-Kahf","Maryam","Ta-Ha",
-  "Al-Anbiya","Al-Hajj","Al-Mu'minun","An-Nur","Al-Furqan","Asy-Syu'ara","An-Naml","Al-Qasas","Al-Ankabut","Ar-Rum",
-  "Luqman","As-Sajdah","Al-Ahzab","Saba","Fatir","Ya-Sin","As-Saffat","Sad","Az-Zumar","Ghafir",
-  "Fussilat","Asy-Syura","Az-Zukhruf","Ad-Dukhan","Al-Jatsiyah","Al-Ahqaf","Muhammad","Al-Fath","Al-Hujurat","Qaf",
-  "Az-Zariyat","At-Tur","An-Najm","Al-Qamar","Ar-Rahman","Al-Waqi'ah","Al-Hadid","Al-Mujadilah","Al-Hasyr","Al-Mumtahanah",
-  "As-Saff","Al-Jumu'ah","Al-Munafiqun","At-Taghabun","At-Talaq","At-Tahrim","Al-Mulk","Al-Qalam","Al-Haqqah","Al-Ma'arij",
-  "Nuh","Al-Jinn","Al-Muzzammil","Al-Muddaththir","Al-Qiyamah","Al-Insan","Al-Mursalat","An-Naba","An-Nazi'at","'Abasa",
-  "At-Takwir","Al-Infitar","Al-Mutaffifin","Al-Insyiqaq","Al-Buruj","At-Tariq","Al-A'la","Al-Ghasyiyah","Al-Fajr","Al-Balad",
-  "Asy-Syams","Al-Lail","Ad-Duha","Asy-Syarh","At-Tin","Al-'Alaq","Al-Qadr","Al-Bayyinah","Az-Zalzalah","Al-'Adiyat",
-  "Al-Qari'ah","At-Takatsur","Al-'Asr","Al-Humazah","Al-Fil","Quraisy","Al-Ma'un","Al-Kautsar","Al-Kafirun","An-Nasr",
-  "Al-Lahab","Al-Ikhlas","Al-Falaq","An-Nas"
-];
-
-const select = document.getElementById("suratSelect");
-suratList.forEach((nama,i)=>{
-  const o=document.createElement("option");
-  o.value=i+1;
-  o.textContent=`${i+1}. ${nama}`;
-  if(i+1===window.SURAT_ID)o.selected=true;
-  select.appendChild(o);
-});
-select.onchange=e=>{
-  const i=+e.target.value;
-  location.href=`/surat/${i}-${slugify(suratList[i-1])}/`;
-};
-function slugify(n){return n.toLowerCase().replace(/['’]/g,'').replace(/\s+/g,'-');}
-</script>
-
-<script src="../../js/theme.js"></script>
-<script src="../../js/surat.js"></script>
-<script src="../../js/player.js"></script>
-  
-<script>
-let lastScroll=0;
-const header=document.getElementById("header-js");
-window.addEventListener("scroll",()=>{
-  const c=window.pageYOffset;
-  header.classList.toggle("hide",c>lastScroll&&c>80);
-  lastScroll=c;
-});
-function showToast(msg){
-  let toast = document.getElementById("toast");
-  if(!toast){
-    toast = document.createElement("div");
-    toast.id = "toast";
-    toast.className = "toast";
-
-    document.body.appendChild(toast);
-  }
-  toast.textContent = msg;
-  toast.classList.add("show");
-  clearTimeout(toast.hideTimer);
-  toast.hideTimer = setTimeout(()=>{
-    toast.classList.remove("show");
-  },3000);
-}
-window.addEventListener("offline", ()=>{
-  showToast("Anda sedang offline");
-});
-window.addEventListener("online", ()=>{
-  showToast("Koneksi kembali online");
-});
-</script>
+<script src="js/theme.js"></script>
+<script src="js/index.js"></script>
 
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/service-worker.js');
   }
 </script>
+
 
 </body>
 </html>
