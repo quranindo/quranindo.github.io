@@ -35,9 +35,22 @@
 <link rel="icon" href="assets/img/favicon.ico">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/index.css">
-<link rel="manifest" href="/manifest.json">	
+<link rel="stylesheet" href="css/banner.css">
+<link rel="stylesheet" href="css/surahquran.css">
 </head>
+<style>
+.arab {
+  text-align: right;
+}
 
+.arab i {
+  font-family: "surahquran";
+  font-style: normal;
+  font-size: 2.5rem;
+  line-height: 1;
+  display: inline-block;
+}
+</style>
 </head>
 <body>
 
@@ -53,51 +66,113 @@
 
 <nav class="navsurah" id="toc">
   <!-- contoh link populer, sisanya di-generate grid -->
-  <a href="surat/36-ya-sin/">Yasin</a>
-  <a href="surat/56-al-waqiah/">Al-Waqi'ah</a>
+  <a href="surat/36-yasin/">Yasin</a>
+  <a href="surat/56-al-waqi'ah/">Al-Waqi'ah</a>
   <a href="surat/67-al-mulk/">Al-Mulk</a>
-  <a href="surat/18-al-kahf/">Al-Kahfi</a>
+  <a href="surat/18-al-kahfi/">Al-Kahfi</a>
   <a href="surat/55-ar-rahman/">Ar-Rahman</a>
   <a href="surat/78-an-naba/">Juz 30</a>
 </nav>
 
 <div class="container">
- <div class="card2">
-    <div class="doa">
-	<a href="kajian/index.html"><img src="assets/img/kajian.png"
-     width="50"
-     height="50"
-     alt="Kajian"
-     loading="lazy"
-     decoding="async"/>
-	 <p>Kajian</p></a>
-	</div>
-	<div class="doa">
-	<a href="tafsir/index.html"><img src="assets/img/tafsir.png"
-     width="50"
-     height="50"
-     alt="Tafsir"
-     loading="lazy"
-     decoding="async">
-	 <p>Tafsir</p></a>
-	</div>
-	<div class="doa">
-	<a href="doa/index.html"><img src="assets/img/doa.png"
-     width="50"
-     height="50"
-     alt="Do'a"
-     loading="lazy"
-     decoding="async">
-	 <p>Do'a</p></a>
-	</div>
-  </div>
+
+ <div class="quran-banner-wrap" id="quranBanner">
+  <a href="https://kangis.my.id/2026/02/quran-for-blogger.html" class="quran-banner" target="_blank" rel="noopener">
+
+    <!-- TEXT -->
+    <div class="quran-text">
+      <h2>Al-Qur’an 30 Juz</h2>
+      <p>Aplikasi Gratis untuk Blogger</p>
+      <span class="quran-btn">DAPATKAN</span>
+    </div>
+
+    <!-- VISUAL -->
+    <div class="quran-visual">
+      <div class="quran-circle"></div>
+      <img
+        src="assets/img/phone.png"
+        alt="Aplikasi Al-Qur'an"
+        class="quran-phone"
+      >
+    </div>
+
+    <!-- BADGE -->
+    <div class="quran-badge">GRATIS</div>
+
+  </a>
+
+  <!-- CLOSE -->
+  <button class="quran-close" onclick="document.getElementById('quranBanner').style.display='none'">×</button>
+</div>
 
   <div class="grid" id="list"></div>
-  <div class="footer">
-    <span>© <span id="year"></span></span>
-    <a href="https://kangis.my.id" target="_blank">Kang Ismet</a> • Smart Media
-  </div>
+
+<!-- BANNER -->
+<div class="bottom-quran-banner-wrap" id="btmquranBanner">
+  <a href="/filantropi.html" class="bottom-quran-banner" target="_blank" rel="noopener">
+    <div class="bottom-quran-text">
+      <p>Dukung</p>
+      <h2>Aplikasi Al-Qur'an Digital</h2>
+      <span class="bottom-quran-btn">KLIK DISINI</span>
+    </div>
+    <div class="bottom-quran-visual">
+      <div class="bottom-quran-circle"></div>
+      <img
+        src="assets/img/phone.png"
+        alt="Aplikasi Al-Qur'an"
+        class="bottom-quran-phone"
+      >
+    </div>
+  </a>
+  <button class="bottom-quran-close" onclick="document.getElementById('btmquranBanner').style.display='none'">×</button>
 </div>
+<!-- BANNER END-->
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <!-- LEFT -->
+    <div class="footer-left">
+      <img
+        src="assets/img/al-quran.png"
+        alt="Al-Qur'an Digital"
+        class="footer-logo"
+      />
+      <div class="footer-desc">
+        <h3>Al-Qur’an Digital</h3>
+        <p>
+          Aplikasi Al-Qur’an Digital memudahkan anda untuk membaca dan
+          menghapal Al-Qur’an tanpa install aplikasi.
+        </p>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="footer-right">
+      <ul>
+        <li><a href="https://kangis.my.id/2026/02/quran-for-blogger.html">Al-Qur’an for Blogger</a></li>
+        <li><a href="https://blog.kangis.my.id/search/label/Islam">Artikel Islami</a></li>
+        <li><a href="https://blog.kangis.my.id/search/label/Doa">Do’a Pilihan</a></li>
+        <li><a href="https://blog.kangis.my.id/search/label/Fiqih">Fiqih</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="footer-bottom">
+    <span class="footer-copy">
+      © 2026 · <a href="https://quran.kangis.my.id">Al-Qur’an Digital</a>
+    </span>
+
+    <nav class="footer-nav">
+      <a href="https://quran.kangis.my.id">Home</a>
+      <a href="https://kangis.my.id">About Us</a>
+      <a href="/filantropi.html">Donasi</a>
+    </nav>
+  </div>
+</footer>
+
 
 <button class="top" onclick="scrollToTop()">
 <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -116,7 +191,4 @@
 
 
 </body>
-
 </html>
-
-
