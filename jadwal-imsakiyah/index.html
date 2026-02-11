@@ -13,62 +13,73 @@ body{
   padding:20px;
 }
 
-.card{
+.card-jadwal{
+  padding:16px;
+  border-radius:14px;
   background:#fff;
-  padding:20px;
-  border-radius:12px;
-  box-shadow:0 4px 12px rgba(0,0,0,.08);
-  max-width:400px;
-  margin:auto;
+  box-shadow:0 4px 14px rgba(0,0,0,.06);
 }
 
-.title{
-  font-size:20px;
+.header{
+  margin-bottom:10px;
+}
+
+.lokasi{
   font-weight:bold;
-  margin-bottom:5px;
+  font-size:18px;
 }
 
-.hijri{
-  color:#666;
-  margin-bottom:15px;
+.tanggal{
+  opacity:.8;
+  font-size:14px;
+}
+
+.hijriyah{
+  opacity:.7;
+  font-size:13px;
 }
 
 .row{
   display:flex;
   justify-content:space-between;
-  padding:6px 0;
+  padding:10px 0;
   border-bottom:1px solid #eee;
 }
 
-.update{
-  margin-top:10px;
-  font-size:12px;
-  color:#888;
+.row:last-child{
+  border-bottom:none;
 }
+
+.label{
+  opacity:.75;
+}
+
+.value{
+  font-weight:bold;
+}
+
 </style>
 
 </head>
 <body>
 
-<div class="card">
+<div class="card-jadwal">
 
-<div id="lokasi"></div>
-<div id="tanggal"></div>
-<div id="hijriyah"></div>
+  <div class="header">
+    <div id="lokasi" class="lokasi"></div>
+    <div id="tanggal" class="tanggal"></div>
+    <div id="hijriyah" class="hijriyah"></div>
+  </div>
 
-<div id="imsak"></div>
-<div id="subuh"></div>
-<div id="dzuhur"></div>
-<div id="ashar"></div>
-<div id="maghrib"></div>
-<div id="isya"></div>
-
+  <div id="jadwal"></div>
 
 </div>
+
 
 <script src="../js/jadwal-imsakiyah.js"></script>
 
 </body>
 </html>
+
 
 
