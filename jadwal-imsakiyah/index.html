@@ -46,32 +46,22 @@ body{
   border-bottom:1px solid #eee;
 }
 
-.row:last-child{
-  border-bottom:none;
+/* Highlight tetap sejajar */
+.row.highlight{
+  border-left:4px solid #2e7d32;
+  padding-left:8px; /* kecil saja */
 }
 
-.label{
-  opacity:.75;
-}
-
-.value{
-  font-weight:bold;
-}
-.highlight{
-  background:rgba(0,150,136,.08);
-  border-radius:8px;
-  padding:10px;
-}
-
+/* Value khusus */
 .value.imsak{
   color:#e65100;
-  font-weight:bold;
+  font-weight:600;
 }
 
 .value.maghrib{
   color:#2e7d32;
-  font-weight:bold;
-  font-size:1.1em;
+  font-weight:700;
+  font-size:1.08em;
 }
 
 </style>
@@ -96,6 +86,7 @@ body{
 
 </body>
 </html>
+
 
 
 
