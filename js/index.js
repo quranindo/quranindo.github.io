@@ -154,7 +154,7 @@ const OVERRIDE_LATIN = {
   51: "At-Thur",
   74: "Al-Mudatstsir",
   102: "At-Takatsur",
-  102: "At-Kautsar",
+  108: "At-Kautsar",
   110: "At-Nashr",
   114: "An-Naas",
 };
@@ -219,5 +219,6 @@ function render(arr) {
 // ===============================
 load();
 // ===============================
+
 
 
