@@ -2,92 +2,115 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jadwal Imsakiyah Kabupaten Sukabumi</title>
 
-<title>Jadwal Puasa</title>
+<meta name="description" content="Jadwal Imsakiyah Kabupaten Sukabumi hari ini">
 
-<style>
-body{
-  font-family: system-ui;
-  background:#f7f7f7;
-  padding:20px;
-}
+<meta property="og:title" content="Jadwal Imsakiyah Kab. Sukabumi">
+<meta property="og:description" content="Jadwal imsakiyah hari ini">
+<meta property="og:type" content="website">
+<meta property="og:url" content="">
+<meta property="og:image" content="/assets/img/imsakiyah.jpg">
 
-.card-jadwal{
-  padding:16px;
-  border-radius:14px;
-  background:#fff;
-  box-shadow:0 4px 14px rgba(0,0,0,.06);
-}
+<meta name="twitter:card" content="summary">
 
-.header{
-  margin-bottom:10px;
-}
+<link rel="icon" href="/assets/img/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#046260">
 
-.lokasi{
-  font-weight:bold;
-  font-size:18px;
-}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/surat.css">
+<link rel="stylesheet" href="../css/banner.css">
+<link rel="stylesheet" href="../css/jadwal-imsakiyah.css">
 
-.tanggal{
-  opacity:.8;
-  font-size:14px;
-}
-
-.hijriyah{
-  opacity:.7;
-  font-size:13px;
-}
-
-.row{
-  display:flex;
-  justify-content:space-between;
-  padding:10px 0;
-  border-bottom:1px solid #eee;
-}
-
-/* Highlight tetap sejajar */
-.row.highlight{
-  border-left:4px solid #2e7d32;
-  padding-left:8px; /* kecil saja */
-}
-
-/* Value khusus */
-.value.imsak{
-  color:#e65100;
-  font-weight:600;
-}
-
-.value.maghrib{
-  color:#2e7d32;
-  font-weight:700;
-  font-size:1.08em;
-}
-
-</style>
-
+ 
 </head>
+
 <body>
 
+<header id="header-js">
+<a href="/" class="back-btn">
+  <svg width="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <polyline points="15 18 9 12 15 6"/>
+  </svg> 
+</a>
+<button class="toggle" onclick="toggleDark()">🌙</button>
+<h1><a href="/">
+  <img src="../assets/img/quran-logo-small3.png"
+       width="100"
+       height="52"
+       alt="Al-Quranul Karim"
+       loading="eager"
+       decoding="async"></a>
+</h1>
+</header>
+
+
+
+<div class="jadwalContainer">
+<div class="topWrap">
+<h2>Jadwal Imsakiyah Ramadhan 1447 H</h2>
+<p>Untuk Kabupaten Sukabumi dan Sekitarnya</p>
+</div>
 <div class="card-jadwal">
 
-  <div class="header">
-    <div id="lokasi" class="lokasi"></div>
-    <div id="tanggal" class="tanggal"></div>
-    <div id="hijriyah" class="hijriyah"></div>
-  </div>
+  <div id="lokasi"></div>
+  <div id="tanggal"></div>
+  <div id="hijriyah"></div>
 
   <div id="jadwal"></div>
 
 </div>
+<div class="desc">
+<ol>
+<li>Database diambil dari <strong>DHR kabupaten Sukabumi</strong>.</li>
+<li>Jadwal ini berlaku untuk Kabupaten Sukabumi, kecuali : <strong>Cibadak</strong>, <strong>Parungkuda</strong>, <strong>Cicurug</strong>, <strong>Cidahu</strong>, <strong>Kabandungan</strong>, <strong>Kalapanunggal</strong>, <strong>Parakansalak</strong>, <strong>Cikidang</strong>, <strong>Ciracap</strong>, <strong>Jampang Kulon</strong>, <strong>Surade</strong>, <strong>Palabuhanratu</strong>, <strong>Cisolok</strong>, <strong>Cikakak</strong>, <strong>Bantargadung</strong>, <strong>Simpenan</strong> dan <strong>Waluran</strong> (ditambah 1 menit).</li>
+</ol>
+</div>
+<!-- BANNER -->
+<div class="bottom-quran-banner-wrap" id="btmquranBanner">
+  <a href="https://quran.kangis.my.id" class="bottom-quran-banner" target="_blank" rel="noopener">
+    <div class="bottom-quran-text">
+      <p>Isi Ramadhanmu dengan membaca</p>
+      <h2>Aplikasi Al-Qur'an Digital</h2>
+      <span class="bottom-quran-btn">KLIK DISINI</span>
+    </div>
+    <div class="bottom-quran-visual">
+      <div class="bottom-quran-circle"></div>
+      <img
+        src="../assets/img/phone.png"
+        alt="Aplikasi Al-Qur'an"
+        class="bottom-quran-phone"
+      >
+    </div>
+  </a>
+  <button class="bottom-quran-close" onclick="document.getElementById('btmquranBanner').style.display='none'">×</button>
+</div>
+<!-- BANNER END-->
 
 
-<script src="../js/jadwal-imsakiyah.js"></script>
+
+<div class="footer">
+  <span>© <span id="year"></span></span>
+  <a href="https://kangis.my.id" target="_blank">Kang Ismet</a> • Smart Media
+</div>
+
+</div>
+
+<button class="top" onclick="scrollToTop()">
+  <svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"></path></svg>
+</button>
+
+
+<script src="/js/jadwal-imsakiyah.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js');
+  }
+</script>
 
 </body>
 </html>
-
-
-
-
-
