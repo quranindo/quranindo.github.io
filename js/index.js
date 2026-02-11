@@ -217,9 +217,20 @@ function render(arr) {
   });
 }
 
+const btn = document.querySelector('.top');
+
+window.addEventListener('scroll', () => {
+  btn.style.display =
+    window.scrollY > 400 ? 'block' : 'none';
+});
+
+function scrollToTop(){
+  window.scrollTo({top:0, behavior:'smooth'});
+}
 // ===============================
 load();
 // ===============================
+
 
 
 
