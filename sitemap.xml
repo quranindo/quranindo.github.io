@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Home -->
+
+  <url>
+    <loc>https://quran.kangis.my.id/</loc>
+    <lastmod>2026-02-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Surat index -->
+
+  <url>
+    <loc>https://quran.kangis.my.id/surat/</loc>
+    <lastmod>2026-02-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Static -->
+
+  <url>
+    <loc>https://quran.kangis.my.id/about.html</loc>
+    <lastmod>2026-02-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://quran.kangis.my.id/filantropi.html</loc>
+    <lastmod>2026-02-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- 114 Surat -->
+
+<url><loc>https://quran.kangis.my.id/surat/1-al-fatihah/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/2-al-baqarah/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/3-ali-imran/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+<url><loc>https://quran.kangis.my.id/surat/4-an-nisa/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+<url><loc>https://quran.kangis.my.id/surat/5-al-maidah/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+<url><loc>https://quran.kangis.my.id/surat/6-al-anam/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+<url><loc>https://quran.kangis.my.id/surat/7-al-araf/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+<url><loc>https://quran.kangis.my.id/surat/8-al-anfal/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+<url><loc>https://quran.kangis.my.id/surat/9-at-taubah/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+<url><loc>https://quran.kangis.my.id/surat/10-yunus/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/11-hud/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+<url><loc>https://quran.kangis.my.id/surat/12-yusuf/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+<url><loc>https://quran.kangis.my.id/surat/13-ar-rad/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+<url><loc>https://quran.kangis.my.id/surat/14-ibrahim/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+<url><loc>https://quran.kangis.my.id/surat/15-al-hijr/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+ <url><loc>https://quran.kangis.my.id/surat/16-an-nahl/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+ <url><loc>https://quran.kangis.my.id/surat/17-al-isra/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+ <url><loc>https://quran.kangis.my.id/surat/18-al-kahfi/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+ <url><loc>https://quran.kangis.my.id/surat/19-maryam/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+ <url><loc>https://quran.kangis.my.id/surat/20-thaha/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/21-al-anbiya/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/22-al-hajj/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/23-al-muminun/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/24-an-nur/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/25-al-furqan/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/26-asy-syuara/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/27-an-naml/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/28-al-qasas/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/29-al-ankabut/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/30-ar-rum/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/31-luqman/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/32-as-sajdah/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/33-al-ahzab/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/34-saba/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/35-fatir/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/36-ya-sin/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/37-as-saffat/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/38-shad/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/39-az-zumar/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/40-ghafir/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/41-fussilat/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/42-asy-syura/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/43-az-zukhruf/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/44-ad-dukhan/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/45-al-jatsiyah/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/46-al-ahqaf/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/47-muhammad/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/48-al-fath/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/49-al-hujurat/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/50-qaf/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/51-adz-dzariyat/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/52-at-tur/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/53-an-najm/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/54-al-qamar/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/55-ar-rahman/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/56-al-waqiah/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/57-al-hadid/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/58-al-mujadilah/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/59-al-hasyr/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/60-al-mumtahanah/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/61-as-saff/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/62-al-jumuah/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/63-al-munafiqun/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/64-at-taghabun/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/65-at-thalaq/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/66-at-tahrim/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/67-al-mulk/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/68-al-qalam/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/69-al-haqqah/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/70-al-maarij/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/71-nuh/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/72-al-jinn/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/73-al-muzzammil/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/74-al-muddatstsir/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/75-al-qiyamah/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/76-al-insan/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/77-al-mursalat/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/78-an-naba/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/79-an-naziat/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/80-abasa/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/81-at-takwir/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/82-al-infithar/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/83-al-muthaffifin/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/84-al-insyiqaq/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/85-al-buruj/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/86-at-tariq/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/87-al-ala/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/88-al-ghasyiyah/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/89-al-fajr/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/90-al-balad/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/91-asy-syams/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/92-al-lail/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/93-ad-duha/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/94-al-insyirah/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/95-at-tin/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/96-al-alaq/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/97-al-qadr/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/98-al-bayyinah/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/99-az-zalzalah/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/100-al-adiyat/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/101-al-qariah/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/102-at-takatsur/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/103-al-ashr/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/104-al-humazah/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://quran.kangis.my.id/surat/105-al-fil/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+<url><loc>https://quran.kangis.my.id/surat/106-quraisy/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+<url><loc>https://quran.kangis.my.id/surat/107-al-maun/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+<url><loc>https://quran.kangis.my.id/surat/108-al-kautsar/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+<url><loc>https://quran.kangis.my.id/surat/109-al-kafirun/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+<url><loc>https://quran.kangis.my.id/surat/110-an-nasr/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+<url><loc>https://quran.kangis.my.id/surat/111-al-lahab/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+<url><loc>https://quran.kangis.my.id/surat/112-al-ikhlas/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+ <url><loc>https://quran.kangis.my.id/surat/113-al-falaq/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url> 
+ <url><loc>https://quran.kangis.my.id/surat/114-an-naas/</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+</urlset>
