@@ -146,7 +146,18 @@ const artiOverride = {
   112: "Kemurnian Keesaan Allah",
   113: "Waktu Subuh"
 };
-
+const OVERRIDE_LATIN = {
+  35: "Fathir",
+  38: "Shad",
+  45: "Al-Jatsiyah",
+  51: "Adz-Dzariyat",
+  51: "At-Thur",
+  74: "Al-Mudatstsir",
+  102: "At-Takatsur",
+  102: "At-Kautsar",
+  110: "At-Nashr",
+  114: "An-Naas",
+};
 
 async function load() {
 
@@ -161,11 +172,12 @@ async function load() {
 function render(arr) {
   listEl.innerHTML = '';
   arr.forEach(s => {
+    const namaLatin = OVERRIDE_LATIN[s.nomor] || s.nama_latin;
     const arti = artiOverride[s.nomor] || s.arti;
     const el = document.createElement('div');
     el.className = 'card';
     el.innerHTML = `
-      <b>${s.nomor}. ${s.nama_latin}</b>
+      <b>${s.nomor}. ${s.namaLatin}</b>
       <div class="arti">
         ${arti}
       </div>
@@ -203,3 +215,4 @@ function render(arr) {
 // ===============================
 load();
 // ===============================
+
