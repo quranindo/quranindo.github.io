@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'surahquran';
-  src: url('https://quran.kangis.my.id/fonts/surahquran.eot');
-  src: url('https://quran.kangis.my.id/fonts/surahquran.eot') format('embedded-opentype'),
-       url('https://quran.kangis.my.id/fonts/surahquran.woff2') format('woff2'),
-       url('https://quran.kangis.my.id/fonts/surahquran.woff') format('woff'),
-       url('https://quran.kangis.my.id/fontsfont/surahquran.ttf') format('truetype'),
-       url('https://quran.kangis.my.id/fontsfont/surahquran.svg') format('svg');
+  src: url('/fonts/surahquran.eot');
+  src: url('/fonts/surahquran.eot') format('embedded-opentype'),
+       url('/fonts/surahquran.woff2') format('woff2'),
+       url('/fonts/surahquran.woff') format('woff'),
+       url('/fontsfont/surahquran.ttf') format('truetype'),
+       url('/fontsfont/surahquran.svg') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -169,4 +169,5 @@
 .icon-112:before { content: '\e870'; } /* 'î¡°' */
 .icon-113:before { content: '\e871'; } /* 'î¡±' */
 .icon-114:before { content: '\e872'; } /* 'î¡²' */
+
 .icon-115:before { content: '\e873'; } /* 'î¡³' */
