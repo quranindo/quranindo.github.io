@@ -36,6 +36,18 @@ const OVERRIDE_ARTI = {
   112: "Kemurnian Keesaan Allah",
   113: "Waktu Subuh"
 };
+const OVERRIDE_LATIN = {
+  35: "Fathir",
+  38: "Shad",
+  45: "Al-Jatsiyah",
+  51: "Adz-Dzariyat",
+  51: "At-Thur",
+  74: "Al-Mudatstsir",
+  102: "At-Takatsur",
+  102: "At-Kautsar",
+  110: "At-Nashr",
+  114: "An-Naas",
+};
 const titleLatin=document.getElementById('titleLatin');
 const titleArab=document.getElementById('titleArab');
 const titleArti=document.getElementById('titleArti');
@@ -196,7 +208,7 @@ async function load(){
   setMeta('property','og:url',canonical);
   setMeta('property','og:image',`${location.origin}/assets/img/cover.jpg`);
 
-  titleLatin.textContent = `${s.nomor}. ${s.nama_latin}`;
+  titleLatin.textContent = `${s.nomor}. ${OVERRIDE_LATIN[s.nomor] || s.nama_latin}`;
 
 const suratOverride = OVERRIDE_SURAT[id] || {};
 
@@ -236,5 +248,6 @@ titleArti.textContent = `${OVERRIDE_ARTI[id] || s.arti}`;
 function toArabic(n){
   return n.toString().replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
 }
+
 
 load();
