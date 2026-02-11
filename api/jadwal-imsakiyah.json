@@ -1,13 +1,26 @@
 {
-  "tanggal": "11 Februari 2026",
-  "hijri": "22 Sya'ban 1447 H",
-  "imsak": "04:32",
-  "subuh": "04:42",
-  "terbit": "05:55",
-  "dzuhur": "12:05",
-  "ashar": "15:28",
-  "maghrib": "18:12",
-  "isya": "19:21",
-  "lokasi": "Bandung, Indonesia",
-  "update": "2026-02-11T04:00:00"
+  "lokasi": "Kabupaten Sukabumi",
+  "zona": "WIB",
+  "jadwal": [
+    {
+      "tanggal": "2026-02-12",
+      "hijriyah": "13 Sya'ban 1447 H",
+      "imsak": "04:30",
+      "subuh": "04:40",
+      "dzuhur": "12:05",
+      "ashar": "15:28",
+      "maghrib": "18:10",
+      "isya": "19:20"
+    },
+    {
+      "tanggal": "2026-02-13",
+      "hijriyah": "14 Sya'ban 1447 H",
+      "imsak": "04:30",
+      "subuh": "04:40",
+      "dzuhur": "12:05",
+      "ashar": "15:29",
+      "maghrib": "18:11",
+      "isya": "19:21"
+    }
+  ]
 }
