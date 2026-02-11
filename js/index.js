@@ -130,6 +130,7 @@ const artiOverride = {
   30: "Bangsa Romawi",
   32: "Sujud",
   34: "Negeri Saba",
+  38: "Shad",
   45: "Yang Berlutut",
   47: "Nabi Muhammad SAW",
   55: "Yang Maha Pengasih",
@@ -151,7 +152,7 @@ const OVERRIDE_LATIN = {
   38: "Shad",
   45: "Al-Jatsiyah",
   51: "Adz-Dzariyat",
-  51: "At-Thur",
+  52: "At-Thur",
   74: "Al-Mudatstsir",
   102: "At-Takatsur",
   108: "At-Kautsar",
@@ -219,6 +220,7 @@ function render(arr) {
 // ===============================
 load();
 // ===============================
+
 
 
 
