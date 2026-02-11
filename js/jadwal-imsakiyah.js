@@ -3,6 +3,7 @@ fetch('/api/jadwal-imsakiyah.json')
   .then(json => {
 
     const now = new Date();
+
     const today =
       now.getFullYear() + '-' +
       String(now.getMonth()+1).padStart(2,'0') + '-' +
@@ -10,12 +11,17 @@ fetch('/api/jadwal-imsakiyah.json')
 
     const data = json.jadwal.find(item => item.tanggal === today);
 
-    if(!data) return;
+    if(!data){
+      document.getElementById("jadwal").innerHTML =
+        `<div class="row"><div>Data tidak tersedia</div></div>`;
+      return;
+    }
 
+    // Header
     document.getElementById("lokasi").textContent = json.lokasi;
 
     document.getElementById("tanggal").textContent =
-      new Date(data.tanggal).toLocaleDateString('id-ID', {
+      new Date(data.tanggal).toLocaleDateString('id-ID',{
         weekday:'long',
         day:'numeric',
         month:'long',
@@ -24,11 +30,28 @@ fetch('/api/jadwal-imsakiyah.json')
 
     document.getElementById("hijriyah").textContent = data.hijriyah;
 
-    document.getElementById("imsak").textContent = data.imsak;
-    document.getElementById("subuh").textContent = data.subuh;
-    document.getElementById("dzuhur").textContent = data.dzuhur;
-    document.getElementById("ashar").textContent = data.ashar;
-    document.getElementById("maghrib").textContent = data.maghrib;
-    document.getElementById("isya").textContent = data.isya;
 
+    // Jadwal rows
+    const jadwalList = [
+      ["Imsak", data.imsak],
+      ["Subuh", data.subuh],
+      ["Dzuhur", data.dzuhur],
+      ["Ashar", data.ashar],
+      ["Maghrib", data.maghrib],
+      ["Isya", data.isya],
+    ];
+
+    document.getElementById("jadwal").innerHTML =
+      jadwalList.map(item => `
+        <div class="row">
+          <div class="label">${item[0]}</div>
+          <div class="value">${item[1]}</div>
+        </div>
+      `).join('');
+
+  })
+  .catch(err => {
+    document.getElementById("jadwal").innerHTML =
+      `<div class="row">Gagal memuat jadwal</div>`;
+    console.error(err);
   });
