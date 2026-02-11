@@ -11,13 +11,8 @@ fetch('/api/jadwal-imsakiyah.json')
 
     const data = json.jadwal.find(item => item.tanggal === today);
 
-    if(!data){
-      document.getElementById("jadwal").innerHTML =
-        `<div class="row"><div>Data tidak tersedia</div></div>`;
-      return;
-    }
+    if(!data) return;
 
-    // Header
     document.getElementById("lokasi").textContent = json.lokasi;
 
     document.getElementById("tanggal").textContent =
@@ -30,42 +25,61 @@ fetch('/api/jadwal-imsakiyah.json')
 
     document.getElementById("hijriyah").textContent = data.hijriyah;
 
-
-    // Jadwal rows
     const jadwalList = [
-  ["imsak", "Imsak", data.imsak],
-  ["subuh", "Subuh", data.subuh],
-  ["dzuhur", "Dzuhur", data.dzuhur],
-  ["ashar", "Ashar", data.ashar],
-  ["maghrib", "Maghrib", data.maghrib],
-  ["isya", "Isya", data.isya],
-];
+      ["imsak","Imsak",data.imsak],
+      ["subuh","Subuh",data.subuh],
+      ["dzuhur","Dzuhur",data.dzuhur],
+      ["ashar","Ashar",data.ashar],
+      ["maghrib","Maghrib",data.maghrib],
+      ["isya","Isya",data.isya],
+    ];
 
-document.getElementById("jadwal").innerHTML =
-  jadwalList.map(item => {
+    document.getElementById("jadwal").innerHTML =
+      jadwalList.map(item => {
 
-    const key = item[0];
-    const label = item[1];
-    const value = item[2];
+        const key = item[0];
+        const label = item[1];
+        const value = item[2];
 
-    const specialClass =
-      (key === "imsak" || key === "maghrib")
-        ? " highlight"
-        : "";
+        const specialClass =
+          (key === "imsak" || key === "maghrib")
+            ? " highlight"
+            : "";
 
-    return `
-      <div class="row${specialClass}">
-        <div class="label">${label}</div>
-        <div class="value ${key}">${value}</div>
-      </div>
-    `;
-  }).join('');
-
+        return `
+          <div class="row${specialClass}">
+            <div class="label">${label}</div>
+            <div class="value ${key}">${value}</div>
+          </div>
+        `;
+      }).join('');
 
   })
   .catch(err => {
-    document.getElementById("jadwal").innerHTML =
-      `<div class="row">Gagal memuat jadwal</div>`;
-    console.error(err);
+    console.error("Gagal load jadwal:", err);
   });
 
+
+// ===============================
+// AUTO REFRESH JAM 00:00 LOKAL
+// ===============================
+reloadAtMidnight();
+
+function reloadAtMidnight(){
+
+  const now = new Date();
+
+  const nextMidnight = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() + 1,
+    0,0,1
+  );
+
+  const timeout = nextMidnight - now;
+
+  setTimeout(() => {
+    location.reload();
+  }, timeout);
+
+}
