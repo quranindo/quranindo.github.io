@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Jadwal Puasa</title>
+
+<style>
+body{
+  font-family: system-ui;
+  background:#f7f7f7;
+  padding:20px;
+}
+
+.card{
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+  max-width:400px;
+  margin:auto;
+}
+
+.title{
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:5px;
+}
+
+.hijri{
+  color:#666;
+  margin-bottom:15px;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  padding:6px 0;
+  border-bottom:1px solid #eee;
+}
+
+.update{
+  margin-top:10px;
+  font-size:12px;
+  color:#888;
+}
+</style>
+
+</head>
+<body>
+
+<div class="card">
+
+  <div class="title" id="tanggal">Loading...</div>
+  <div class="hijri" id="hijri"></div>
+
+  <div id="jadwal"></div>
+
+  <div class="update" id="update"></div>
+
+</div>
+
+<script src="../js/jadwal-puasa.js"></script>
+
+</body>
+</html>
