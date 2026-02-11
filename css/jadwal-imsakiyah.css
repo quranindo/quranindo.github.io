@@ -54,4 +54,8 @@
   color:#2e7d32;
   font-weight:700;
   font-size:1.08em;
+
 }
+#lokasi,#tanggal,#hijriyah {line-height:1.5}
+#lokasi {font-weight:600;font-size:1.05em}
+#hijriyah{color:green}
