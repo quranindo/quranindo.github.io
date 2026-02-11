@@ -33,21 +33,34 @@ fetch('/api/jadwal-imsakiyah.json')
 
     // Jadwal rows
     const jadwalList = [
-      ["Imsak", data.imsak],
-      ["Subuh", data.subuh],
-      ["Dzuhur", data.dzuhur],
-      ["Ashar", data.ashar],
-      ["Maghrib", data.maghrib],
-      ["Isya", data.isya],
-    ];
+  ["imsak", "Imsak", data.imsak],
+  ["subuh", "Subuh", data.subuh],
+  ["dzuhur", "Dzuhur", data.dzuhur],
+  ["ashar", "Ashar", data.ashar],
+  ["maghrib", "Maghrib", data.maghrib],
+  ["isya", "Isya", data.isya],
+];
 
-    document.getElementById("jadwal").innerHTML =
-      jadwalList.map(item => `
-        <div class="row">
-          <div class="label">${item[0]}</div>
-          <div class="value">${item[1]}</div>
-        </div>
-      `).join('');
+document.getElementById("jadwal").innerHTML =
+  jadwalList.map(item => {
+
+    const key = item[0];
+    const label = item[1];
+    const value = item[2];
+
+    const specialClass =
+      (key === "imsak" || key === "maghrib")
+        ? " highlight"
+        : "";
+
+    return `
+      <div class="row${specialClass}">
+        <div class="label">${label}</div>
+        <div class="value ${key}">${value}</div>
+      </div>
+    `;
+  }).join('');
+
 
   })
   .catch(err => {
@@ -55,3 +68,4 @@ fetch('/api/jadwal-imsakiyah.json')
       `<div class="row">Gagal memuat jadwal</div>`;
     console.error(err);
   });
+
