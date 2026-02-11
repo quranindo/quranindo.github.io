@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Quran</title>
+<title>Al-Quran Digital</title>
 
 <link id="canonicalLink" rel="canonical" href="">
 <meta name="description" content="Baca Al-Qur'an lengkap dengan teks Arab, terjemah Indonesia, dan murottal audio.">
@@ -19,363 +19,10 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="../../css/base.css">
 <link rel="stylesheet" href="../../css/surat.css">
-  <style>
- /* =========================
-   PLAYER BAR MODERN
-========================= */
-
-.player-wrap{
-  position:fixed;
-  bottom:14px;
-  left:12px;
-  right:12px
-  background:#fff;
-  border-radius:18px;
-  box-shadow:0 6px 22px rgba(0,0,0,.15);
-  padding:10px;
-}
-
-
-/* layout */
-.qplayer{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  background:#efefef;
-  padding:10px 14px;
-  margin-right:40px;
-  border-radius:12px;
-}
-body.dark .player-wrap{
-  background:#2e3648;
-}
-body.dark .qplayer{
-  background:#111827;
-}    
-
-body.dark #prevBtn,
-body.dark #nextBtn{
-  background:#435f74;
-}
-body.dark #prevBtn svg,
-body.dark #nextBtn svg{
-  color:#c3cdd4;
-}
-/* =========================
-   BUTTON BASE
-========================= */
-
-.qplayer button{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  border:none;
-  cursor:pointer;
-  padding:0;
-
-  border-radius:50%;
-  transition:.15s;
-}
-
-.qplayer button:active{
-  transform:scale(.9);
-}
-
-
-/* =========================
-   PLAY (utama besar)
-========================= */
-
-#playBtn{
-  width:42px;
-  height:42px;
-
-  background:#0aa;
-  color:#fff;
-}
-#playBtn svg{width:50%;height:50%}
-
-/* =========================
-   PREV / NEXT kecil
-========================= */
-
-#prevBtn,
-#nextBtn{
-  width:32px;
-  height:32px;
-
-  background:#cecece;
-}
-#prevBtn svg,#nextBtn svg{color:#5a5a5a}
-
-/* =========================
-   REPEAT
-========================= */
-
-#repeatBtn{
-  width:30px;
-  height:30px;
-  opacity:.4;
-}
-
-#repeatBtn.active{
-  opacity:1;
-  color:#0aa;
-}
-
-/* timer */
-#timeNow,
-#timeTotal{
-  font-size:12px;
-  opacity:.7;
-}
-
-#repeatBtn{
-  opacity:.45;
-  transition:.2s;
-}
-
-#repeatBtn.active{
-  opacity:1;
-  color:#0aa;          /* warna aksen */
-  transform:scale(1.15);
-}
- /* ======================
-   PLAYER INFO (judul surat)
-====================== */
-
-.player-info{
-  text-align:center;
-  font-size:1.05em;
-  font-weight:600;
-  margin-bottom:6px;
-  opacity:.85;
-  letter-spacing:.3px;
-}
-/* =========================
-   CARD PLAY (OUTLINE)
-========================= */
-
-.play{
-  width:30px;
-  height:30px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
-  background:transparent;
-  border:2px solid #b9b9b9;
-  color:#b9b9b9;
-  cursor:pointer;
-  transition:all .15s ease;
-  opacity:.8;
-}
-
-.play svg{
-  width:20px;
-  height:20px;
-  fill:currentColor;
-}
-
-
-/* hover */
-.play:hover{
-  background:rgba(0,170,170,.08);
-}
-
-
-/* active (sedang play) */
-.play.active{
-  background:#0aa;
-  color:#fff;
-  border-color:#0aa;
-}
-
-
-/* klik effect */
-.play:active{
-  transform:scale(.92);
-}
-
-
- .qplayer svg{
-  width:18px;
-  height:18px;
-  display:block;
-}  
- #playBtn {
-  background: linear-gradient(135deg,#0aa,#0cc);
-} 
-/* =========================
-   RANGE BASE (RESET)
-========================= */
-
-#volume{
-  -webkit-appearance:none;
-  appearance:none;
-  height:4px;
-  border-radius:6px;
-  background:#e5e5e5;
-  outline:none;
-}
-
-
-/* =========================
-   TRACK COLOR (WEBKIT)
-========================= */
-
-#volume::-webkit-slider-runnable-track{
-  height:4px;
-  background:#dcdcdc;
-  border-radius:6px;
-}
-
-
-/* =========================
-   THUMB (bulat hijau)
-========================= */
-
-#volume::-webkit-slider-thumb{
-  -webkit-appearance:none;
-  appearance:none;
-
-  width:14px;
-  height:14px;
-
-  background:#0aa; 
-  border-radius:50%;
-  cursor:pointer;
-
-  margin-top:-4px;          /* center */
-}
-
-
-/* =========================
-   FIREFOX
-========================= */
-
-#volume::-moz-range-track{
-  height:4px;
-  background:#dcdcdc;
-  border-radius:6px;
-}
-
-#volume::-moz-range-thumb{
-  width:14px;
-  height:14px;
-  background:#0aa;
-  border:none;
-  border-radius:50%;
-}
-
-
-/* =========================
-   DIV PROGRESS (QURAN PLAYER)
-========================= */
-
-.qpBar{
-  position:relative;
-  flex:1;
-
-  height:4px;
-  background:#cbcbcb;
-  border-radius:14px;
-
-  cursor:pointer;
-}
-
-
-/* fill hijau */
-#qpFill{
-  position:absolute;
-  left:0;
-  top:0;
-  height:100%;
-  width:0%;
-
-  background:#0aa;
-  border-radius:14px;
-}
-
-
-/* thumb */
-#qpThumb{
-  position:absolute;
-  top:50%;
-  left:0;
-
-  width:14px;
-  height:14px;
-
-  background:#0aa;
-  border-radius:50%;
-
-  transform:translate(-50%,-50%);
-}
-    /* =========================
-   MOBILE FRIENDLY PLAYER
-========================= */
-
-@media (max-width:768px){
-  .player-wrap{
-    left:8px;
-    right:8px;
-    bottom:8px;
-    padding:7px;
-  }
-
-  /* tombol utama */
-  #playBtn{
-    width:45px;
-    height:45px;
-  }
-
-  /* prev next */
-  #prevBtn,
-  #nextBtn{
-    width:30px;
-    height:30px;
-  }
-
-  /* repeat */
-  #repeatBtn{
-    width:25px;
-    height:25px;
-  }
-
-  #volume{
-    display:none;
-  }
-
-  /* thumb lebih besar */
-  #progress::-webkit-slider-thumb,
-  #volume::-webkit-slider-thumb{
-    width:18px;
-    height:18px;
-    margin-top:-5px;
-  }
-
-  /* timer font */
-  #timeNow{font-size:13px;}
-    #timeTotal{display:none}
-}
-
-@media (max-width:768px){
-
-  .play{
-    width:30px;
-    height:30px;
-  }
-
-  .play svg{
-    width:20px;
-    height:20px;
-  }
-}
-    
-  </style>
-  
+<link rel="stylesheet" href="../../css/banner.css">
+<link rel="stylesheet" href="../../css/player.css">
+<link rel="stylesheet" href="../../css/surahquran.css">
+ 
 </head>
 
 <body>
@@ -387,21 +34,21 @@ body.dark #nextBtn svg{
   </svg> 
 </a>
 <button class="toggle" onclick="toggleDark()">🌙</button>
-<h1>
-  <img src="https://lh3.googleusercontent.com/d/1-Ufwu2QXVkDiVmHp0wr0tq4GUVUrEpH-=w100"
+<h1><a href="/">
+  <img src="../../assets/img/quran-logo-small3.png"
        width="100"
-       height="43"
+       height="52"
        alt="Al-Quranul Karim"
        loading="eager"
-       decoding="async">
+       decoding="async"></a>
 </h1>
 </header>
 
 <div class="top-container">
-  <h2 id="titleLatin"></h2>
-  <div id="titleArab" class="arab-title"></div>
-  <div id="titleArti"></div>
-  <div id="info" class="info"></div>
+  <h2 id="titleLatin">2. Albaqarah</h2>
+  <div id="titleArab" class="arab-title"><i class="icon-0"></i><i class="icon-2"></i></div>
+  <div id="titleArti">Sapi Betina</div>
+  <div id="info" class="info">286 Ayat • Madinah</div>
 </div>
 
 <div class="container">
@@ -417,8 +64,30 @@ body.dark #nextBtn svg{
   <select id="suratSelect"></select>
 </div>
 
-<div id="bismillah" class="bismillah"></div>
+<div id="bismillah" class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
 <div id="content"></div>
+<script src="../../js/waqafsplitter.js"></script>
+
+<!-- BANNER -->
+<div class="bottom-quran-banner-wrap" id="btmquranBanner">
+  <a href="https://kangis.my.id" class="bottom-quran-banner" target="_blank" rel="noopener">
+    <div class="bottom-quran-text">
+      <p>Dukung</p>
+      <h2>Aplikasi Al-Qur'an Digital</h2>
+      <span class="bottom-quran-btn">KLIK DISINI</span>
+    </div>
+    <div class="bottom-quran-visual">
+      <div class="bottom-quran-circle"></div>
+      <img
+        src="../../assets/img/phone.png"
+        alt="Aplikasi Al-Qur'an"
+        class="bottom-quran-phone"
+      >
+    </div>
+  </a>
+  <button class="bottom-quran-close" onclick="document.getElementById('btmquranBanner').style.display='none'">×</button>
+</div>
+<!-- BANNER END-->
 
 <div class="nav" id="navBottom">
   <button onclick="go(-1)"></button>
@@ -467,7 +136,7 @@ body.dark #nextBtn svg{
 </button>
 
 <script>
-window.SURAT_ID = 1;
+window.SURAT_ID = 2;
 const suratList = [
   "Al-Fatihah","Al-Baqarah","Ali 'Imran","An-Nisa","Al-Ma'idah","Al-An'am","Al-A'raf","Al-Anfal","At-Taubah","Yunus",
   "Hud","Yusuf","Ar-Ra'd","Ibrahim","Al-Hijr","An-Nahl","Al-Isra","Al-Kahf","Maryam","Ta-Ha",
@@ -499,387 +168,8 @@ function slugify(n){return n.toLowerCase().replace(/['’]/g,'').replace(/\s+/g,
 </script>
 
 <script src="../../js/theme.js"></script>
-
-<script>
-const id = window.SURAT_ID;
-const titleLatin=document.getElementById('titleLatin');
-const titleArab=document.getElementById('titleArab');
-const titleArti=document.getElementById('titleArti');
-const info=document.getElementById('info');
-const content=document.getElementById('content');
-const bismillah=document.getElementById('bismillah');
-const audio=document.getElementById('player');
-const wrap=document.getElementById('playerWrap');
-const topBtn=document.querySelector('.top');
-
-let ayatEls=[],currentIndex=-1,prevSurah=null,nextSurah=null,allSurah=[];
-const AUTO_NEXT_SURAH=true;
-
-window.addEventListener('scroll',()=>{
-  if(!topBtn)return;
-  topBtn.style.display=window.scrollY>500?'block':'none';
-});
-
-function scrollToTop(){
-  scrollTo({top:0,behavior:'smooth'});
-}
-
-function playAyat(i){
-  if(i<0||i>=ayatEls.length)return;
-  currentIndex=i;
-  const file=`${String(id).padStart(3,'0')}${String(i+1).padStart(3,'0')}`;
-  audio.src=`https://everyayah.com/data/Alafasy_64kbps/${file}.mp3`;
-  wrap.classList.add('show');
-  audio.play();
-  highlight(i);
-  localStorage.setItem(`lastAyatSurah${id}`,i);
-}
-
-audio.addEventListener('ended',()=>{
-  if(currentIndex<ayatEls.length-1){
-    playAyat(currentIndex+1);
-  }else if(AUTO_NEXT_SURAH&&nextSurah){
-    const s=allSurah[nextSurah-1];
-    location.href=`/surat/${nextSurah}-${slugify(s.nama_latin)}/`;
-  }
-});
-
-function closePlayer(){
-  audio.pause();
-  audio.src='';
-  wrap.classList.remove('show');
-}
-
-function setActiveAyat(i){
-  if(i<0||i>=ayatEls.length)return;
-  currentIndex=i;
-  highlight(i);
-}
-
-function highlight(i){
-  ayatEls.forEach(e=>e.classList.remove('active'));
-  const el=ayatEls[i];
-  if(!el)return;
-  el.classList.add('active');
-  el.scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-
-function go(n){
-  if(n===-1&&prevSurah){
-    const s=allSurah[prevSurah-1];
-    location.href=`/surat/${prevSurah}-${slugify(s.nama_latin)}/`;
-  }
-  if(n===1&&nextSurah){
-    const s=allSurah[nextSurah-1];
-    location.href=`/surat/${nextSurah}-${slugify(s.nama_latin)}/`;
-  }
-}
-
-function setNav(btns){
-  if(!btns.length)return;
-  const prevSVG=`<svg width="16" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6" fill="none" stroke="currentColor" stroke-width="2"/></svg>`;
-  const nextSVG=`<svg width="16" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6" fill="none" stroke="currentColor" stroke-width="2"/></svg>`;
-  if(prevSurah)btns[0].innerHTML=prevSVG+allSurah[prevSurah-1].nama_latin;
-  if(nextSurah)btns[1].innerHTML=allSurah[nextSurah-1].nama_latin+nextSVG;
-}
-
-function setMeta(attr,key,value){
-  let m=document.querySelector(`meta[${attr}="${key}"]`);
-  if(!m){
-    m=document.createElement('meta');
-    m.setAttribute(attr,key);
-    document.head.appendChild(m);
-  }
-  m.setAttribute('content',value);
-}
-
-async function load(){
-  allSurah=await(await fetch('https://equran.id/api/surat')).json();
-  prevSurah=id>1?id-1:null;
-  nextSurah=id<114?id+1:null;
-
-  setNav(document.querySelectorAll('.nav:first-of-type button'));
-  setNav(document.querySelectorAll('#navBottom button'));
-
-  const s=await(await fetch(`https://equran.id/api/surat/${id}`)).json();
-
-  const slug=slugify(s.nama_latin);
-  const canonical=`${location.origin}/surat/${id}-${slug}/`;
-  document.title=`Surat ${s.nama_latin} (${s.arti}) | Al-Qur'an`;
-
-  const desc=`Baca Surat ${s.nama_latin} (${s.arti}) lengkap ${s.jumlah_ayat} ayat, teks Arab, terjemah Indonesia, dan audio.`;
-  document.querySelector('meta[name="description"]')?.setAttribute('content',desc);
-  document.getElementById('canonicalLink').href=canonical;
-
-  setMeta('property','og:title',`Surat ${s.nama_latin} | Al-Qur'an`);
-  setMeta('property','og:description',desc);
-  setMeta('property','og:url',canonical);
-  setMeta('property','og:image',`${location.origin}/assets/img/cover.jpg`);
-
-  titleLatin.textContent=`${s.nomor}. ${s.nama_latin}`;
-  titleArab.textContent=s.nama;
-  titleArti.textContent=`(${s.arti})`;
-  info.textContent=`${s.jumlah_ayat} Ayat • ${s.tempat_turun}`;
-  bismillah.textContent=(id!==1&&id!==9)?'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ':'';
-
-  content.innerHTML='';
-  ayatEls=[];
-
-  s.ayat.forEach((a,i)=>{
-    const el=document.createElement('div');
-    el.className='ayat';
-    el.innerHTML=`
-      <button class="play">▶</button>
-      <div class="arab">
-        <span class="ayah-text">${a.ar}</span>
-        ۝${toArabic(a.nomor)}
-      </div>
-      <div class="arti">${a.idn}</div>
-    `;
-    el.querySelector('.play').onclick=()=>playAyat(i);
-    content.appendChild(el);
-    ayatEls.push(el);
-  });
-
-  const last=localStorage.getItem(`lastAyatSurah${id}`);
-  if(last!==null)setActiveAyat(+last);
-}
-
-function toArabic(n){
-  return n.toString().replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
-}
-
-load();
-</script>
-
-<script>
-/* =========================
-   CUSTOM PLAYER CONTROL
-========================= */
-
-const playBtn   = document.getElementById('playBtn');
-const prevBtn   = document.getElementById('prevBtn');
-const nextBtn   = document.getElementById('nextBtn');
-const qpBar   = document.getElementById('qpBar');
-const qpFill  = document.getElementById('qpFill');
-const qpThumb = document.getElementById('qpThumb');
-const volume    = document.getElementById('volume');
-const repeatBtn = document.getElementById('repeatBtn');
-const timeNow   = document.getElementById('timeNow');
-const timeTotal = document.getElementById('timeTotal');
-
-let repeatOne = false;
-
-/* play pause */
-playBtn.onclick = ()=>{
-  if(audio.paused) audio.play();
-  else audio.pause();
-};
-
-audio.onplay  = ()=> playBtn.textContent="⏸";
-audio.onpause = ()=> playBtn.textContent="▶";
-
-/* next prev */
-prevBtn.onclick = ()=> playAyat(currentIndex-1);
-nextBtn.onclick = ()=> playAyat(currentIndex+1);
-
-/* progress */
-audio.ontimeupdate = ()=>{
-  if(!audio.duration) return;
-
-  const p = audio.currentTime/audio.duration*100;
-  qpFill.style.width = p+"%";
-  qpThumb.style.left = p+"%";
-  timeNow.textContent   = fmt(audio.currentTime);
-  timeTotal.textContent = fmt(audio.duration);
-};
-function seek(e){
-  const rect = qpBar.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const p = x/rect.width;
-
-  audio.currentTime = p * audio.duration;
-}
-
-qpBar.onclick = seek;
-
-qpBar.onpointerdown = ()=>{
-  qpBar.onpointermove = seek;
-};
-
-document.onpointerup = ()=>{
-  qpBar.onpointermove = null;
-};
-
-/* volume */
-volume.value = 1;
-volume.oninput = ()=> audio.volume = volume.value;
-
-/* repeat */
-repeatBtn.onclick = ()=>{
-  repeatOne = !repeatOne;
-  repeatBtn.style.opacity = repeatOne ? 1 : .4;
-};
-
-audio.addEventListener('ended',()=>{
-  if(repeatOne){
-    audio.currentTime=0;
-    audio.play();
-    return;
-  }
-});
-
-/* format time */
-function fmt(t){
-  const m=Math.floor(t/60);
-  const s=Math.floor(t%60).toString().padStart(2,'0');
-  return `${m}:${s}`;
-}
-</script>
-
-<script>
-/* ===============================
-   AMAN: tunggu semua siap dulu
-================================ */
-window.addEventListener('load', ()=>{
-const playerInfo = document.getElementById('playerInfo');
-
-/* ===============================
-   SVG ICON TEBAL
-================================ */
-
-const svgPlay = `
-<svg viewBox="0 0 20 20" fill="currentColor">
-  <path d="M4 2l14 8-14 8z"/>
-</svg>`;
-
-const svgPause = `
-<svg viewBox="0 0 20 20" fill="currentColor">
-  <rect x="3" y="2" width="5" height="16" rx="1"/>
-  <rect x="12" y="2" width="5" height="16" rx="1"/>
-</svg>`;
-
-
-const svgPrev = `
-<svg viewBox="0 0 24 24" fill="currentColor">
-    <path d="M11 12l9 7V5zM4 5h3v14H4z"/>
-  </svg>`;
-
-const svgNext = `
-<svg viewBox="0 0 24 24" fill="currentColor">
-    <path d="M13 12L4 5v14zM17 5h3v14h-3z"/>
-  </svg>`;
-
-const svgRepeat = `
-<svg viewBox="0 0 24 24" fill="currentColor">
-    <path d="M17 1l4 4-4 4V6H7a4 4 0 00-4 4H1a6 6 0 016-6h10V1zM7 23l-4-4 4-4v3h10a4 4 0 004-4h2a6 6 0 01-6 6H7v3z"/>
-  </svg>`;
-
-
-/* ===============================
-   INIT BUTTON
-================================ */
-
-prevBtn.innerHTML   = svgPrev;
-nextBtn.innerHTML   = svgNext;
-repeatBtn.innerHTML = svgRepeat;
-playBtn.innerHTML   = svgPlay;
-
-
-/* ===============================
-   REPEAT AYAT (FIX)
-================================ */
-
-let repeatOne = false;
-
-repeatBtn.onclick = ()=>{
-  repeatOne = !repeatOne;
-  audio.loop = repeatOne;              // 🔥 repeat ayat
-  repeatBtn.classList.toggle('active', repeatOne);
-};
-
-
-/* ===============================
-   ICON SYNC
-================================ */
-
-function setCardIcons(){
-  ayatEls.forEach(el=>{
-    el.querySelector('.play').innerHTML = svgPlay;
-  });
-}
-
-function syncIcons(){
-  setCardIcons();
-
-  if(currentIndex>=0 && ayatEls[currentIndex]){
-    ayatEls[currentIndex]
-      .querySelector('.play')
-      .innerHTML = audio.paused ? svgPlay : svgPause;
-  }
-  updateInfo();
-}
-function updateInfo(){
-  if(!playerInfo) return;
-
-  const suratName = titleLatin?.textContent || '';
-  const total = ayatEls.length;
-  const now   = currentIndex >= 0 ? currentIndex+1 : 0;
-
-  playerInfo.textContent = `${suratName} • ${now}/${total}`;
-}
-
-
-/* ===============================
-   HOOK playAyat
-================================ */
-
-const _playAyat = playAyat;
-playAyat = function(i){
-  _playAyat(i);
-  syncIcons();
-};
-
-
-/* ===============================
-   FIX CARD CLICK
-================================ */
-
-function bindCardButtons(){
-  ayatEls.forEach((el,i)=>{
-    el.querySelector('.play').onclick = ()=>{
-      if(i===currentIndex && !audio.paused){
-        audio.pause();
-      }else{
-        playAyat(i);
-      }
-    };
-  });
-}
-
-
-/* ===============================
-   PLAYER EVENTS
-================================ */
-
-audio.onplay  = ()=>{ playBtn.innerHTML = svgPause; syncIcons(); };
-audio.onpause = ()=>{ playBtn.innerHTML = svgPlay;  syncIcons(); };
-
-
-/* ===============================
-   FINAL INIT
-================================ */
-
-setTimeout(()=>{
-  setCardIcons();
-  bindCardButtons();
-},300);
-
-
-});
-</script>
-
-
+<script src="../../js/surat.js"></script>
+<script src="../../js/player.js"></script>
   
 <script>
 let lastScroll=0;
@@ -889,6 +179,34 @@ window.addEventListener("scroll",()=>{
   header.classList.toggle("hide",c>lastScroll&&c>80);
   lastScroll=c;
 });
+function showToast(msg){
+  let toast = document.getElementById("toast");
+  if(!toast){
+    toast = document.createElement("div");
+    toast.id = "toast";
+    toast.className = "toast";
+
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(toast.hideTimer);
+  toast.hideTimer = setTimeout(()=>{
+    toast.classList.remove("show");
+  },3000);
+}
+window.addEventListener("offline", ()=>{
+  showToast("Anda sedang offline");
+});
+window.addEventListener("online", ()=>{
+  showToast("Koneksi kembali online");
+});
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js');
+  }
 </script>
 
 </body>
