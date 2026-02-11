@@ -9,7 +9,32 @@ for (let i = 1; i <= 114; i++) {
 
 /* ===== OVERRIDE ARTI SURAT ===== */
 const OVERRIDE_ARTI = {
-  2: "Sapi Betina", // Al-Baqarah
+  2: "Sapi Betina",
+  8: "Harta Rampasan Perang",
+  10: "Nabi Yunus",
+  11: "Nabi Hud",
+  12: "Nabi Yusuf",
+  14: "Nabi Ibrahim",
+  15: "Negeri Kaum Tsamud",
+  17: "Perjalanan Malam",
+  30: "Bangsa Romawi",
+  32: "Sujud",
+  34: "Negeri Saba",
+  45: "Yang Berlutut",
+  47: "Nabi Muhammad SAW",
+  55: "Yang Maha Pengasih",
+  60: "Perempuan yang Diuji",
+  62: "Hari Jum'at",
+  71: "Nabi Nuh",
+  81: "Menggulung",
+  87: "Yang Maha Tinggi",
+  88: "Hari Pembalasan",
+  93: "Waktu Dhuha",
+  103: "Masa",
+  106: "Suku Quraisy",
+  108: "Nikmat yang Banyak",
+  112: "Kemurnian Keesaan Allah",
+  113: "Waktu Subuh"
 };
 const titleLatin=document.getElementById('titleLatin');
 const titleArab=document.getElementById('titleArab');

@@ -25,6 +25,7 @@ const artiOverride = {
   55: "Yang Maha Pengasih",
   60: "Perempuan yang Diuji",
   62: "Hari Jum'at",
+  62: "Nabi Nuh",
   81: "Menggulung",
   87: "Yang Maha Tinggi",
   88: "Hari Pembalasan",
