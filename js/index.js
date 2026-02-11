@@ -171,13 +171,17 @@ async function load() {
 
 function render(arr) {
   listEl.innerHTML = '';
+
   arr.forEach(s => {
+
     const namaLatin = OVERRIDE_LATIN[s.nomor] || s.nama_latin;
     const arti = artiOverride[s.nomor] || s.arti;
+
     const el = document.createElement('div');
     el.className = 'card';
+
     el.innerHTML = `
-      <b>${s.nomor}. ${s.namaLatin}</b>
+      <b>${s.nomor}. ${namaLatin}</b>
       <div class="arti">
         ${arti}
       </div>
@@ -189,6 +193,7 @@ function render(arr) {
       </div>
     `;
 
+    // ganti teks arab dengan icon font kalau font sudah load
     const arab = el.querySelector('.arab');
     if (document.fonts) {
       document.fonts.load("1em surahquran").then(() => {
@@ -197,22 +202,22 @@ function render(arr) {
       });
     }
 
-
+    // slug untuk link
     const slugName = slugMap[s.nomor];
     const slug = `${s.nomor}-${slugName}`;
 
     el.onclick = () => {
-
       location.href = `/surat/${slug}/`;
-
     };
 
+    // WAJIB di akhir
     listEl.appendChild(el);
+
   });
 }
-
 
 // ===============================
 load();
 // ===============================
+
 
