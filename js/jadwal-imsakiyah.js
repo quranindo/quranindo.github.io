@@ -1,4 +1,4 @@
-fetch('/api/imsakiyah-2026-02.json')
+fetch('/api/jadwal-imsakiyah.json')
   .then(res => res.json())
   .then(json => {
 
@@ -28,3 +28,4 @@ fetch('/api/imsakiyah-2026-02.json')
     document.getElementById("isya").textContent = data.isya;
 
   });
+
