@@ -1,0 +1,57 @@
+.jadwalContainer{
+  max-width: 850px;
+  margin: auto;
+  padding: 95px 16px 16px;
+}
+.topWrap{text-align:center;margin-bottom:35px}
+.topWrap h2{margin-bottom:1x}
+.desc{margin:35px 0 30px;line-height:1.6}
+.card-jadwal{
+  padding:16px;
+  border-radius:14px;
+  background:#fff;
+  box-shadow:0 4px 14px rgba(0,0,0,.06);
+}
+
+.header{
+  margin-bottom:10px;
+}
+
+.lokasi{
+  font-weight:bold;
+  font-size:18px;
+}
+
+.tanggal{
+  opacity:.8;
+  font-size:14px;
+}
+
+.hijriyah{
+  opacity:.7;
+  font-size:13px;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px solid #eee;
+}
+
+.row.highlight{
+  border-left:4px solid #2e7d32;
+  padding-left:8px; /* kecil saja */
+}
+
+/* Value khusus */
+.value.imsak{
+  color:#e65100;
+  font-weight:600;
+}
+
+.value.maghrib{
+  color:#2e7d32;
+  font-weight:700;
+  font-size:1.08em;
+}
