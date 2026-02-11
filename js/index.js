@@ -66,7 +66,7 @@ const slugMap = {
   62: "al-jumuah",
   63: "al-munafiqun",
   64: "at-taghabun",
-  65: "at-talaq",
+  65: "at-thalaq",
   66: "at-tahrim",
   67: "al-mulk",
   68: "al-qalam",
@@ -75,7 +75,7 @@ const slugMap = {
   71: "nuh",
   72: "al-jinn",
   73: "al-muzzammil",
-  74: "al-muddassir",
+  74: "al-muddatstsir",
   75: "al-qiyamah",
   76: "al-insan",
   77: "al-mursalat",
@@ -94,7 +94,7 @@ const slugMap = {
   90: "al-balad",
   91: "asy-syams",
   92: "al-lail",
-  93: "ad-duha",
+  93: "ad-dhuha",
   94: "al-insyirah",
   95: "at-tin",
   96: "al-alaq",
@@ -230,6 +230,7 @@ function scrollToTop(){
 // ===============================
 load();
 // ===============================
+
 
 
 
