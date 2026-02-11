@@ -1,0 +1,285 @@
+ /* =========================
+   PLAYER WRAP
+========================= */
+.player-wrap{
+  position:fixed;
+  bottom:14px;
+  left:12px;
+  right:12px
+  background:#fff;
+  border-radius:18px;
+  box-shadow:0 6px 22px rgba(0,0,0,.15);
+  padding:10px;
+}
+/* layout */
+.qplayer{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#efefef;
+  padding:10px 14px;
+  margin-right:40px;
+  border-radius:12px;
+}
+body.dark .player-wrap{
+  background:#2e3648;
+}
+body.dark .qplayer{
+  background:#111827;
+}    
+body.dark #prevBtn,
+body.dark #nextBtn{
+  background:#435f74;
+}
+body.dark #prevBtn svg,
+body.dark #nextBtn svg{
+  color:#c3cdd4;
+}
+/* =========================
+   BUTTON BASE
+========================= */
+.qplayer button{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:none;
+  cursor:pointer;
+  padding:0;
+  border-radius:50%;
+  transition:.15s;
+}
+.qplayer button:active{
+  transform:scale(.9);
+}
+
+/* =========================
+   PLAY PLAYER
+========================= */
+#playBtn{
+  width:42px;
+  height:42px;
+  background:#0aa;
+  color:#fff;
+}
+#playBtn svg{width:50%;height:50%}
+/* =========================
+   PREV / NEXT kecil
+========================= */
+#prevBtn,
+#nextBtn{
+  width:32px;
+  height:32px;
+  background:#cecece;
+}
+#prevBtn svg,#nextBtn svg{color:#5a5a5a}
+/* =========================
+   REPEAT
+========================= */
+#repeatBtn{
+  width:30px;
+  height:30px;
+  opacity:.4;
+}
+#repeatBtn.active{
+  opacity:1;
+  color:#0aa;
+}
+#repeatBtn{
+  opacity:.45;
+  transition:.2s;
+  background:#d3d3d3; 
+}
+#repeatBtn.active{
+  opacity:1;
+  color:#0aa;          /* warna aksen */
+  transform:scale(1.15);
+  background:#fff;
+}
+/* timer */
+#timeNow,
+#timeTotal{
+  font-size:12px;
+  opacity:.7;
+}
+ /* ======================
+   PLAYER INFO
+====================== */
+.player-info{
+  text-align:center;
+  font-size:1.05em;
+  font-weight:600;
+  margin-bottom:6px;
+  opacity:.85;
+  letter-spacing:.3px;
+}
+/* =========================
+   CARD PLAY (OUTLINE)
+========================= */
+.play{
+  width:25px;
+  height:25px;
+  display:grid;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:transparent;
+  border:2px solid #faad28;
+  color:#faad28;
+  cursor:pointer;
+  transition:all .15s ease;
+}
+body.dark .play{border-color:#865b10;color:#865b10}
+
+.play svg{
+  display: block;
+  width:13px;
+  height:13px;
+}
+/* hover */
+.play:hover{
+  background:rgba(0,170,170,.08);
+}
+/* active (sedang play) */
+.play.active{
+  background:#0aa;
+  color:#fff;
+  border-color:#0aa;
+}
+/* klik effect */
+.play:active{
+  transform:scale(.92);
+}
+ .qplayer svg{
+  width:18px;
+  height:18px;
+  display:block;
+}  
+ #playBtn {
+  background: linear-gradient(135deg,#0aa,#0cc);
+} 
+/* =========================
+   RANGE BASE (RESET)
+========================= */
+#volume{
+  -webkit-appearance:none;
+  appearance:none;
+  height:4px;
+  border-radius:6px;
+  background:#e5e5e5;
+  outline:none;
+}
+/* =========================
+   TRACK COLOR (WEBKIT)
+========================= */
+#volume::-webkit-slider-runnable-track{
+  height:4px;
+  background:#dcdcdc;
+  border-radius:6px;
+}
+/* =========================
+   THUMB (bulat hijau)
+========================= */
+#volume::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  appearance:none;
+  width:14px;
+  height:14px;
+  background:#0aa; 
+  border-radius:50%;
+  cursor:pointer;
+  margin-top:-4px;          /* center */
+}
+
+/* =========================
+   FIREFOX
+========================= */
+#volume::-moz-range-track{
+  height:4px;
+  background:#dcdcdc;
+  border-radius:6px;
+}
+#volume::-moz-range-thumb{
+  width:14px;
+  height:14px;
+  background:#0aa;
+  border:none;
+  border-radius:50%;
+}
+/* =========================
+   DIV PROGRESS (QURAN PLAYER)
+========================= */
+.qpBar{
+  position:relative;
+  flex:1;
+  height:4px;
+  background:#cbcbcb;
+  border-radius:14px;
+  cursor:pointer;
+}
+/* fill hijau */
+#qpFill{
+  position:absolute;
+  left:0;
+  top:0;
+  height:100%;
+  width:0%;
+  background:#0aa;
+  border-radius:14px;
+}
+/* thumb */
+#qpThumb{
+  position:absolute;
+  top:50%;
+  left:0;
+  width:14px;
+  height:14px;
+  background:#0aa;
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+}
+/* =========================
+   MOBILE FRIENDLY PLAYER
+========================= */
+@media (max-width:768px){
+  .player-wrap{
+    left:8px;
+    right:8px;
+    bottom:8px;
+    padding:7px;
+  }
+  /* tombol utama */
+  #playBtn{
+    width:45px;
+    height:45px;
+  }
+  /* prev next */
+  #prevBtn,
+  #nextBtn{
+    width:30px;
+    height:30px;
+  }
+  /* repeat */
+  #repeatBtn{
+    width:25px;
+    height:25px;
+  }
+  #volume{
+    display:none;
+  }
+  /* thumb lebih besar */
+  #progress::-webkit-slider-thumb,
+  #volume::-webkit-slider-thumb{
+    width:18px;
+    height:18px;
+    margin-top:-5px;
+  }
+  /* timer font */
+  #timeNow{font-size:13px;}
+    #timeTotal{display:none}
+
+}
+
+
+
+
+  

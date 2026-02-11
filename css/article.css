@@ -36,7 +36,7 @@ display:inline-block;
 .navsurah a:hover{background:var(--dark-accent);}
 /* CONTAINER */
 .container{
-  max-width:950px;
+  max-width:850px;
   margin:auto;
   padding:16px;
 }
@@ -96,8 +96,9 @@ display:inline-block;
 }
 .arab{
   font-family:"AbuFaqih","Noto Naskh Arabic","Traditional Arabic","Geeza Pro",serif;
-  font-size: clamp(32px, 4.5vw, 38px);
+  font-size: clamp(30px, 4.5vw, 38px);
   text-align:right;
+  line-height:2;
 }
 .meta{
   font-size:12px;
@@ -127,7 +128,7 @@ display:inline-block;
 
 /* ================= MAIN ================= */
 .footer-container {
-  max-width: 950px;
+  max-width: 850px;
   margin: 0 auto;
   padding: 40px 20px 20px;
   display: flex;
@@ -189,7 +190,7 @@ display:inline-block;
 .footer-bottom {
   border-top: 1px solid #1e293b;
   padding: 16px 0;
-  max-width: 950px;
+  max-width: 850px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -269,4 +270,69 @@ display:inline-block;
 
 .footer-right ul li {
   line-height: 1.2;
+}
+
+/* ===== SPOILER ===== */
+.spoiler {
+  border: 1px solid #8993a1;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 16px 0;
+}
+body.dark .spoiler{border-color:#2b3444}
+.spoiler input {
+  display: none;
+}
+
+.spoiler label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #e4e8ed;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background .2s ease;
+}
+body.dark .spoiler label{background: #111827;}
+
+.spoiler label:hover {
+  background: #d4dae0;
+}
+body.dark .spoiler label:hover{background: #080e1b;}
+.spoiler label::after {
+  content: "＋";
+  font-size: 18px;
+  transition: transform .3s ease;
+}
+
+.spoiler input:checked + label::after {
+  content: "−";
+}
+
+.spoiler-content {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 16px;
+  transition: max-height .4s ease, padding .3s ease;
+  text-align:center;
+}
+.spoiler-content img{width:100%;max-width:450px;margin:30px 0}
+.spoiler input:checked ~ .spoiler-content {
+  max-height: 1000px;
+  padding: 16px;
+}
+
+/* ===== CONTENT ===== */
+.spoiler-content p {
+  margin: 0 0 10px;
+  line-height: 1.6;
+}
+
+.spoiler-content code {
+  background: #f3f4f6;
+  padding: 4px 6px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 14px;
 }

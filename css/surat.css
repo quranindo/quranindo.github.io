@@ -21,20 +21,23 @@ header h1{margin:0}
 }
 
 /* TITLE */
-.top-container{max-width:850px;margin:auto;text-align:center;padding:95px 0 5px;position:relative}
+.top-container{max-width:950px;margin:auto;text-align:center;padding:95px 0 5px;position:relative}
 .top-container h2{font-size:1.1em;margin:0}
 .navcon{max-width:350px;margin:0 auto}
-.arab-title{font-family:AbuFaqih; font-size:clamp(30px, 4.5vw, 44px);line-height:1.8}
+.arab-title{font-family:"surahquran","Noto Naskh Arabic","Traditional Arabic","Geeza Pro",serif;; font-size:clamp(48px, 4.5vw, 58px);line-height:1.7}
+#titleArab i + i {margin-right:-.35em;}
+#titleArab {direction: rtl;unicode-bidi: isolate;text-align: center;}
 .info{font-size:.8em;text-transform:capitalize;margin-top:10px}
-.bismillah{text-align:center;font-family:AbuFaqih;font-size:clamp(26px, 4.5vw, 30px);margin-bottom:20px}
+.bismillah{text-align:center;font-family:"surahquran","Noto Naskh Arabic","Traditional Arabic","Geeza Pro",serif;;font-size:clamp(36px, 4.5vw, 46px);margin-bottom:20px}
 /* CONTAINER */
-.container{max-width:850px;margin:auto;padding:16px 16px 90px}
+.container{max-width:950px;margin:auto;padding:16px}
 
 /* NAV */
 .navcon{margin-bottom:8px}
 .nav{display:flex;gap:10px;margin-bottom:10px}
 .nav button{
   flex:1;
+  font-size:.9rem;
   padding:10px;
   border:1px solid var(--border-accent);
   border-radius:8px;
@@ -47,7 +50,7 @@ header h1{margin:0}
   cursor:pointer;
 }
 .nav button:disabled{opacity:.5;pointer:disabled}
-
+#navBottom{margin-top:20px}
 /* AYAT */
 .ayat{
   background:var(--card);
@@ -57,22 +60,26 @@ header h1{margin:0}
   border:1px solid var(--border-accent);
   box-shadow:0 2px 5px rgba(0,0,0,.08); 
 }
-.ayat.active{background:#0ea5a415}
+.ayat.active{background:#eefcfc;border:1px solid #cfe3e3}
+body.dark .ayat.active{background:#202941;border:1px solid #384974}
 .arab{
-font-family:AbuFaqih,system-ui;
-font-size: clamp(30px, 4.5vw, 40px);
+font-family:"AbuFaqih","Noto Naskh Arabic","Traditional Arabic","Geeza Pro",serif;;
+font-size: clamp(36px, 4.5vw, 46px);
 direction: rtl;
   unicode-bidi: isolate;
   text-align: right;
   line-height: 1.8;
-
+  color:#73ab4a;
   font-feature-settings:
     "mark" 1,
     "mkmk" 1,
     "liga" 1,
     "kern" 1;
+	
 }
-.arti{opacity:.85;margin-top:8px;line-height:1.6}
+body.dark .arab{color:#95b57d}
+.ayah-text{color:var(--text)}
+.arti{opacity:.85;margin-top:8px;line-height:1.6;font-size: clamp(1em, 4.5vw, 1.05em);}
 .play{
   background:var(--btn-play);
   color:#fff;
@@ -172,10 +179,10 @@ body.dark .player-wrap {
 /* CLOSE BUTTON */
 .player-wrap .close {
   position: absolute;
-  top: 30px;
+  top: 33px;
   right: 8px;
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   border: none;
   background: rgba(10,15,25,.06);
@@ -271,6 +278,7 @@ body.dark .plyr--full-ui input[type=range]::-moz-range-track {
 }
 
 .surat-select-wrap select{
+  font-size:.9em;
   width:100%;
   max-width:200px;
   display:block;
@@ -301,8 +309,28 @@ option{cursor:pointer}
   vertical-align: middle;
 }
 
+/* =======
+   TOAST
+========== */ 
+  .toast{
+  position:fixed;
+  bottom:90px;
+  left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:#222;
+  color:#fff;
+  padding:10px 14px;
+  border-radius:10px;
+  font-size:14px;
+  opacity:0;
+  transition:.25s;
+  z-index:9999;
+}
 
-
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
 
 
 

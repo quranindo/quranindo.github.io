@@ -1,0 +1,348 @@
+.quran-banner-wrap{
+  position:relative;
+  margin-bottom:16px;
+  font-family:Inter,system-ui,sans-serif;
+}
+
+/* MAIN */
+.quran-banner{
+  position:relative;
+  display:flex;
+  align-items:center;
+  height:150px;
+  border-radius:10px;
+  overflow:hidden;
+  background:linear-gradient(135deg,#b3dbd0,#c1ddd5);
+  color:#222;
+  text-decoration:none;
+}
+
+/* TEXT */
+.quran-text{
+  padding:24px 38px;
+  z-index:2;
+}
+
+.quran-text h2{
+  margin:0 0 6px;
+  font-size:1.6rem;
+  font-weight:800;
+}
+
+.quran-text p{
+  margin:0 0 12px;
+  font-size:.95rem;
+  opacity:.9;
+}
+
+.quran-btn{
+  display:inline-block;
+  padding:8px 18px;
+  background:#fff;
+  color:#065f46;
+  border-radius:999px;
+  font-size:.75rem;
+  font-weight:800;
+  letter-spacing:.08em;
+}
+
+/* VISUAL AREA */
+.quran-visual{
+  position:absolute;
+  right:10%;
+  top:0;
+  width:45%;
+  height:100%;
+  pointer-events:none;
+}
+
+/* CIRCLE */
+.quran-circle{
+  position:absolute;
+  right:-40px;
+  top:50%;
+  width:220px;
+  height:220px;
+  background:rgba(255,255,255,.32);
+  border-radius:50%;
+  transform:translateY(-50%);
+}
+
+/* PHONE */
+.quran-phone{
+  position:absolute;
+  right:10px;
+  bottom:-100px;
+  height:160%;
+  transform:rotate(-8deg);
+  filter:drop-shadow(0 14px 24px rgba(0,0,0,.35));
+}
+
+/* BADGE */
+.quran-badge{
+  position:absolute;
+  top:14px;
+  right:16px;
+  padding:6px 12px;
+  border-radius:999px;
+  background:#facc15;
+  color:#14532d;
+  font-size:.7rem;
+  font-weight:900;
+  letter-spacing:.1em;
+  z-index:3;
+}
+
+/* CLOSE */
+.quran-close{
+  position:absolute;
+  top:8px;
+  left:8px;
+  width:25px;
+  height:25px;
+  border:none;
+  border-radius:50%;
+  background:rgba(0,0,0,.25);
+  color:#fff;
+  font-size:18px;
+  cursor:pointer;
+  z-index:4;
+}
+
+/* MOBILE */
+@media (max-width:600px){
+  .quran-banner{
+    height:180px;
+    flex-direction:column;
+    justify-content:center;
+    text-align:center;
+  }
+
+  .quran-visual{
+    width:100%;
+    height:100%;
+  }
+
+  .quran-circle{
+    right:50%;
+    top:20px;
+    width:260px;
+    height:260px;
+    transform:translateX(50%);
+    background:rgba(255,255,255,.74);
+  }
+
+  .quran-phone{
+    right:50%;
+    top:10px;
+    bottom:auto;
+    height:160%;
+    transform:translateX(50%) rotate(-10deg);
+    opacity:.35;
+  }
+
+  .quran-banner::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(rgba(178,217,206,.95),rgba(197,218,212,.45));
+    z-index:1;
+  }
+
+  .quran-text{
+    position:relative;
+    z-index:2;
+    padding:20px;
+	margin-top:20px;
+  }
+
+  .quran-text h2{
+    font-size:1.4rem;
+  }
+}
+
+/* BOTTOM */
+
+.bottom-quran-banner-wrap{
+  position:relative;
+  margin-top:16px;
+  font-family:Inter,system-ui,sans-serif;
+}
+
+/* MAIN */
+.bottom-quran-banner{
+  position:relative;
+  display:flex;
+  align-items:center;
+  height:150px;
+  border-radius:10px;
+  overflow:hidden;
+  background:linear-gradient(135deg,#d6e9e4,#95b9af);
+  color:#222;
+  text-decoration:none;
+  justify-content:center;
+  text-align:center;
+  
+}
+.bottom-quran-banner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 55%;
+  height: 100%;
+  pointer-events: none;
+
+  background:
+    /* bintang besar */
+    radial-gradient(2.5px 2.5px at 85% 15%, #fff 90%, transparent 100%),
+    radial-gradient(2px 2px at 90% 35%, #fff 90%, transparent 100%),
+    radial-gradient(2.5px 2.5px at 50% 70%, #fff 90%, transparent 100%),
+
+    /* bintang sedang */
+    radial-gradient(1.5px 1.5px at 70% 20%, #fff 90%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 75% 45%, #fff 90%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 88% 60%, #fff 90%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 65% 80%, #fff 90%, transparent 100%),
+	
+    /* bintang kecil rapat */
+    radial-gradient(1px 1px at 78% 10%, #fff 90%, transparent 100%),
+    radial-gradient(1px 1px at 82% 25%, #fff 90%, transparent 100%),
+    radial-gradient(1px 1px at 92% 15%, #fff 90%, transparent 100%),
+    radial-gradient(1px 1px at 68% 35%, #fff 90%, transparent 100%),
+    radial-gradient(1px 1px at 73% 55%, #fff 90%, transparent 100%),
+    radial-gradient(1px 1px at 85% 85%, #fff 90%, transparent 100%),
+    radial-gradient(1px 1px at 90% 75%, #fff 90%, transparent 100%),
+    radial-gradient(1px 1px at 95% 45%, #fff 90%, transparent 100%);
+
+  opacity: 0.8;
+}
+/* TEXT */
+.bottom-quran-text{
+  padding:24px 38px;
+  z-index:2;
+}
+
+.bottom-quran-text h2{
+  margin:0 0 6px;
+  font-size:1.6rem;
+  font-weight:700;
+  padding:0;
+}
+
+.bottom-quran-text p{
+  margin:0 0 8px;
+  font-size:1.15rem;
+  opacity:.9;
+}
+
+.bottom-quran-btn{
+  display:inline-block;
+  padding:8px 18px;
+  background:#facc15;
+  color:#14532d;
+  border-radius:999px;
+  font-size:.75rem;
+  font-weight:800;
+  letter-spacing:.08em;
+  margin-top:10px;
+}
+
+/* VISUAL AREA */
+.bottom-quran-visual{
+  position:absolute;
+  left:0;
+  top:0;
+  width:45%;
+  height:100%;
+  pointer-events:none;
+}
+
+/* CIRCLE */
+.bottom-quran-circle{
+  position:absolute;
+  left:0;
+  top:30%;
+  width:200px;
+  height:200px;
+  background:rgba(12,98,75,.1);
+  border-radius:50%;
+  transform:translateY(-20%);
+}
+
+/* PHONE */
+.bottom-quran-phone{
+  position:absolute;
+  left:40px;
+  bottom:-130px;
+  height:160%;
+  filter:drop-shadow(0 14px 24px rgba(0,0,0,.35));
+}
+
+/* CLOSE */
+.bottom-quran-close{
+  position:absolute;
+  top:8px;
+  right:8px;
+  width:25px;
+  height:25px;
+  border:none;
+  border-radius:50%;
+  background:rgba(0,0,0,.25);
+  color:#fff;
+  font-size:18px;
+  cursor:pointer;
+  z-index:4;
+}
+
+/* MOBILE */
+@media (max-width:600px){
+  .bottom-quran-banner{
+    height:180px;
+    flex-direction:column;
+    justify-content:center;
+    text-align:center;
+  }
+
+  .bottom-quran-visual{
+    width:100%;
+    height:100%;
+  }
+
+  .bottom-quran-circle{
+    left:30%;
+    top:0;
+    width:220px;
+    height:220px;
+    transform:translateX(50%);
+    background:rgba(255,255,255,.74);
+	display:none;
+  }
+
+  .bottom-quran-phone{
+    right:50%;
+    top:10px;
+    bottom:auto;
+    height:160%;
+    opacity:.35;
+  }
+
+  .bottom-quran-banner::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(rgba(178,217,206,.65),rgba(197,218,212,.25));
+    z-index:1;
+  }
+
+  .bottom-quran-text{
+    position:relative;
+    z-index:2;
+    padding:20px;
+	margin-top:20px;
+  }
+
+  .bottom-quran-text h2{
+    font-size:1.4rem;
+  }
+}
