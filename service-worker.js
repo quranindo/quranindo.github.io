@@ -3,7 +3,7 @@
    Kang Ismet Edition 🚀
    =============================== */
 
-const CACHE_VERSION = 'v2.0.1';
+const CACHE_VERSION = 'v2.0.2';
 
 const STATIC_CACHE  = `mushaf-static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `mushaf-runtime-${CACHE_VERSION}`;
@@ -19,6 +19,7 @@ const STATIC_FILES = [
   '/',
   '/index.html',
    '/surat/index.html',
+  '/jadwal-imsakiyah/index.html',
   '/offline.html',
   '/about.html',
   '/filantropi.html',
@@ -255,4 +256,5 @@ self.addEventListener('fetch', event => {
   );
 
 });
+
 
