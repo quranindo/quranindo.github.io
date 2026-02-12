@@ -16,7 +16,7 @@ body.dark{
   --card:#111827;
   --card2:#111827;
   --text:#e5e7eb;
-  --accent:#111827;
+  --accent:#074b4b;
   --light-accent:#023b32;
   --border-accent:#2b3444;
   --btn-play:#202635;
@@ -78,4 +78,5 @@ body{
 svg:not(:root) {
     overflow: hidden;
 }
+
 
