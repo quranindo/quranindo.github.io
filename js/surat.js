@@ -102,7 +102,7 @@ audio.addEventListener('ended',()=>{
     playAyat(currentIndex+1);
   }else if(AUTO_NEXT_SURAH&&nextSurah){
     const s=allSurah[nextSurah-1];
-    location.href=`/surat/${nextSurah}-${slugify(s.nama_latin)}/`;
+    location.href=`/surat/${nextSurah}-${slugify(s.namaLatin)}/`;
   }
 });
 audio.addEventListener("error", () => {
@@ -159,11 +159,11 @@ function highlight(i){
 function go(n){
   if(n===-1&&prevSurah){
     const s=allSurah[prevSurah-1];
-    location.href=`/surat/${prevSurah}-${slugify(s.nama_latin)}/`;
+    location.href=`/surat/${prevSurah}-${slugify(s.namaLatin)}/`;
   }
   if(n===1&&nextSurah){
     const s=allSurah[nextSurah-1];
-    location.href=`/surat/${nextSurah}-${slugify(s.nama_latin)}/`;
+    location.href=`/surat/${nextSurah}-${slugify(s.namaLatin)}/`;
   }
 }
 
@@ -171,8 +171,8 @@ function setNav(btns){
   if(!btns.length)return;
   const prevSVG=`<svg width="16" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6" fill="none" stroke="currentColor" stroke-width="2"/></svg>`;
   const nextSVG=`<svg width="16" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6" fill="none" stroke="currentColor" stroke-width="2"/></svg>`;
-  if(prevSurah)btns[0].innerHTML=prevSVG+allSurah[prevSurah-1].nama_latin;
-  if(nextSurah)btns[1].innerHTML=allSurah[nextSurah-1].nama_latin+nextSVG;
+  if(prevSurah)btns[0].innerHTML=prevSVG+allSurah[prevSurah-1].namaLatin;
+  if(nextSurah)btns[1].innerHTML=allSurah[nextSurah-1].namaLatin+nextSVG;
 }
 
 function setMeta(attr,key,value){
@@ -186,35 +186,39 @@ function setMeta(attr,key,value){
 }
 
 async function load(){
-  allSurah=await(await fetch('https://equran.id/api/surat')).json();
+  const listRes = await fetch('https://equran.id/api/v2/surat');
+  const listJson = await listRes.json();
+  allSurah = listJson.data;
   prevSurah=id>1?id-1:null;
   nextSurah=id<114?id+1:null;
 
   setNav(document.querySelectorAll('.nav:first-of-type button'));
   setNav(document.querySelectorAll('#navBottom button'));
 
-  const s=await(await fetch(`https://equran.id/api/surat/${id}`)).json();
+  const res = await fetch(`https://equran.id/api/v2/surat/${id}`);
+  const json = await res.json();
+  const s = json.data;
 
-  const slug=slugify(s.nama_latin);
+  const slug=slugify(s.namaLatin);
   const canonical=`${location.origin}/surat/${id}-${slug}/`;
-  document.title=`Surat ${s.nama_latin} (${s.arti}) | Al-Qur'an`;
+  document.title=`Surat ${s.namaLatin} (${s.arti}) | Al-Qur'an`;
 
-  const desc=`Baca Surat ${s.nama_latin} (${s.arti}) lengkap ${s.jumlah_ayat} ayat, teks Arab, terjemah Indonesia, dan audio.`;
+  const desc=`Baca Surat ${s.namaLatin} (${s.arti}) lengkap ${s.jumlahAyat} ayat, teks Arab, terjemah Indonesia, dan audio.`;
   document.querySelector('meta[name="description"]')?.setAttribute('content',desc);
   document.getElementById('canonicalLink').href=canonical;
 
-  setMeta('property','og:title',`Surat ${s.nama_latin} | Al-Qur'an`);
+  setMeta('property','og:title',`Surat ${s.namaLatin} | Al-Qur'an`);
   setMeta('property','og:description',desc);
   setMeta('property','og:url',canonical);
   setMeta('property','og:image',`${location.origin}/assets/img/cover.jpg`);
 
-  titleLatin.textContent = `${s.nomor}. ${OVERRIDE_LATIN[s.nomor] || s.nama_latin}`;
+  titleLatin.textContent = `${s.nomor}. ${OVERRIDE_LATIN[s.nomor] || s.namaLatin}`;
 
 const suratOverride = OVERRIDE_SURAT[id] || {};
 
 titleArab.innerHTML = suratOverride.arab || s.nama;
 titleArti.textContent = `${OVERRIDE_ARTI[id] || s.arti}`;
-  info.textContent=`${s.jumlah_ayat} Ayat • ${s.tempat_turun}`;
+  info.textContent=`${s.jumlahAyat} Ayat • ${s.tempatTurun}`;
   bismillah.innerHTML =
   (id !== 1 && id !== 9)
     ? '<i class="icon-115"></i>'
@@ -223,23 +227,31 @@ titleArti.textContent = `${OVERRIDE_ARTI[id] || s.arti}`;
   content.innerHTML='';
   ayatEls=[];
 
-  s.ayat.forEach((a,i)=>{
-    const el=document.createElement('div');
-    el.className='ayat';
-    el.innerHTML=`
-      <button class="play"><svg viewBox="0 0 20 20" fill="currentColor">
-  <path d="M4 2l14 8-14 8z"/>
-</svg></button>
-      <div class="arab">
-        <span class="ayah-text">${a.ar}</span>
-        ۝${toArabic(a.nomor)}
-      </div>
-      <div class="arti">${a.idn}</div>
-    `;
-    el.querySelector('.play').onclick=()=>playAyat(i);
-    content.appendChild(el);
-    ayatEls.push(el);
-  });
+ s.ayat.forEach((a,i)=>{
+  const el=document.createElement('div');
+  el.className='ayat';
+  el.innerHTML=`
+    <button class="play">
+      <svg viewBox="0 0 20 20" fill="currentColor">
+        <path d="M4 2l14 8-14 8z"/>
+      </svg>
+    </button>
+
+    <div class="arab">
+      <span class="ayah-text">${a.teksArab}</span>
+      ۝${toArabic(a.nomorAyat)}
+    </div>
+
+    <div class="latin">${a.teksLatin}</div>
+
+    <div class="arti">${a.teksIndonesia}</div>
+  `;
+
+  el.querySelector('.play').onclick=()=>playAyat(i);
+  content.appendChild(el);
+  ayatEls.push(el);
+});
+
 
   const last=localStorage.getItem(`lastAyatSurah${id}`);
   if(last!==null)setActiveAyat(+last);

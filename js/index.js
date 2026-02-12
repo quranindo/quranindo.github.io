@@ -162,20 +162,23 @@ const OVERRIDE_LATIN = {
 
 async function load() {
 
-  const res = await fetch('https://equran.id/api/surat');
+  const res = await fetch('https://equran.id/api/v2/surat');
 
-  data = await res.json();
+  const result = await res.json();
+
+  data = result.data; // ini beda dengan v1
 
   render(data);
 
 }
+
 
 function render(arr) {
   listEl.innerHTML = '';
 
   arr.forEach(s => {
 
-    const namaLatin = OVERRIDE_LATIN[s.nomor] || s.nama_latin;
+    const namaLatin = OVERRIDE_LATIN[s.nomor] || s.namaLatin;
     const arti = artiOverride[s.nomor] || s.arti;
 
     const el = document.createElement('div');
@@ -190,7 +193,7 @@ function render(arr) {
         ${s.nama}
       </div>
       <div class="meta">
-        ${s.jumlah_ayat} ayat • ${s.tempat_turun}
+        ${s.jumlahAyat} ayat • ${s.tempatTurun}
       </div>
     `;
 
@@ -230,7 +233,6 @@ function scrollToTop(){
 // ===============================
 load();
 // ===============================
-
 
 
 
