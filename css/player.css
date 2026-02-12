@@ -7,7 +7,7 @@
   left:12px;
   right:12px
   background:#fff;
-  border-radius:18px;
+  border-radius:20px;
   box-shadow:0 6px 22px rgba(0,0,0,.15);
   padding:10px;
 }
@@ -123,12 +123,12 @@ body.dark #nextBtn svg{
   justify-content:center;
   border-radius:50%;
   background:transparent;
-  border:2px solid #faad28;
-  color:#faad28;
+  border:2px solid #edcb8a;
+  color:#edcb8a;
   cursor:pointer;
   transition:all .15s ease;
 }
-body.dark .play{border-color:#865b10;color:#865b10}
+body.dark .play{border-color:#8b4e22;color:#8b4e22}
 
 .play svg{
   display: block;

@@ -16,10 +16,13 @@ body.dark{
   --card:#111827;
   --card2:#111827;
   --text:#e5e7eb;
-  --accent:#074b4b;
+  --accent:#053232;
   --light-accent:#023b32;
   --border-accent:#2b3444;
   --btn-play:#202635;
+}
+* {
+  -webkit-tap-highlight-color: transparent;
 }
 @font-face {
   font-family: 'AbuFaqih';
@@ -78,5 +81,4 @@ body{
 svg:not(:root) {
     overflow: hidden;
 }
-
 

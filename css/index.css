@@ -76,26 +76,40 @@ display:inline-block;
   justify-content:space-around;
   flex-direction:row;
 }
-.doa{text-align:center;font-size:14px;font-weight:600}
-.doa p{margin:0}
-.doa a{color:var(--text);text-decoration:none}
+
 /* CARD SURAT */
 .card{
   background:var(--card);
   padding:14px;
-  border-radius:12px;
+  border-radius:10px;
   box-shadow:0 2px 5px rgba(0,0,0,.08);
   cursor:pointer;
   border:1px solid var(--border-accent);
-  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 .card b{font-size:1.1em}
 .card:hover{
   background:var(--light-accent);
   border:1px solid var(--bd-accent);
 }
+@media (hover: hover) and (pointer: fine) {
+  .card {
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,.06);
+  }
+}
+.card {
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
 .arab{
-  font-family:"AbuFaqih","Noto Naskh Arabic","Traditional Arabic","Geeza Pro",serif;
+  font-family:"Noto Naskh Arabic","Traditional Arabic","Geeza Pro",serif;
   font-size: clamp(32px, 4.5vw, 38px);
   text-align:right;
 }
@@ -109,6 +123,17 @@ display:inline-block;
   color: var(--text);
   opacity:.8;
   margin: 4px 0 6px;
+}
+.arab {
+  text-align: right;
+}
+
+.arab i {
+  font-family: "surahquran";
+  font-style: normal;
+  font-size: 2.5rem;
+  line-height: 1;
+  display: inline-block;
 }
 /* BACK TOP BUTTON */
 .top{
@@ -271,33 +296,9 @@ display:inline-block;
   line-height: 1.2;
 }
 
-.pwa-install{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding: 10px 16px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 600;
-  background: #e3b80b;  color: #fff;
-  border: none;
-  cursor: pointer;
-  margin:0 auto;
-}
-body.dark .pwa-install{background:#947b16}
-.pwa-install:active{
-  transform: scale(.97);
-}
-
-.pwa-install .icon{
-  width:18px;
-  height:18px;
-  fill: currentColor;
-}
 @media screen and (max-width: 600px) {
  .quran-banner-wrap {
     display:none;
   }
 }
-
 
