@@ -30,7 +30,7 @@
   padding:10px 0;
   border-bottom:1px solid #eee;
 }
-
+body.dark .row{border-bottom-color:#2b3444}
 .row.highlight{
   border-left:4px solid #2e7d32;
   padding-left:8px; /* kecil saja */
@@ -51,5 +51,6 @@
 #lokasi,#tanggal,#hijriyah {line-height:1.5}
 #lokasi {font-weight:600;font-size:1.15em}
 #hijriyah{color:green;margin-bottom:15px;font-weight:600}
+
 
 
