@@ -3,7 +3,7 @@
    Kang Ismet Edition 🚀
    =============================== */
 
-const CACHE_VERSION = 'v3.0.0';
+const CACHE_VERSION = 'v3.0.1';
 
 const STATIC_CACHE  = `mushaf-static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `mushaf-runtime-${CACHE_VERSION}`;
@@ -41,7 +41,6 @@ const STATIC_FILES = [
   '/js/player.js',
   '/js/waqafsplitter.js',
   '/js/jadwal-imsakiyah.js',
-   '/js/pwa-install.js',
 
   // FONT
   '/fonts/abufaqih.woff2',
@@ -257,6 +256,7 @@ self.addEventListener('fetch', event => {
   );
 
 });
+
 
 
 
