@@ -57,5 +57,6 @@
 
 }
 #lokasi,#tanggal,#hijriyah {line-height:1.5}
-#lokasi {font-weight:600;font-size:1.05em}
-#hijriyah{color:green}
+#lokasi {font-weight:600;font-size:1.15em}
+#hijriyah{color:green;margin-bottom:15px;font-weight:600}
+
