@@ -3,7 +3,7 @@
    Kang Ismet Edition 🚀
    =============================== */
 
-const CACHE_VERSION = 'v4.0.0';
+const CACHE_VERSION = 'v4.0.1';
 
 const STATIC_CACHE  = `mushaf-static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `mushaf-runtime-${CACHE_VERSION}`;
@@ -56,6 +56,7 @@ const STATIC_FILES = [
    '/assets/img/icon-192.png',
    '/assets/img/al-quran.png',
    '/assets/img/smart-media.jpg',
+   '/assets/img/tafsir.png',
   '/assets/img/quran-logo.png'
 ];
 
@@ -261,6 +262,7 @@ self.addEventListener('fetch', event => {
   );
 
 });
+
 
 
 
