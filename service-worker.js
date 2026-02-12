@@ -1,16 +1,18 @@
 /* ===============================
-   SERVICE WORKER – MUSHAF ONLINE (OPTIMIZED)
+   SERVICE WORKER – MUSHAF ONLINE (FINAL CLEAN)
+   Kang Ismet Edition 🚀
    =============================== */
 
-const CACHE_VERSION = 'v1.1.0';
+const CACHE_VERSION = 'v2.0.0';
 
-const STATIC_CACHE = `mushaf-static-${CACHE_VERSION}`;
+const STATIC_CACHE  = `mushaf-static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `mushaf-runtime-${CACHE_VERSION}`;
 
-const MAX_RUNTIME_ITEMS = 120; // batas cache runtime
+const MAX_RUNTIME_ITEMS = 120;
+
 
 /* ===============================
-   FILE INTI (PRE-CACHE)
+   PRE-CACHE (ASSET INTI)
    =============================== */
 const STATIC_FILES = [
 
@@ -41,21 +43,13 @@ const STATIC_FILES = [
   // FONT
   '/fonts/abufaqih.woff2',
   '/fonts/surahquran.woff2',
-  '/fonts/surahquran.woff',
-  '/fonts/surahquran.ttf',
-  '/fonts/surahquran.svg',
-  '/fonts/surahquran.eot',
 
   // PWA
   '/manifest.json',
 
   // ICON
   '/assets/img/favicon.ico',
-  '/assets/img/quran-logo.png',
-  '/assets/img/quran-logo-small3.png',
-  '/assets/img/phone.png',
-  '/assets/img/smart-media.jpg'
-
+  '/assets/img/quran-logo.png'
 ];
 
 
@@ -65,10 +59,9 @@ const STATIC_FILES = [
 self.addEventListener('install', event => {
 
   event.waitUntil(
-
-    caches.open(STATIC_CACHE)
-      .then(cache => cache.addAll(STATIC_FILES))
-
+    caches.open(STATIC_CACHE).then(cache =>
+      cache.addAll(STATIC_FILES)
+    )
   );
 
   self.skipWaiting();
@@ -82,25 +75,15 @@ self.addEventListener('install', event => {
 self.addEventListener('activate', event => {
 
   event.waitUntil(
-
     caches.keys().then(keys =>
-
       Promise.all(
-
         keys.map(key => {
-
           if (!key.includes(CACHE_VERSION)) {
-
             return caches.delete(key);
-
           }
-
         })
-
       )
-
     )
-
   );
 
   self.clients.claim();
@@ -109,27 +92,23 @@ self.addEventListener('activate', event => {
 
 
 /* ===============================
-   HELPER: LIMIT CACHE SIZE
+   LIMIT CACHE SIZE
    =============================== */
 async function limitCache(cacheName, maxItems) {
 
   const cache = await caches.open(cacheName);
-
   const keys = await cache.keys();
 
   if (keys.length > maxItems) {
-
     await cache.delete(keys[0]);
-
     limitCache(cacheName, maxItems);
-
   }
 
 }
 
 
 /* ===============================
-   FETCH
+   FETCH HANDLER
    =============================== */
 self.addEventListener('fetch', event => {
 
@@ -137,139 +116,141 @@ self.addEventListener('fetch', event => {
 
   if (req.method !== 'GET') return;
 
-
   const url = new URL(req.url);
 
 
-  /* ===============================
-     0️⃣ API JSON → ALWAYS NETWORK
-     =============================== */
-  if (url.pathname.startsWith('/api/')) {
+  /* =================================================
+     1️⃣ EQURAN API (ayat) → NETWORK FIRST + CACHE
+     ================================================= */
+  if (url.hostname.includes('equran.id')) {
 
     event.respondWith(
 
-      fetch(req, { cache: "no-store" })
+      caches.open(RUNTIME_CACHE).then(cache =>
+
+        fetch(req)
+          .then(res => {
+            cache.put(req, res.clone());
+            limitCache(RUNTIME_CACHE, MAX_RUNTIME_ITEMS);
+            return res;
+          })
+          .catch(() => cache.match(req))
+
+      )
+
+    );
+
+    return;
+  }
+
+
+  /* =================================================
+     2️⃣ JADWAL IMSAKIYAH → NETWORK FIRST (AUTO UPDATE)
+     ================================================= */
+  if (url.pathname.includes('jadwal-imsakiyah.json')) {
+
+    event.respondWith(
+
+      fetch(req)
+        .then(res => {
+
+          const copy = res.clone();
+
+          caches.open(RUNTIME_CACHE).then(cache => {
+            cache.put(req, copy);
+          });
+
+          return res;
+
+        })
         .catch(() => caches.match(req))
 
     );
 
     return;
-
   }
 
 
-  /* ===============================
-     1️⃣ HTML → NETWORK FIRST
-     =============================== */
+  /* =================================================
+     3️⃣ HTML → NETWORK FIRST
+     ================================================= */
   if (req.destination === 'document') {
 
     event.respondWith(
 
       fetch(req)
-
         .then(res => {
 
           const copy = res.clone();
 
-          caches.open(RUNTIME_CACHE)
-            .then(cache => {
-
-              cache.put(req, copy);
-
-              limitCache(RUNTIME_CACHE, MAX_RUNTIME_ITEMS);
-
-            });
+          caches.open(RUNTIME_CACHE).then(cache => {
+            cache.put(req, copy);
+            limitCache(RUNTIME_CACHE, MAX_RUNTIME_ITEMS);
+          });
 
           return res;
 
         })
-
         .catch(() =>
-
-          caches.match(req)
-            .then(r => r || caches.match('/offline.html'))
-
+          caches.match(req).then(r => r || caches.match('/offline.html'))
         )
 
     );
 
     return;
-
   }
 
 
-  /* ===============================
-     2️⃣ IMAGE → CACHE FIRST
-     =============================== */
-  if (req.destination === 'image') {
+  /* =================================================
+     4️⃣ IMAGE / AUDIO → CACHE FIRST
+     ================================================= */
+  if (req.destination === 'image' || req.url.includes('.mp3')) {
 
     event.respondWith(
 
-      caches.match(req)
+      caches.match(req).then(cached =>
+        cached || fetch(req).then(res => {
 
-        .then(cached => {
+          const copy = res.clone();
 
-          if (cached) return cached;
+          caches.open(RUNTIME_CACHE).then(cache => {
+            cache.put(req, copy);
+            limitCache(RUNTIME_CACHE, MAX_RUNTIME_ITEMS);
+          });
 
-          return fetch(req)
-
-            .then(res => {
-
-              const copy = res.clone();
-
-              caches.open(RUNTIME_CACHE)
-                .then(cache => {
-
-                  cache.put(req, copy);
-
-                  limitCache(RUNTIME_CACHE, MAX_RUNTIME_ITEMS);
-
-                });
-
-              return res;
-
-            });
+          return res;
 
         })
+      )
 
     );
 
     return;
-
   }
 
 
-  /* ===============================
-     3️⃣ CSS / JS / FONT → CACHE FIRST
-     =============================== */
+  /* =================================================
+     5️⃣ CSS / JS / FONT → CACHE FIRST
+     ================================================= */
   if (
-
     req.destination === 'style' ||
     req.destination === 'script' ||
     req.destination === 'font'
-
   ) {
 
     event.respondWith(
-
-      caches.match(req)
-        .then(cached => cached || fetch(req))
-
+      caches.match(req).then(r => r || fetch(req))
     );
 
     return;
-
   }
 
 
-  /* ===============================
+  /* =================================================
      DEFAULT
-     =============================== */
+     ================================================= */
   event.respondWith(
-
-    caches.match(req)
-      .then(cached => cached || fetch(req))
-
+    caches.match(req).then(r => r || fetch(req))
   );
 
 });
