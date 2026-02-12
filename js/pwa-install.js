@@ -1,64 +1,32 @@
-/* ===============================
-   PWA INSTALL BUTTON – CLEAN
-   Kang Ismet Edition
-   =============================== */
+(() => {
 
-let deferredPrompt = null;
+  const pwaInstallButton = document.getElementById('pwa-install');
+  if (!pwaInstallButton) return;
 
-const btn = document.getElementById('pwa-install');
+  let deferredPrompt = null;
 
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    pwaInstallButton.hidden = false;
+  });
 
-/* ===============================
-   HIDE kalau sudah terinstall
-   =============================== */
-function isStandalone() {
-  return window.matchMedia('(display-mode: standalone)').matches
-      || window.navigator.standalone === true;
-}
+  pwaInstallButton.addEventListener('click', async () => {
 
-if (isStandalone()) {
-  btn.hidden = true;
-}
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      return;
+    }
 
+    alert("Chrome ⋮ → Tambahkan ke layar utama");
 
-/* ===============================
-   Tangkap event install
-   =============================== */
-window.addEventListener('beforeinstallprompt', (e) => {
+  });
 
-  e.preventDefault(); // stop auto popup
+  window.addEventListener('appinstalled', () => {
+    pwaInstallButton.hidden = true;
+    deferredPrompt = null;
+  });
 
-  deferredPrompt = e;
-
-  btn.hidden = false; // tampilkan tombol
-
-});
-
-
-/* ===============================
-   Klik tombol install
-   =============================== */
-btn.addEventListener('click', async () => {
-
-  if (!deferredPrompt) return;
-
-  deferredPrompt.prompt();
-
-  const { outcome } = await deferredPrompt.userChoice;
-
-  if (outcome === 'accepted') {
-    btn.hidden = true;
-  }
-
-  deferredPrompt = null;
-
-});
-
-
-/* ===============================
-   Setelah sukses install
-   =============================== */
-window.addEventListener('appinstalled', () => {
-  btn.hidden = true;
-  deferredPrompt = null;
-});
+})();
