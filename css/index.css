@@ -270,3 +270,33 @@ display:inline-block;
 .footer-right ul li {
   line-height: 1.2;
 }
+
+.pwa-install{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  background: #e3b80b;  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin:0 auto;
+}
+body.dark .pwa-install{background:#947b16}
+.pwa-install:active{
+  transform: scale(.97);
+}
+
+.pwa-install .icon{
+  width:18px;
+  height:18px;
+  fill: currentColor;
+}
+@media screen and (max-width: 600px) {
+ .quran-banner-wrap {
+    display:none;
+  }
+}
+
