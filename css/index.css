@@ -30,7 +30,7 @@ display:inline-block;
   color: #fff;
   background:var(--accent);
   border-radius:5px;
-  padding:5px 8px;
+  padding:8px 10px;
   text-align: center;
 }
 .navsurah a:hover{background:var(--dark-accent);}
@@ -299,4 +299,5 @@ body.dark .pwa-install{background:#947b16}
     display:none;
   }
 }
+
 
