@@ -3,8 +3,8 @@
   "zona": "WIB",
   "jadwal": [
     {
-      "tanggal": "2026-02-12",
-      "hijriyah": "13 Sya'ban 1447 H",
+      "tanggal": "2026-02-16",
+      "hijriyah": "28 Sya'ban 1447 H",
       "imsak": "04:30",
       "subuh": "04:40",
       "dzuhur": "12:05",
@@ -13,8 +13,8 @@
       "isya": "19:20"
     },
     {
-      "tanggal": "2026-02-13",
-      "hijriyah": "14 Sya'ban 1447 H",
+      "tanggal": "2026-02-17",
+      "hijriyah": "29 Sya'ban 1447 H",
       "imsak": "04:30",
       "subuh": "04:40",
       "dzuhur": "12:05",
@@ -24,3 +24,4 @@
     }
   ]
 }
+
